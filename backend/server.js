@@ -8,6 +8,9 @@ app.get("/api/home", (req, res) => {
     res.json({ message: "Hello World" });
 });
 
+// Test
+app.use("/api/v1/books", require('./routes/book.route'))
+
 app.listen(process.env.PORT, () => {
     console.log(`Server started on port ${process.env.PORT}`);
 })
