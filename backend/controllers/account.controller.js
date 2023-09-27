@@ -51,12 +51,14 @@ const accountController = {
             res.json({ msg: error.msg })
         }
     },
+    //not working yet
     verifyAccount: async (req, res) => {
         try {
             var { accemail, accpass } = req.body;
-            var sql = `SELECT accemail, accpass FROM account WHERE accemail = $1`
+            var sql = `SELECT accemail, accpass FROM account WHERE accemail = $1 RETURNING *`
 
-            const { rows } = postgre.query(sql, [accemail])
+            const { rows } = await postgre.query(sql, [accemail.toLowerCase()])
+            console.log(rows);
 
             if (rows[0]) {
                 var token = "";
