@@ -6,7 +6,7 @@ const accountController = {
 
             const { rows } = await postgre.query(sql)
 
-            res.json({ msg: "OK", data: rows })
+            res.json({ data: rows })
         } catch (error) {
             res.json({ msg: error.msg })
         }
@@ -19,10 +19,10 @@ const accountController = {
             const { rows } = await postgre.query(sql, [accid])
 
             if (rows[0]) {
-                return res.json({ msg: "OK", data: rows })
+                return res.json({ data: rows })
             }
 
-            res.status(404).json({ msg: "not found" })
+            res.status(404).json({ msg: "Account is not found" })
         } catch (error) {
             res.json({ msg: error.msg })
         }
@@ -34,33 +34,55 @@ const accountController = {
 
             const { rows } = await postgre.query(sql, [accemail, accpass])
 
-            res.json({ msg: "OK", data: rows[0] })
+            res.json({ msg: "Account is created", data: rows[0] })
+
+        } catch (error) {
+            res.json({ msg: error.msg })
+        }
+    },
+    updateEmail: async (req, res) => {
+        try {
+            const { accid, accemail, newemail } = req.body
+            const sql = 'UPDATE account set accemail = $3 where accid = $1 and accemail = $2 RETURNING *'
+
+            const { rows } = await postgre.query(sql, [accid, accemail, newemail])
+
+            res.json({ msg: "Email is updated", data: rows[0] })
+
+        } catch (error) {
+            res.json({ msg: error.msg })
+        }
+    },
+    updatePassword: async (req, res) => {
+        try {
+            const { accid, accpass, newpass } = req.body
+            const sql = 'UPDATE account set accpass = $3 where accid = $1 and accpass = $2 RETURNING *'
+
+            const { rows } = await postgre.query(sql, [accid, accpass, newpass])
+
+            res.json({ msg: "Password is updated", data: rows[0] })
+
+        } catch (error) {
+            res.json({ msg: error.msg })
+        }
+    },
+    deleteById: async (req, res) => {
+        try {
+            var { accid } = req.body;
+            const sql = 'DELETE FROM account where accid = $1 RETURNING *'
+
+            const { rows } = await postgre.query(sql, [accid])
+
+            if (rows[0]) {
+                return res.json({ msg: "Account is deleted", data: rows[0] })
+            }
+
+            return res.status(404).json({ msg: "Account is not found" })
 
         } catch (error) {
             res.json({ msg: error.msg })
         }
     }
-    // createAccount: async (req, res) => {
-    //     try {
-    //         var sql = 'SELECT * FROM public.account ORDER BY accid ASC'
-
-    //         const { rows } = await postgre.query(sql)
-
-    //         res.json({ msg: "OK", data: rows })
-    //     } catch (error) {
-    //         res.json({ msg: error.msg })
-    //     }
-    // createAccount: async (accEmail, accPass, callback) => {
-    //     const sql = `INSERT INTO account("accId", "accEmail", "accPass") VALUES($1, $2, $3);`;
-
-    //     postgre.query(sql, [nextval('account_id_seq'), accEmail, accPass], (err, result) => {
-    //         if (err) {
-    //             return callback(err, null);
-    //         } else {
-    //             return callback(null, result);
-    //         };
-    //     })
-    // }
 };
 
 
