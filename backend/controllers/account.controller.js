@@ -30,11 +30,16 @@ const accountController = {
     create: async (req, res) => {
         try {
             const { accemail, accpass } = req.body
-            const sql = 'INSERT INTO account(accemail, accpass) VALUES($1, $2) RETURNING *'
+            const sql = `INSERT INTO account(accid, accemail, accpass)
+                         VALUES(nextval('account_id_seq'), $1, $2) RETURNING *`
 
             const { rows } = await postgre.query(sql, [accemail, accpass])
 
-            res.json({ msg: "Account is created", data: rows[0] })
+            if (rows[0]) {
+                res.json({ msg: "Account is created", data: rows[0] })
+            }
+
+            return res.status(404).json({ msg: "Failed to create an account" })
 
         } catch (error) {
             res.json({ msg: error.msg })
@@ -47,7 +52,11 @@ const accountController = {
 
             const { rows } = await postgre.query(sql, [accid, accemail, newemail])
 
-            res.json({ msg: "Email is updated", data: rows[0] })
+            if (rows[0]) {
+                res.json({ msg: "Email is updated", data: rows[0] })
+            }
+
+            return res.status(404).json({ msg: "Account is not found" })
 
         } catch (error) {
             res.json({ msg: error.msg })
@@ -60,7 +69,11 @@ const accountController = {
 
             const { rows } = await postgre.query(sql, [accid, accpass, newpass])
 
-            res.json({ msg: "Password is updated", data: rows[0] })
+            if (rows[0]) {
+                res.json({ msg: "Password is updated", data: rows[0] })
+            }
+
+            return res.status(404).json({ msg: "Account is not found" })
 
         } catch (error) {
             res.json({ msg: error.msg })
@@ -84,6 +97,5 @@ const accountController = {
         }
     }
 };
-
 
 module.exports = accountController;
