@@ -11,6 +11,9 @@ app.get("/api/home", (req, res) => {
 // Test
 app.use("/api/v1/books", require('./routes/book.route'))
 
+// Account
+app.use("/api/account", require("./routes/account.route"))
+
 app.listen(process.env.PORT, () => {
     console.log(`Server started on port ${process.env.PORT}`);
 })
