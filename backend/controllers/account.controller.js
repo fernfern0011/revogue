@@ -6,9 +6,9 @@ const accountController = {
 
             const { rows } = await postgre.query(sql)
 
-            res.json({ data: rows })
+            res.status(200).json({ data: rows })
         } catch (error) {
-            res.json({ msg: error.msg })
+            res.status(404).json({ msg: error.msg })
         }
     },
     getById: async (req, res) => {
@@ -19,7 +19,7 @@ const accountController = {
             const { rows } = await postgre.query(sql, [accid])
 
             if (rows[0]) {
-                return res.json({ data: rows })
+                return res.status(200).json({ data: rows })
             }
 
             res.status(404).json({ msg: "Account is not found" })
@@ -31,12 +31,12 @@ const accountController = {
         try {
             const { accemail, accpass } = req.body
             const sql = `INSERT INTO account(accid, accemail, accpass)
-                         VALUES(nextval('account_id_seq'), $1, $2) RETURNING *`
+                         VALUES(nextval('account_id_seq'), $1, $2)`
 
             const { rows } = await postgre.query(sql, [accemail, accpass])
 
             if (rows[0]) {
-                res.json({ msg: "Account is created", data: rows[0] })
+                return res.status(201).json({ msg: "Account is created" })
             }
 
             return res.status(404).json({ msg: "Failed to create an account" })
@@ -53,10 +53,10 @@ const accountController = {
             const { rows } = await postgre.query(sql, [accid, accemail, newemail])
 
             if (rows[0]) {
-                res.json({ msg: "Email is updated", data: rows[0] })
+                return res.status(200).json({ msg: "Email is updated" })
             }
 
-            return res.status(404).json({ msg: "Account is not found" })
+            return res.status(404).json({ msg: "Failed to update" })
 
         } catch (error) {
             res.json({ msg: error.msg })
@@ -70,10 +70,10 @@ const accountController = {
             const { rows } = await postgre.query(sql, [accid, accpass, newpass])
 
             if (rows[0]) {
-                res.json({ msg: "Password is updated", data: rows[0] })
+                return res.status(200).json({ msg: "Password is updated" })
             }
 
-            return res.status(404).json({ msg: "Account is not found" })
+            return res.status(404).json({ msg: "Failed to update" })
 
         } catch (error) {
             res.json({ msg: error.msg })
@@ -87,7 +87,7 @@ const accountController = {
             const { rows } = await postgre.query(sql, [accid])
 
             if (rows[0]) {
-                return res.json({ msg: "Account is deleted", data: rows[0] })
+                return res.status(200).json({ msg: "Account is deleted" })
             }
 
             return res.status(404).json({ msg: "Account is not found" })
