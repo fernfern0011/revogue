@@ -21,8 +21,8 @@ const ProductsComponent = () => {
       <h1 style={{ textAlign: "center" }}>Products</h1>
 
       <Container fluid>
-        <Row className="mt-4 justify-content-center">
-          <Col xs="auto">
+        <Row className="mb-4 mx-2 justify-content-center">
+          <Col xs="12" sm="6" md="4">
             <Card style={{ width: "auto" }}>
               {/* <Image
                 src={require("../images/pic1.png").default}
@@ -44,7 +44,7 @@ const ProductsComponent = () => {
             </Card>
           </Col>
 
-          <Col xs="auto">
+          <Col xs="12" sm="6" md="4">
             <Card style={{ width: "auto" }}>
               <Card.Img variant="top" src="./pic1.png" />
               <Card.Body>
@@ -61,7 +61,7 @@ const ProductsComponent = () => {
             </Card>
           </Col>
 
-          <Col xs="auto">
+          <Col xs="12" sm="6" md="4">
             <Card style={{ width: "auto" }}>
               <Card.Img variant="top" src="./pic1.png" />
               <Card.Body>

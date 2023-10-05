@@ -16,9 +16,10 @@ import "../styles/LandingPage.css";
 const LandingComponent = () => {
   return (
     <main className={styles.main}>
+      
       <Container fluid>
         <Row className="mb-4 mx-2">
-          <Col>
+          <Col xs="12" md="6">
             <h1>
               <b>Welcome to ReVogue</b>
             </h1>
@@ -32,7 +33,7 @@ const LandingComponent = () => {
             </Button>
           </Col>
 
-          <Col>
+          <Col xs="12" md="6">
             <div className="float-end">
               <Image
                 className="img-fluid"
