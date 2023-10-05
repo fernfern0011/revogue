@@ -1,0 +1,27 @@
+.custom-table thead th {
+    background-color: #3C4242;
+    color: white;
+  }
+
+.jumbotron{
+    background-color: #F3F3F3;
+    /* padding: 50px; */
+}
+
+.quantity-buttons {
+    display: flex;
+    align-items: center;
+  }
+
+  button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    padding: 0.25rem 0.5rem;
+  }
+
+  .quantity {
+    font-size: 1rem;
+    margin: 0 0.5rem;
+  }

@@ -16,7 +16,6 @@ import "../styles/LandingPage.css";
 const LandingComponent = () => {
   return (
     <main className={styles.main}>
-      
       <Container fluid>
         <Row className="mb-4 mx-2">
           <Col xs="12" md="6">
@@ -34,51 +33,19 @@ const LandingComponent = () => {
           </Col>
 
           <Col xs="12" md="6">
-            <div className="float-end">
+            <div className="d-flex justify-content-center">
               <Image
                 className="img-fluid"
                 src="/images/pic1.png"
-                width={700}
-                height={500}
                 alt=""
+                width={700}
+                height={700}
+                style={{ maxWidth: "100%", height: "auto" }}
               />
             </div>
           </Col>
         </Row>
       </Container>
-
-      {/* first part  */}
-      {/* <div className="landing-page">
-
-        <div className="left-div">
-          <h1>
-            <b>Welcome to ReVogue</b>
-          </h1>
-          <p>Your Sustainable</p>
-          <h1 className={styles.coloring}>Shopping</h1>
-          <h1 className={styles.coloring}>Destination</h1>
-
-          <p>
-            "Discover Sustainability. Embrace Greenify. Your Eco-Friendly Haven
-            for Conscious Shopping."
-          </p>
-          <Button variant="contained" className="custom-button">
-            SHOP NOW
-          </Button>
-        </div> */}
-
-      {/* <div className="right-div"> */}
-      {/* <p>{test}</p> */}
-      {/* <img src="../image/pic1.png" alt="" /> */}
-      {/* <Image
-            src="/images/pic1.png"
-            width={500}
-            height={500}
-            alt=""
-          />
-        </div> */}
-
-      {/* </div> */}
     </main>
   );
 };
