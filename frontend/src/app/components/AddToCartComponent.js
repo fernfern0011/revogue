@@ -15,7 +15,7 @@ import Table from "react-bootstrap/Table";
 
 //style imports
 import styles from "../page.module.css";
-import "../styles/addtocart.css";
+import "../styles/AddToCart.css";
 import { Padding } from "@mui/icons-material";
 
 const AddToCartComponent = () => {
