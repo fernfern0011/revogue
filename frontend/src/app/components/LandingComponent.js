@@ -36,7 +36,7 @@ const LandingComponent = () => {
             <div className="d-flex justify-content-center">
               <Image
                 className="img-fluid"
-                src="/images/pic1.png"
+                // src="/images/pic1.png"
                 alt=""
                 width={700}
                 height={700}

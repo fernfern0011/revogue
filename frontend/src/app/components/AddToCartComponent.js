@@ -78,12 +78,7 @@ const AddToCartComponent = () => {
 
                 {/* quantity */}
                 <td>
-                  {/* 1 */}
-                  <div className="quantity-buttons">
-                    {/* <button onClick={decrementQuantity}>-</button>
-                    {quantity}
-                    <button onClick={incrementQuantity}>+</button> */}
-
+                  <div>
                     <div className="quantity-buttons">
                       <button onClick={decrementQuantity}>-</button>
                       <span className="quantity">{quantity}</span>
@@ -106,8 +101,8 @@ const AddToCartComponent = () => {
         </div>
 
         {/* not able to use react bootstrap jumbotron, import module error */}
-        <div class="container d-flex justify-content-center align-items-center">
-          <div class="jumbotron text-center " style={{ padding: "20px" }}>
+        <div className="container d-flex justify-content-center align-items-center">
+          <div className="jumbotron text-center " style={{ padding: "20px" }}>
             <Row>
               <Col xs="6">Sub Total</Col>
               <Col xs="6">$4</Col>
