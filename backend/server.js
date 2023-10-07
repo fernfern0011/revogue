@@ -4,15 +4,9 @@ require('dotenv').config();
 
 app.use(express.json())
 
-app.get("/api/home", (req, res) => {
-    res.json({ message: "Hello World" });
-});
-
-// Test
-app.use("/api/v1/books", require('./routes/book.route'))
-
-// Account
+// Account & User Profile
 app.use("/api/account", require("./routes/account.route"))
+app.use("/api/user-profile", require("./routes/userProfile.route"))
 
 // Product
 app.use("/api/product", require("./routes/product.route"))
