@@ -19,23 +19,15 @@ import "../styles/AddToCart.css";
 import { Padding } from "@mui/icons-material";
 
 const AddToCartComponent = () => {
-  const [quantity, setQuantity] = useState(1);
-
-  // Function to increment the quantity
-  const incrementQuantity = () => {
-    setQuantity(quantity + 1);
-  };
-
-  // Function to decrement the quantity
-  const decrementQuantity = () => {
-    if (quantity > 1) {
-      setQuantity(quantity - 1);
-    }
-  };
-
   return (
     <main className={styles.main}>
-      <Container fluid>
+      <div className="ps-5">
+        <p>Home &nbsp; {">"} &nbsp; <b>Add To Cart</b></p>
+      </div>
+
+      <br></br>
+
+      <Container fluid style={{ backgroundColor: "#F3F3F3", paddingLeft: 0, paddingRight: 0 }}>
         <div className="table-responsive">
           <Table className="custom-table">
             <thead>
@@ -43,7 +35,6 @@ const AddToCartComponent = () => {
                 <th></th>
                 <th>PRODUCT DETAILS</th>
                 <th>PRICE</th>
-                <th>QUANTITY</th>
                 <th>SHIPPING</th>
                 <th>SUBTOTAL</th>
                 <th>ACTION</th>
@@ -76,17 +67,6 @@ const AddToCartComponent = () => {
                 {/* price */}
                 <td>$52</td>
 
-                {/* quantity */}
-                <td>
-                  <div>
-                    <div className="quantity-buttons">
-                      <button onClick={decrementQuantity}>-</button>
-                      <span className="quantity">{quantity}</span>
-                      <button onClick={incrementQuantity}>+</button>
-                    </div>
-                  </div>
-                </td>
-
                 {/* shipping */}
                 <td>FREE</td>
 
@@ -102,7 +82,7 @@ const AddToCartComponent = () => {
 
         {/* not able to use react bootstrap jumbotron, import module error */}
         <div className="container d-flex justify-content-center align-items-center">
-          <div className="jumbotron text-center " style={{ padding: "20px" }}>
+          <div className="jumbotron text-center" style={{ padding: "20px" }}>
             <Row>
               <Col xs="6">Sub Total</Col>
               <Col xs="6">$4</Col>

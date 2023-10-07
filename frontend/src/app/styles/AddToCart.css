@@ -30,3 +30,8 @@
     font-size: 1rem;
     margin: 0 0.5rem;
   }
+  
+  .container d-flex justify-content-center align-items-center{
+    background-color: #F6F6F6;
+    
+  }
