@@ -1,11 +1,16 @@
 const express = require("express");
 const app = express();
-const PORT = 8080;
+require('dotenv').config();
 
-app.get("/api/home", (req, res) => {
-    res.json({ message: "Hello World" });
-});
+app.use(express.json())
 
-app.listen(PORT, () => {
-    console.log(`Server started on port ${PORT}`);
+// Account & User Profile
+app.use("/api/account", require("./routes/account.route"))
+app.use("/api/user-profile", require("./routes/userProfile.route"))
+
+// Product
+app.use("/api/product", require("./routes/product.route"))
+
+app.listen(process.env.PORT, () => {
+    console.log(`Server started on port ${process.env.PORT}`);
 })
