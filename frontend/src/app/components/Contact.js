@@ -1,6 +1,6 @@
 import React from 'react'
 import '../styles/ContactComponent.css'
-// import displayImg from '../images/background.jpg'
+import displayImg from '../images/background.jpg'
 export default function Contact(){
   return (
     <div className='flex-container'>

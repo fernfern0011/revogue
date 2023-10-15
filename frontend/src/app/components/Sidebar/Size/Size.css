@@ -1,0 +1,61 @@
+.sidebar-title {
+    font-size: 22px;
+    font-weight: normal;
+    margin-bottom: 20px;
+    cursor: pointer;
+  }
+  
+  .category-dropdown {
+    display: none;
+    margin-top: 20px;
+  }
+  
+  .category-dropdown.open {
+    display: block;
+  }
+  
+  .sidebar-label-container {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+  .sidebar-label-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+  
+  .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #fff;
+    border: 2px solid #17b5b5; /* Added blue border */
+  }
+  
+  /* Add styles for the tick mark */
+  .checkmark::after {
+    content: ""; /* Unicode for checkmark symbol */
+    position: absolute;
+    display: none;
+    top: 4px;
+    left: 4px;
+    font-size: 16px;
+    color: white; /* Color for the checkmark */
+    background-color: #17b5b5;
+  }
+  
+  /* Show the checkmark when the input is checked */
+  .sidebar-label-container input:checked ~ .checkmark::after {
+    display: block;
+  }
+  
