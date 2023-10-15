@@ -6,13 +6,17 @@ import Head from "next/head";
 //bootstrap import
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
-// import Jumbotron from 'react-bootstrap/Jumbotron'; 
+// import Jumbotron from 'react-bootstrap/Jumbotron';
 
 // Component imports
 import LandingComponent from "./components/LandingComponent";
 import ThriftingComponent from "./components/ThriftingComponent";
 import ProductsComponent from "./components/ProductsComponent";
+
+// test
 import AddToCartComponent from "./components/AddToCartComponent";
+import PersonalInfoComponent from "./components/PersonalInfoComponent";
+import AddressComponent from "./components/AddressComponent";
 
 export default function Home() {
   return (
@@ -43,9 +47,14 @@ export default function Home() {
         </Row>
       </Container>
 
-      {/* tester for add to cart */}
-          <AddToCartComponent />
+      {/* tester */}
+      <AddToCartComponent />
 
+      {/* tester  */}
+      <PersonalInfoComponent />
+
+      {/* tester */}
+      <AddressComponent />
 
     </main>
   );
