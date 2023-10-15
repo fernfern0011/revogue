@@ -75,7 +75,7 @@ function Navbar() {
 
           </ul>
 
-          <SearchBar />
+          {/* <SearchBar /> */}
 
         </div>
     </nav>
