@@ -9,3 +9,7 @@
   .active{
     border-left: 3px solid aqua;
   }
+
+  .list-group-item{
+    padding-bottom: 30px;
+  }

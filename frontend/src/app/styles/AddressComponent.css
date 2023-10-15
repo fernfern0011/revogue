@@ -1,4 +1,18 @@
-.jumbotron{
-    padding: 2%;
-    /* margin-right: 500px; */
-}
+.custom-jumbotron {
+    border-radius: 10px; 
+    padding: 40px; 
+    /* margin-right: 100px; */
+  }
+
+  .title{
+    margin-bottom: 30px;
+  }
+
+  .addBtn{
+    background-color: aqua;
+    border-radius: 30px; 
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }

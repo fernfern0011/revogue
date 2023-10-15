@@ -36,33 +36,77 @@ const AddressComponent = () => {
           <Col lg="10" className="float-left">
             {/* current address */}
             <Row className="d-flex">
-              <h5>Default address</h5>
+              <h4 className="title">Default address</h4>
 
               <br />
 
-              <div class="jumbotron jumbotron-fluid">
+              <div className="jumbotron jumbotron-fluid custom-jumbotron">
                 <h4>Name</h4>
                 <p>postal</p>
                 <p>address</p>
-                
                 <Row fluid>
-
-                <h4><span class="badge bg-secondary">Home</span></h4>
-                <h4><span class="badge bg-secondary">Default billing address</span></h4>
+                  <Col className="col-1">
+                    <h4>
+                      <span class="badge bg-secondary">Home</span>
+                    </h4>
+                  </Col>
+                  <Col className="col-1">
+                    <h4>
+                      <span class="badge bg-secondary">
+                        Default billing address
+                      </span>
+                    </h4>
+                  </Col>
+                  <Col className="col-11 col-sm-12"></Col>
                 </Row>
                 <br />
-
-                <Button variant="text">
-                  Remove
-                </Button>{" "}
-                |
-                <Button variant="text" >
-                  Edit
-                </Button>
+                <Button variant="text">Remove</Button>&nbsp;|&nbsp;
+                <Button variant="text">Edit</Button>
               </div>
-
             </Row>
 
+            <br></br>
+            <hr></hr>
+            <br></br>
+
+            {/* addditional address */}
+            <Row className="d-flex">
+              <Col className="col-2">
+              <h4 className="title">Additional address</h4>
+              </Col>
+              <Col className="col-8"></Col>
+              <Col className="col-2">
+                <Button variant="text" className="addBtn">
+                  Add New +
+                </Button>
+              </Col>
+
+              <br />
+
+              <div className="jumbotron jumbotron-fluid custom-jumbotron">
+                <h4>Name</h4>
+                <p>postal</p>
+                <p>address</p>
+                <Row fluid>
+                  <Col>
+                    <h4>
+                      <span className="badge bg-secondary">Tag</span>
+                    </h4>
+                  </Col>
+                  {/* <Col>
+                    <h4>
+                      <span className="badge bg-secondary">
+                        Default billing address
+                      </span>
+                    </h4>
+                  </Col> */}
+                </Row>
+                <br />
+                <Button variant="text">Remove</Button>&nbsp;|&nbsp;
+                <Button variant="text">Edit</Button>&nbsp;|&nbsp;
+                <Button variant="text">Set as default</Button>
+              </div>
+            </Row>
           </Col>
         </Row>
       </Container>

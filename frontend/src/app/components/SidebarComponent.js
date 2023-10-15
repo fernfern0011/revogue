@@ -18,10 +18,10 @@ import accountPic from "../../../public/images/icon/account.png";
 
 const SidebarComponent = () => {
   return (
-    <div className="d-flex" id="wrapper">
+    <div className="d-flex bg-white" id="wrapper" >
       {/* Sidebar */}
       <div className="border-0 bg-white" id="sidebar-wrapper">
-        <div className="list-group list-group-flush">
+        <div className="list-group list-group-flush bg-white">
           <Nav.Link
             to="/PersonalInfoComponent"
             className="list-group-item list-group-item-action list-group-item-light py-3 border-0 bold-text"
