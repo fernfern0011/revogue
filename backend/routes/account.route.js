@@ -3,7 +3,7 @@ const router = express.Router();
 
 const accountController = require("../controllers/account.controller")
 
-router.get("/get-all", accountController.getAll);
+router.get("/get-all-accounts", accountController.getAll);
 router.get("/", accountController.getById);
 router.post("/create", accountController.create);
 router.post("/login", accountController.verifyAccount);
