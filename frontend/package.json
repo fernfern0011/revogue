@@ -18,12 +18,17 @@
     "@emotion/style": "^0.8.0",
     "@emotion/styled": "^11.11.0",
     "@mui/material": "^5.14.11",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.14.9",
+    "@mui/material": "^5.14.10",
     "bootstrap": "^5.3.2",
     "next": "13.5.2",
     "next-auth": "^4.23.2",
     "next-cloudinary": "^4.23.1",
     "react": "18.2.0",
-    "react-bootstrap": "^2.8.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "validator": "^13.11.0",
+    "react-bootstrap": "^2.9.0",
+    "react-router-dom": "^6.16.0"
   }
 }
