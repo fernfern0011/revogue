@@ -58,7 +58,7 @@ const PersonalInfoComponent = () => {
           </Col>
 
          {/* info */}
-         <Col lg="10" className="float-left">
+         <Col lg="10" className="float-left custom">
             {items.map((item, index) => (
               <div key={index}>
                 <Row className="d-flex align-items-center">
