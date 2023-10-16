@@ -12,6 +12,9 @@ import Row from "react-bootstrap/Row";
 import LandingComponent from "./components/LandingComponent";
 import ThriftingComponent from "./components/ThriftingComponent";
 import ProductsComponent from "./components/ProductsComponent";
+import  Contact  from './components/Contact'
+import Footer from './components/Footer'
+import Sidebar from './components/Sidebar/Sidebar'
 
 // test
 import AddToCartComponent from "./components/AddToCartComponent";
@@ -55,7 +58,11 @@ export default function Home() {
 
       {/* tester */}
       <AddressComponent />
-
+        
+         <Contact />
+          <Sidebar />
+         <Footer/>
     </main>
   );
 }
+
