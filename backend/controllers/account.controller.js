@@ -72,7 +72,7 @@ const accountController = {
                             }
                         })
                     } else {
-                        return res.status(404).json({ msg: "Account is already existed" })
+                        return res.status(409).json({ msg: "Account is already existed" })
                     }
                 }
             })
@@ -80,11 +80,10 @@ const accountController = {
             res.status(404).json({ msg: error.msg })
         }
     },
-    //not working yet
     verifyAccount: async (req, res) => {
         try {
             var { accemail, accpass } = req.body;
-            var sql = `SELECT accemail, accpass FROM account WHERE accemail = $1 RETURNING *`
+            var sql = `SELECT accemail, accpass FROM account WHERE accemail = $1`
 
             const { rows } = await postgre.query(sql, [accemail.toLowerCase()])
 
@@ -92,19 +91,20 @@ const accountController = {
                 var token = "";
 
                 hashedPassword = rows[0].accpass;
-                bcrypt.compare(accpass, hashedPassword, (error, res) => {
-                    if (res) {
-                        token = jwt.sign({ accemail: rows[0].accemail }, process.env.JWT_SECRET, {
-                            expiresIn: 86400 //expires in 24 hrs
-                        });
+                const status = bcrypt.compare(accpass, hashedPassword)
 
-                        return res.json({ msg: "Logged in successfully" })
-                    } else if (!res) {
-                        return res.status(404).json({ msg: "Password is incorrect" })
-                    } else {
-                        return res.json({ msg: error.msg })
-                    }
-                })
+                if (status) {
+                    token = jwt.sign({ accemail: rows[0].accemail }, process.env.JWT_SECRET, {
+                        expiresIn: 86400 //expires in 24 hrs
+                    });
+
+                    return res.status(201).json({ token, result: rows[0] })
+                }
+                else if (!status) {
+                    return res.status(401).json({ msg: "Password is incorrect" })
+                } else {
+                    return res.status(404).json({ msg: error.msg })
+                };
             }
 
             return res.status(404).json({ msg: "Account is not found" })
@@ -130,7 +130,6 @@ const accountController = {
             res.status(404).json({ msg: error.msg })
         }
     },
-    // resetPassword
     updatePassword: async (req, res) => {
         try {
             const { accid, accpass, newpass } = req.body
