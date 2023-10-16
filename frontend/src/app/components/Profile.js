@@ -1,5 +1,6 @@
 'use client';
-import React from "react";
+import React, { useState } from 'react';
+import CreateItemOverlay from './AddItem.js'; // Update the path to your CreateItemOverlay component
 
 // css import
 import '../styles/Profile.css';
@@ -15,6 +16,7 @@ import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import ReceiptLongSharpIcon from '@mui/icons-material/ReceiptLongSharp';
 import LogoutSharpIcon from '@mui/icons-material/LogoutSharp';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
 
 function Profile() {
@@ -29,6 +31,17 @@ function Profile() {
   function handleClose() {
     setAnchorEl(null);
   }
+
+  const [isCreateItemOverlayOpen, setCreateItemOverlayOpen] = useState(false);
+
+    const openCreateItemOverlay = () => {
+        setCreateItemOverlayOpen(true);
+    };
+
+    const closeCreateItemOverlay = () => {
+        setCreateItemOverlayOpen(false);
+    };
+
 
   return (
     <div>
@@ -80,6 +93,21 @@ function Profile() {
                 Wishlist
             </div>
         </MenuItem>
+
+        <div>
+          <MenuItem onClick={openCreateItemOverlay}>
+              <div className="menu-icons1">
+                  <AddCircleOutlineIcon />
+              </div>
+              <div className="menu-icons">
+                  Create Item
+              </div>
+          </MenuItem>
+
+          {isCreateItemOverlayOpen && (
+              <CreateItemOverlay onClose={closeCreateItemOverlay} />
+          )}
+        </div>
 
         <MenuItem onClick={handleClose}>
             <div className="menu-icons1">
