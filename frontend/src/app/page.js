@@ -1,95 +1,61 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+"use client";
+import Image from "next/image";
+import styles from "./page.module.css";
+import Head from "next/head";
+
+//bootstrap import
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+// import Jumbotron from 'react-bootstrap/Jumbotron';
+
+// Component imports
+import LandingComponent from "./components/LandingComponent";
+import ThriftingComponent from "./components/ThriftingComponent";
+import ProductsComponent from "./components/ProductsComponent";
+
+// test
+import AddToCartComponent from "./components/AddToCartComponent";
+import PersonalInfoComponent from "./components/PersonalInfoComponent";
+import AddressComponent from "./components/AddressComponent";
 
 export default function Home() {
   return (
     <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+      <Head>
+        <title>Home Page</title>
+      </Head>
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+      <Container fluid>
+        {/* LandingComponent */}
+        <Row className="mb-4 mx-2">
+          <LandingComponent />
+        </Row>
 
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
+        {/* Why Thrifting Title */}
+        <Row className="mb-4 mx-2">
+          <h1 style={{ textAlign: "center" }}>Why Thrifting?</h1>
+        </Row>
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
+        {/* ThriftingComponent */}
+        <Row className="mb-4 mx-2 justify-content-center">
+          <ThriftingComponent />
+        </Row>
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
+        {/* ProductsComponent */}
+        <Row className="mb-4 mx-2 justify-content-center">
+          <ProductsComponent />
+        </Row>
+      </Container>
 
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
+      {/* tester */}
+      <AddToCartComponent />
+
+      {/* tester  */}
+      <PersonalInfoComponent />
+
+      {/* tester */}
+      <AddressComponent />
+
     </main>
-  )
+  );
 }
