@@ -1,0 +1,33 @@
+/* LandingPage.css */
+.landing-page {
+    display: flex;
+    justify-content: space-between; /* Divs are spaced at the ends of the container */
+    align-items: center; /* Vertically align divs */
+    padding: 20px; /* Add spacing if needed */
+  }
+  
+  .left-div {
+    flex: 1; /* Take up available space */
+    padding: 20px; /* Add spacing if needed */
+  }
+  
+  .right-div {
+    flex: 1; /* Take up available space */
+    text-align: right; /* Align content to the right */
+  }
+  
+  /* Style your image as needed */
+  .right-div img {
+    max-width: 100%; /* Make sure the image doesn't overflow */
+    height: auto; /* Maintain the image's aspect ratio */
+  }
+
+  .coloring{
+    color: #17B5B5; 
+  }
+
+  .custom-button {
+    background-color: #17B5B5; 
+    color: white; 
+  }
+  
