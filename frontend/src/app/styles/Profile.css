@@ -1,0 +1,19 @@
+/* profile dropdown */
+.profile {
+    text-transform: capitalize;
+    color: black;
+    margin-top: 20px;
+}
+
+.profile-image {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin: 0 10px;
+}
+
+/* this is the css for the text beside the menu icons */
+.menu-icons {
+    margin: 0 10px;
+    font-size: 13px;
+}

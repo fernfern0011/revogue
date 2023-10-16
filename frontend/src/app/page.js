@@ -9,6 +9,7 @@ import Row from "react-bootstrap/Row";
 // import Jumbotron from 'react-bootstrap/Jumbotron';
 
 // Component imports
+import Navbar from './components/Navbar'
 import LandingComponent from "./components/LandingComponent";
 import ThriftingComponent from "./components/ThriftingComponent";
 import ProductsComponent from "./components/ProductsComponent";
@@ -29,6 +30,7 @@ export default function Home() {
       </Head>
 
       <Container fluid>
+              <Navbar />
         {/* LandingComponent */}
         <Row className="mb-4 mx-2">
           <LandingComponent />
