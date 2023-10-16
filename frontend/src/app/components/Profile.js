@@ -94,20 +94,7 @@ function Profile() {
             </div>
         </MenuItem>
 
-        <div>
-          <MenuItem onClick={openCreateItemOverlay}>
-              <div className="menu-icons1">
-                  <AddCircleOutlineIcon />
-              </div>
-              <div className="menu-icons">
-                  Create Item
-              </div>
-          </MenuItem>
-
-          {isCreateItemOverlayOpen && (
-              <CreateItemOverlay onClose={closeCreateItemOverlay} />
-          )}
-        </div>
+        <CreateItemOverlay />
 
         <MenuItem onClick={handleClose}>
             <div className="menu-icons1">
