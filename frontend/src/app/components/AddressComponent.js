@@ -69,7 +69,7 @@ const AddressComponent = () => {
             <hr></hr>
             <br></br>
 
-            {/* addditional address */}
+            {/* additional address */}
             <Row className="d-flex">
               <Col className="col-2">
               <h4 className="title">Additional address</h4>

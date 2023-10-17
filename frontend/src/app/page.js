@@ -20,6 +20,8 @@ import Sidebar from './components/Sidebar/Sidebar'
 import AddToCartComponent from "./components/AddToCartComponent";
 import PersonalInfoComponent from "./components/PersonalInfoComponent";
 import AddressComponent from "./components/AddressComponent";
+import AddAddressComponent from "./components/AddAddressComponent";
+import BlogComponent from "./components/BlogComponent";
 
 export default function Home() {
   return (
@@ -58,9 +60,15 @@ export default function Home() {
 
       {/* tester */}
       <AddressComponent />
+
+      {/* tester */}
+      <AddAddressComponent />
+
+      {/* tester */}
+      <BlogComponent/>
         
-         <Contact />
-          <Sidebar />
+         {/* <Contact /> */}
+          {/* <Sidebar /> */}
          <Footer/>
     </main>
   );
