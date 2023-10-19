@@ -1,0 +1,34 @@
+
+.pgTitle{
+    text-align: center;
+}
+
+.custom-form{
+    text-align: left;
+    margin: auto;
+    box-shadow: none ;
+    margin-bottom: 200px;
+}
+
+.custom-label {
+    font-weight: bold;
+  }
+
+  input,
+  textarea {
+    background-color: #F6F6F6;
+  }
+
+  .custom-control-label::before {
+  background-color: #F6F6F6;
+  color: white;
+}
+
+span{
+    color: red;
+}
+
+.cancel{
+    background-color: #F6F6F6;
+    color: grey;
+}

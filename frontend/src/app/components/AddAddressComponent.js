@@ -20,6 +20,18 @@ import styles from "../page.module.css";
 import "../styles/AddAddressComponent.css";
 
 const AddAddressComponent = () => {
+  const [validated, setValidated] = useState(false);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+
+    if (form.checkValidity() === false) {
+      event.stopPropagation();
+    }
+    setValidated(true);
+  };
+
   return (
     <main className={styles.main}>
       <Container fluid>
@@ -40,36 +52,64 @@ const AddAddressComponent = () => {
             <h4 className="title">Add New Address</h4>
 
             <Container fluid>
-              <Form className="custom-form p-4">
+              <Form
+                className="custom-form p-4"
+                noValidate
+                validated={validated}
+                onSubmit={handleSubmit}
+              >
                 <Row className="mb-3">
-                  <Col>
-                    <Form.Group>
+                  <Col lg={6}>
+                    <Form.Group controlId="validationCustom01">
                       <Form.Label className="custom-label">
                         First Name<span>*</span>
                       </Form.Label>
-                      <Form.Control type="text" placeholder="First Name" />
+                      <Form.Control
+                        type="text"
+                        placeholder="First Name"
+                        required
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        First name is required.
+                      </Form.Control.Feedback>
                     </Form.Group>
                   </Col>
-                  <Col>
-                    <Form.Group>
+
+                  <Col lg={6}>
+                    <Form.Group controlId="validationCustom02">
                       <Form.Label className="custom-label">
                         Last Name<span>*</span>
                       </Form.Label>
-                      <Form.Control type="text" placeholder="Last Name" />
+                      <Form.Control
+                        type="text"
+                        placeholder="Last Name"
+                        required
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        Last name is required.
+                      </Form.Control.Feedback>
                     </Form.Group>
                   </Col>
                 </Row>
 
                 <Row className="mb-3">
-                  <Col>
-                    <Form.Group>
+                  <Col lg={6}>
+                    <Form.Group controlId="validationCustom03">
                       <Form.Label className="custom-label">
                         Country/Region<span>*</span>
                       </Form.Label>
-                      <Form.Control type="text" placeholder="Country/Region" />
+                      <Form.Control
+                        type="text"
+                        placeholder="Country/Region"
+                        required
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        Country/Region is required.
+                      </Form.Control.Feedback>
                     </Form.Group>
                   </Col>
-                  <Col>
+
+                  <Col lg={6}>
                     <Form.Group>
                       <Form.Label className="custom-label">
                         Company Name
@@ -80,15 +120,23 @@ const AddAddressComponent = () => {
                 </Row>
 
                 <Row className="mb-3">
-                  <Col>
-                    <Form.Group>
+                  <Col lg={6}>
+                    <Form.Group controlId="validationCustom04">
                       <Form.Label className="custom-label">
                         Street Address<span>*</span>
                       </Form.Label>
-                      <Form.Control type="text" placeholder="Street Address" />
+                      <Form.Control
+                        type="text"
+                        placeholder="Street Address"
+                        required
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        Street Address is required.
+                      </Form.Control.Feedback>
                     </Form.Group>
                   </Col>
-                  <Col>
+
+                  <Col lg={6}>
                     <Form.Group>
                       <Form.Label className="custom-label">Unit No</Form.Label>
                       <Form.Control type="text" placeholder="Unit No" />
@@ -97,20 +145,35 @@ const AddAddressComponent = () => {
                 </Row>
 
                 <Row className="mb-3">
-                  <Col>
-                    <Form.Group>
+                  <Col lg={6}>
+                    <Form.Group controlId="validationCustom05">
                       <Form.Label className="custom-label">
                         Phone Number<span>*</span>
                       </Form.Label>
-                      <Form.Control type="text" placeholder="Phone Number" />
+                      <Form.Control
+                        type="text"
+                        placeholder="Phone Number"
+                        required
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        Phone number is required.
+                      </Form.Control.Feedback>
                     </Form.Group>
                   </Col>
-                  <Col>
-                    <Form.Group>
+
+                  <Col lg={6}>
+                    <Form.Group controlId="validationCustom05">
                       <Form.Label className="custom-label">
                         Postal Code<span>*</span>
                       </Form.Label>
-                      <Form.Control type="text" placeholder="Postal Code" />
+                      <Form.Control
+                        type="text"
+                        placeholder="Postal Code"
+                        required
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        Postal code is required.
+                      </Form.Control.Feedback>
                     </Form.Group>
                   </Col>
                 </Row>
@@ -154,10 +217,16 @@ const AddAddressComponent = () => {
 
                 <Row className="mb-3">
                   <Col>
-                    <Button variant="primary" className="custom-button">Save</Button>
+                    <Button
+                      type="submit"
+                      variant="primary"
+                      className="custom-button"
+                    >
+                      Save
+                    </Button>
                   </Col>
                   <Col>
-                    <Button  className="cancel">Cancel</Button>
+                    <Button className="cancel">Cancel</Button>
                   </Col>
                 </Row>
               </Form>
