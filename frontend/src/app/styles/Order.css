@@ -1,0 +1,30 @@
+.btn-black{
+    background-color: black; 
+    color: white;
+  }
+
+.custom-button {
+    background-color: #17B5B5; 
+    color: white; 
+    text-transform: capitalize;
+    margin-top: 10px;
+}
+
+.cardTop {
+    padding-left: 20px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    font-size: 14px;
+}
+
+.cardTopText {
+    color: gray
+}
+
+.cardText {
+    font-size: 14px;
+}
+
+.card {
+    margin: 8px;
+}

@@ -21,6 +21,7 @@ import Sidebar from './components/Sidebar/Sidebar'
 import AddToCartComponent from "./components/AddToCartComponent";
 import PersonalInfoComponent from "./components/PersonalInfoComponent";
 import AddressComponent from "./components/AddressComponent";
+import ProductGrid from "./components/ProductGrid";
 
 export default function Home() {
   return (
@@ -60,6 +61,8 @@ export default function Home() {
 
       {/* tester */}
       <AddressComponent />
+
+      <ProductGrid />
         
          <Contact />
           <Sidebar />

@@ -1,6 +1,5 @@
 'use client';
 import React, { useState } from 'react';
-import CreateItemOverlay from './AddItem.js'; // Update the path to your CreateItemOverlay component
 
 // css import
 import '../styles/Profile.css';
@@ -94,7 +93,13 @@ function Profile() {
             </div>
         </MenuItem>
 
-        <CreateItemOverlay />
+        <MenuItem onClick={handleClose}>
+            <div className="menu-icons1">
+                <AddCircleOutlineIcon />
+            </div>
+            <div className="menu-icons">
+                Add Item            </div>
+        </MenuItem>
 
         <MenuItem onClick={handleClose}>
             <div className="menu-icons1">
