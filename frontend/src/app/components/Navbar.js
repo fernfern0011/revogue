@@ -1,5 +1,6 @@
 'use client';
 import React, { useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 
 // material ui imports
 import Button from '@mui/material/Button';
@@ -12,9 +13,7 @@ import '../styles/Navbar.css';
 import Profile from './Profile.js';
 import SearchBar from './SearchBar.js';
 
-
 function Navbar() {
-
   const [isSearchActive, setSearchActive] = useState(false);
 
   const toggleSearchBar = () => {
@@ -22,62 +21,56 @@ function Navbar() {
   };
 
   return (
-    
-    <nav className="navbar navbar-expand-lg bg-light">
-      <div className="container-fluid">
+    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <div className="container">
+        <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+          <li className="nav-item">
+            <a className="nav-link ReVogue" aria-current="page" href="#">
+              ReVogue
+            </a>
+          </li>
+          <li className="nav-item">
+            <a className="nav-link" href="#">
+              Home
+            </a>
+          </li>
+          <li className="nav-item">
+            <a className="nav-link" href="#">
+              Shop
+            </a>
+          </li>
+          <li className="nav-item">
+            <a className="nav-link" href="#">
+              Blog
+            </a>
+          </li>
+          <li className="nav-item">
+            <a className="nav-link" href="#">
+              Contact Us
+            </a>
+          </li>
           
-          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+          <div style={{ float: 'right' }}>
+            <SearchIcon className="icon search" />
+            <ShoppingCartOutlinedIcon className="icon cart" />
+            <NotificationsNoneSharpIcon className="icon notification" />
+          </div>
+
+          <div style={{ float: 'right' }}>
+            <Profile />
+          </div>
+          <li className="nav-item">
+            {/* Insert profile */}
+          </li>
+
+          <li className="nav-item" style={{ float: 'right' }}>
+            <a className="nav-link">
+              <Button className="button">Login</Button>
+            </a>
+          </li>
           
-            <li className="nav-item">
-              <a className="nav-link active ReVogue" aria-current="page" href="#">
-                ReVogue
-              </a>
-            </li>
-            
-            <li className="nav-item">
-              <a className="nav-link active" aria-current="page" href="#">Home</a>
-            </li>
-            
-            <li className="nav-item">
-              <a className="nav-link active" aria-current="page" href="#">Shop</a>
-            </li>
-            
-            <li className="nav-item">
-              <a className="nav-link active" aria-current="page" href="#">Blog</a>
-            </li>
-            
-            <li className="nav-item">
-              <a className="nav-link active" aria-current="page" href="#">Contact Us</a>
-            </li>
-
-            {/* Login button */}
-            <li className="nav-item" style={{ float: 'right' }}>
-              <a className="nav-link active" aria-current="page" href="#">
-                <Button className="button">Login</Button>
-              </a>
-            </li>
-            
-            <div style={{ float: 'right' }}>
-              <Profile />
-            </div>
-
-            {/* profile image */}
-            <li className="nav-item">
-              {/* insert profile */}
-            </li>
-            
-            {/* cart / search / notification icons */}
-            <div style={{ float: 'right' }}>
-              <SearchIcon className="icon search" />
-              <ShoppingCartOutlinedIcon className="icon cart" />
-              <NotificationsNoneSharpIcon className="icon notification" />
-            </div>
-
-          </ul>
-
-          {/* <SearchBar /> */}
-
-        </div>
+        </ul>
+      </div>
     </nav>
   );
 }

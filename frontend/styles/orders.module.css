@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500&family=JetBrains+Mono&display=swap');
+
+.main {
+    margin-left: 75px;
+    margin-right: 75px;
+}
+
+.tab {
+    text-align: center;
+}
+.tablinks:hover {
+  cursor: pointer;
+}
+.tablinks {
+    border: none;
+    background-color: white;
+    font-family: Inter;
+    font-size: 14px;
+    padding: 8px 25px 12px;
+    border-bottom: 2px solid transparent;
+}
+
+.tablinks.active {
+    border-bottom: 2.5px solid #18b5b5;
+}
+
+.horizontalLine {
+    background-color: #b8b8b8;
+    margin-top: 0;
+    margin-bottom: 18px;
+}
+
+.orders {
+    font-size: 20px;
+    font-weight: bold;
+}
