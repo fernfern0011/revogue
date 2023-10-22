@@ -15,7 +15,7 @@ export default function Contact(){
                 <input type='text' name='fname' id='' placeholder='First Name'/>
                 <input type='text' name='lname' id='' placeholder='Last Name'/>
                 <input type='email' name='email' id='' placeholder='Enter Email'/>
-                <textarea type='text' id='message' cols={38} rows={10} placeholder='Message' />
+                <textarea type='text' id='message' cols={38} rows={6} placeholder='Message' />
                 <button type='submit'>Submit</button>
             </form>
         </div>
