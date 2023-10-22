@@ -14,6 +14,30 @@ app.use("/api/address", require("./routes/address.route"))
 // Product
 app.use("/api/product", require("./routes/product.route"))
 
+//Stripe
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+
+app.post('/create-payment-intent', async (req, res) => {
+  const { amount, currency } = req.body;
+
+  try {
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount,
+      currency,
+    });
+
+    res.json({ clientSecret: paymentIntent.client_secret });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send(error);
+  }
+});
+
+//TEST
+app.get('/', (req, res) => {
+  res.send('Stripe Payment Backend');
+});
+
 app.listen(process.env.PORT, () => {
     console.log(`Server started on port ${process.env.PORT}`);
 })
