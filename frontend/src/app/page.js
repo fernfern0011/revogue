@@ -21,6 +21,8 @@ import Sidebar from './components/Sidebar/Sidebar'
 import AddToCartComponent from "./components/AddToCartComponent";
 import PersonalInfoComponent from "./components/PersonalInfoComponent";
 import AddressComponent from "./components/AddressComponent";
+import AddAddressComponent from "./components/AddAddressComponent";
+import TipTap from "./components/TipTap";
 
 export default function Home() {
   return (
@@ -60,6 +62,10 @@ export default function Home() {
 
       {/* tester */}
       <AddressComponent />
+      <AddAddressComponent />
+
+      {/* tester */}
+      <TipTap />
         
          <Contact />
           <Sidebar />

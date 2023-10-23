@@ -94,33 +94,6 @@ const AddAddressComponent = () => {
 
                 <Row className="mb-3">
                   <Col lg={6}>
-                    <Form.Group controlId="validationCustom03">
-                      <Form.Label className="custom-label">
-                        Country/Region<span>*</span>
-                      </Form.Label>
-                      <Form.Control
-                        type="text"
-                        placeholder="Country/Region"
-                        required
-                      />
-                      <Form.Control.Feedback type="invalid">
-                        Country/Region is required.
-                      </Form.Control.Feedback>
-                    </Form.Group>
-                  </Col>
-
-                  <Col lg={6}>
-                    <Form.Group>
-                      <Form.Label className="custom-label">
-                        Company Name
-                      </Form.Label>
-                      <Form.Control type="text" placeholder="Company Name" />
-                    </Form.Group>
-                  </Col>
-                </Row>
-
-                <Row className="mb-3">
-                  <Col lg={6}>
                     <Form.Group controlId="validationCustom04">
                       <Form.Label className="custom-label">
                         Street Address<span>*</span>
