@@ -24,7 +24,7 @@ const ThriftingComponent = () => {
             className="d-flex flex-column align-items-center"
           >
             <Row className="mb-4 align-items-center">
-              <Image src="holder.js/171x180" rounded />
+              <Image src="../../images/background.jpg" rounded />
               {/* <Col xs={10} md={10}>
                 <Image src="holder.js/171x180" rounded />
               </Col> */}

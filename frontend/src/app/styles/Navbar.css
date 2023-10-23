@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap');
+
+.ReVogue {
+    color: #18b5b5;
+}
+
+.navbar-nav li {
+    display: inline-block;
+    margin: 20px; /* Adjust the margin as needed */
+}
+
+.navbar {
+    width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+/* this is the LOGIN button */
+.button {
+    padding: 10px 20px; /* Adjust padding values as needed */
+    min-width: auto; /* Remove minimum width to allow the button to adjust to the content */
+    white-space: nowrap; /* Prevent text from wrapping to the next line */
+    background-color: #18b5b5; /* Button background color */
+    color: #fff; /* Text color */
+    border: none; /* Remove border if desired */
+    border-radius: 5px; /* Add rounded corners if desired */
+    cursor: pointer; /* Add a cursor on hover */
+    font-size: 16px; /* Adjust the font size as needed */
+    text-transform: capitalize;
+    height: 40px;
+  }
+  
+
+/* cart | bell | search icons */
+.icon {
+    margin: 20px 5px;
+}
