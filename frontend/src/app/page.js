@@ -22,7 +22,8 @@ import AddToCartComponent from "./components/AddToCartComponent";
 import PersonalInfoComponent from "./components/PersonalInfoComponent";
 import AddressComponent from "./components/AddressComponent";
 import AddAddressComponent from "./components/AddAddressComponent";
-import TipTap from "./components/TipTap";
+import CreateBlogComponent from "./components/CreateBlogComponent";
+import {TipTap} from "./components/TipTap";
 
 export default function Home() {
   return (
@@ -65,7 +66,7 @@ export default function Home() {
       <AddAddressComponent />
 
       {/* tester */}
-      <TipTap />
+      <CreateBlogComponent />
         
          <Contact />
           <Sidebar />
