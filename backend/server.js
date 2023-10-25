@@ -16,6 +16,10 @@ app.use("/api/product", require("./routes/product.route"))
 app.use("/api/wishlist", require("./routes/wishlist.route"))
 app.use("/api/cart", require("./routes/cart.route"))
 
+// My Purchases & My Sales
+app.use("/api/mypurchases", require("./routes/mypurchases.route"))
+app.use("/api/mysales", require("./routes/mysales.route"))
+
 //Stripe
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 

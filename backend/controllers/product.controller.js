@@ -31,6 +31,23 @@ const productController = {
             res.status(404).json({ msg: error.msg })
         }
     },
+    getProductByAccId: async (req, res) => {
+        try {
+            var { accid } = req.body;
+            var sql = 'SELECT * FROM product WHERE accid = $1'
+
+            const { rows } = await postgre.query(sql, [accid])
+
+            if (rows[0]) {
+                return res.status(200).json({ data: rows })
+            }
+
+            res.status(404).json({ msg: "Product is not found" })
+
+        } catch (error) {
+            res.status(404).json({ msg: error.msg })
+        }
+    },
     create: async (req, res) => {
         try {
             const { accid, productname, description, price, size, quantity, images } = req.body
