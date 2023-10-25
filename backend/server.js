@@ -4,15 +4,16 @@ const app = express();
 require('dotenv').config();
 
 app.use(express.json())
-app.use(cors({ credentials: true, origin: true, credentials: true }));
+app.use(cors({ credentials: true, origin: true }));
 
 // Account & User Profile & Address
 app.use("/api/account", require("./routes/account.route"))
 app.use("/api/user-profile", require("./routes/userProfile.route"))
 app.use("/api/address", require("./routes/address.route"))
 
-// Product
+// Product & Wishlist
 app.use("/api/product", require("./routes/product.route"))
+app.use("/api/wishlist", require("./routes/wishlist.route"))
 
 //Stripe
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
@@ -39,5 +40,5 @@ app.get('/', (req, res) => {
 });
 
 app.listen(process.env.PORT, () => {
-    console.log(`Server started on port ${process.env.PORT}`);
+  console.log(`Server started on port ${process.env.PORT}`);
 })

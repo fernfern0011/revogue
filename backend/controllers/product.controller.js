@@ -33,11 +33,11 @@ const productController = {
     },
     create: async (req, res) => {
         try {
-            const { productname, description, price, size, images, accid } = req.body
-            const sql = `INSERT INTO product(productid, productname, description, price, size, images, accid)
-                         VALUES(nextval('product_id_seq'), $1, $2, $3, $4, $5, $6) RETURNING *`
+            const { accid, productname, description, price, size, quantity, images } = req.body
+            const sql = `INSERT INTO product(productid, accid, productname, description, price, size, quantity, images)
+                         VALUES(nextval('product_id_seq'), $1, $2, $3, $4, $5, $6, $7) RETURNING *`
 
-            const { rows } = await postgre.query(sql, [productname, description, price, size, images, accid])
+            const { rows } = await postgre.query(sql, [accid, productname, description, price, size, quantity, images])
 
             if (rows[0]) {
                 return res.status(201).json({ msg: "Product is created", data: rows[0] })
@@ -49,7 +49,7 @@ const productController = {
             res.status(404).json({ msg: error.msg })
         }
     },
-    updateById: async (req, res) => {
+    updateProductById: async (req, res) => {
         try {
             const { productname, description, price, size, images, productid, accid } = req.body
 
@@ -68,9 +68,9 @@ const productController = {
             res.status(404).json({ msg: error.msg })
         }
     },
-    deleteById: async (req, res) => {
+    deleteProductById: async (req, res) => {
         try {
-            var { productid } = req.body;
+            const { productid } = req.body;
             const sql = 'DELETE FROM product where productid = $1 RETURNING *'
 
             const { rows } = await postgre.query(sql, [productid])
