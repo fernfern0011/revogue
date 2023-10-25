@@ -11,9 +11,10 @@ app.use("/api/account", require("./routes/account.route"))
 app.use("/api/user-profile", require("./routes/userProfile.route"))
 app.use("/api/address", require("./routes/address.route"))
 
-// Product & Wishlist
+// Product & Wishlist & Cart
 app.use("/api/product", require("./routes/product.route"))
 app.use("/api/wishlist", require("./routes/wishlist.route"))
+app.use("/api/cart", require("./routes/cart.route"))
 
 //Stripe
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
