@@ -4,7 +4,9 @@ import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import { BrowserRouter as Router } from "react-router";
 import { NavLink } from "react-router-dom";
-import SidebarComponent from "./SidebarComponent";
+import SidebarComponent from "../components/SidebarComponent";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 //bootstrap imports
 import "bootstrap/dist/css/bootstrap.css";
@@ -19,7 +21,9 @@ import "../styles/AddressComponent.css";
 const AddressComponent = () => {
   return (
     <main className={styles.main}>
-      <Container fluid>
+      <Navbar />
+
+      <Container fluid className="mt-3 mb-5 px-5">
         <div>
           <p>
             Home &nbsp; {">"} &nbsp; Account Setting &nbsp; {">"} &nbsp;{" "}
@@ -66,13 +70,16 @@ const AddressComponent = () => {
             </Row>
 
             <br></br>
+            <div className="hr-custom">
             <hr></hr>
+
+            </div>
             <br></br>
 
             {/* additional address */}
             <Row className="d-flex">
               <Col className="col-2">
-              <h4 className="title">Additional address</h4>
+                <h4 className="title">Additional address</h4>
               </Col>
               <Col className="col-8"></Col>
               <Col className="col-2">
@@ -111,7 +118,8 @@ const AddressComponent = () => {
         </Row>
       </Container>
 
-      {/* this page */}
+      <Footer/>
+
     </main>
   );
 };

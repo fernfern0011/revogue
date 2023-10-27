@@ -4,7 +4,9 @@ import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import { BrowserRouter as Router } from "react-router";
 import { NavLink } from "react-router-dom";
-import SidebarComponent from "./SidebarComponent";
+import SidebarComponent from "../components/SidebarComponent";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 //bootstrap imports
 import "bootstrap/dist/css/bootstrap.css";
@@ -34,7 +36,9 @@ const AddAddressComponent = () => {
 
   return (
     <main className={styles.main}>
-      <Container fluid>
+      <Navbar />
+
+      <Container fluid className="px-5 mt-5">
         <div>
           <p>
             Home &nbsp; {">"} &nbsp; Account Setting &nbsp; {">"} &nbsp;{" "}
@@ -207,6 +211,9 @@ const AddAddressComponent = () => {
           </Col>
         </Row>
       </Container>
+      
+      <Footer/>
+
     </main>
   );
 };

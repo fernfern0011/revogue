@@ -1,6 +1,6 @@
-
 .pgTitle{
     text-align: center;
+    color: #17B5B5;
 }
 
 .custom-form{
@@ -31,4 +31,9 @@ span{
 .cancel{
     background-color: #F6F6F6;
     color: grey;
+}
+
+.custom-button{
+    background-color: #17B5B5; 
+  color: white;
 }

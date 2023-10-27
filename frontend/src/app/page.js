@@ -17,14 +17,6 @@ import  Contact  from './components/Contact'
 import Footer from './components/Footer'
 import Sidebar from './components/Sidebar/Sidebar'
 
-// test
-import AddToCartComponent from "./components/AddToCartComponent";
-import PersonalInfoComponent from "./components/PersonalInfoComponent";
-import AddressComponent from "./components/AddressComponent";
-import AddAddressComponent from "./components/AddAddressComponent";
-import CreateBlogComponent from "./components/CreateBlogComponent";
-import {TipTap} from "./components/TipTap";
-
 export default function Home() {
   return (
     <main className={styles.main}>
@@ -55,19 +47,6 @@ export default function Home() {
         </Row>
       </Container>
 
-      {/* tester */}
-      <AddToCartComponent />
-
-      {/* tester  */}
-      <PersonalInfoComponent />
-
-      {/* tester */}
-      <AddressComponent />
-      <AddAddressComponent />
-
-      {/* tester */}
-      <CreateBlogComponent />
-        
          <Contact />
           <Sidebar />
          <Footer/>
