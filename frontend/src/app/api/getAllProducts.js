@@ -1,4 +1,4 @@
-import { backendUrl } from "../config"
+import { backendUrl } from "../../../config"
 
 export default async function getAllProducts() {
     const res = await fetch(`${backendUrl}/api/product/get-all-products`,

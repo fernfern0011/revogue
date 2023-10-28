@@ -4,7 +4,7 @@ import Sidebar from "../components/Sidebar/Sidebar";
 import './page.css'
 import ProductListing from '../components/ProductListing';
 import { Suspense } from 'react';
-import getAllProducts from '../../../lib/getAllProducts';
+import getAllProducts from '../api/getAllProducts';
 
 async function ShopPage() {
   const productData = await getAllProducts();
