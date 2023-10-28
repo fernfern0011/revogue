@@ -12,19 +12,19 @@ async function getProductData() {
     headers: { "Content-Type": "application/json" }
   })
 
-  const getProductStatus = getProductRes.status;
-  if (getProductStatus == 200) {
-    return await getProductRes.json();
-  } else {
-    return [];
+  console.log(getProductRes.status);
+  if (!getProductRes.status == 200) {
+    throw new Error('failed to fetch data')
   }
 
+  return await getProductRes.json()
 }
 
 async function ShopPage() {
   const productData = await getProductData();
+  const productList = await productData.data;
 
-  if (productData.length == 0) {
+  if (productList.length == 0) {
     return (
       <div className='relative flex items-center justify-center'>
         <img src="empty.png" alt="" />
@@ -33,8 +33,6 @@ async function ShopPage() {
     )
   }
 
-  const productList = productData.data;
-  
   return (
     <div>
       <div className="d-flex col-lg-12 mt-4 py-3 bg-primary">
