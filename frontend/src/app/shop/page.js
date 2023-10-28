@@ -1,18 +1,19 @@
 "use client"
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Sidebar from "../components/Sidebar/Sidebar";
 import { backendUrl } from '../../../config';
 import './page.css'
 import ProductListing from '../components/ProductListing';
+import { Suspense } from 'react';
 
 async function getProductData() {
 
   // get product list
   const getProductRes = await fetch(`${backendUrl}/api/product/get-all-products`, {
-    headers: { "Content-Type": "application/json" }
+    headers: { "Content-Type": "application/json" },
+    cache: 'no-cache'
   })
 
-  console.log(getProductRes.status);
   if (!getProductRes.status == 200) {
     throw new Error('failed to fetch data')
   }
@@ -45,9 +46,11 @@ async function ShopPage() {
         </div>
 
         <div className='d-flex flex-wrap col-lg-9'>
-          {productList.map((product) => (
-            <ProductListing productid={product.productid} productname={product.productname} price={product.price} image={product.images} />
-          ))}
+          <Suspense fallback={<p>Loading...</p>}>
+            {productList.map((product) => (
+              <ProductListing productid={product.productid} productname={product.productname} price={product.price} image={product.images} />
+            ))}
+          </Suspense>
         </div>
       </div>
     </div>
