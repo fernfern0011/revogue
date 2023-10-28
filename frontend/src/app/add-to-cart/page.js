@@ -9,9 +9,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Table from "react-bootstrap/Table";
-// import "bootstrap/dist/css/bootstrap.min.css";
-// import { Jumbotron } from "react-bootstrap";
-// import Jumbotron from 'react-bootstrap/Jumbotron';
+import Navbar from "../components/Navbar";
 
 //style imports
 import styles from "../page.module.css";
@@ -21,7 +19,8 @@ import { Padding } from "@mui/icons-material";
 const AddToCartComponent = () => {
   return (
     <main className={styles.main}>
-      <div className="ps-5">
+      <Navbar />
+      <div className="ps-5 mt-3">
         <p>Home &nbsp; {">"} &nbsp; <b>Add To Cart</b></p>
       </div>
 
