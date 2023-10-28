@@ -2,7 +2,9 @@
 import React, { useEffect } from 'react';
 import  Navbar  from '../components/Navbar.js';
 import styles from '/styles/orders.module.css';
-import OrderGrid from '../components/OrderGrid.js';
+import OrderGridActive from '../components/OrderGridActive.js';
+import OrderGridCancelled from '../components/OrderGridCancelled.js';
+import OrderGridCompleted from '../components/OrderGridCompleted.js';
 
 export default function LandingPage() {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
@@ -53,17 +55,17 @@ export default function LandingPage() {
         <hr className={styles.horizontalLine}/>
 
         <div id="forYou" className={`${"tabcontent"}`}>
-            <OrderGrid />
+            <OrderGridActive />
         </div>
 
 {/* Following Tab */}
       <div id="following" className={`${"tabcontent"}`}>
-
+        <OrderGridCancelled />
       </div>
 
 {/* Hashtag Tab */}
       <div id="hashtag" className={`${"tabcontent"}`}>
-
+        <OrderGridCompleted />
       </div>
       </div>
 

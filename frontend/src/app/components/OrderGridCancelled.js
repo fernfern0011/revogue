@@ -1,10 +1,10 @@
 import React from 'react';
 import { Container, Row } from 'react-bootstrap';
-import Order from './Order';
+import Order from './OrderCancelled';
 
-const OrderGrid = () => {
+const OrderGridCancelled = () => {
   // Generate an array of 9 elements to render the ProductListing component 9 times
-  const orders = Array.from({ length: 12 }, (_, index) => (
+  const orders = Array.from({ length: 3 }, (_, index) => (
     <Order key={index} />
   ));
 
@@ -15,4 +15,4 @@ const OrderGrid = () => {
   );
 };
     
-export default OrderGrid;
+export default OrderGridCancelled;

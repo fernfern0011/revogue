@@ -52,21 +52,8 @@ export default function Home() {
           <ProductsComponent />
         </Row>
       </Container>
-
-      {/* tester */}
-      <AddToCartComponent />
-
-      {/* tester  */}
-      <PersonalInfoComponent />
-
-      {/* tester */}
-      <AddressComponent />
-
-      <ProductGrid />
         
-         <Contact />
-          <Sidebar />
-         <Footer/>
+      <Footer/>
     </main>
   );
 }

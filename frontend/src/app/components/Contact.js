@@ -48,7 +48,7 @@ const Contact = () => {
   return (
     <div className='flex-container'>
       <div className='picture-display'>
-        <img src={displayImg} alt='why' />
+        <img src="/images/image6.png" alt='why' />
       </div>
       <div>
         <form onSubmit={handleSubmit} className='emailForm'>

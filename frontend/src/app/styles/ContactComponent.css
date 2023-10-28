@@ -64,3 +64,8 @@ button {
   align-items: center;
   justify-content: center;
 }
+
+img {
+  max-width: 800px;
+  max-height: 600px;
+}

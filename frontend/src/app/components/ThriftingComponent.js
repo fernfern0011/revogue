@@ -24,10 +24,9 @@ const ThriftingComponent = () => {
             className="d-flex flex-column align-items-center"
           >
             <Row className="mb-4 align-items-center">
-              <Image src="../../images/background.jpg" rounded />
-              {/* <Col xs={10} md={10}>
-                <Image src="holder.js/171x180" rounded />
-              </Col> */}
+              <Col xs={10} md={10}>
+                <Image className="image" src="/images/image1.png" rounded />
+              </Col>
             </Row>
 
             <Row className="mb-4 align-items-center">
@@ -49,10 +48,9 @@ const ThriftingComponent = () => {
             className="d-flex flex-column align-items-center"
           >
             <Row className="mb-4 align-items-center">
-              <Image src="holder.js/171x180" rounded />
-              {/* <Col xs={10} md={10}>
-                <Image src="holder.js/171x180" rounded />
-              </Col> */}
+              <Col xs={10} md={10}>
+                <Image className="image" src="/images/image2.png" rounded />
+              </Col>
             </Row>
 
             <Row className="mb-4 align-items-center">
@@ -75,10 +73,9 @@ const ThriftingComponent = () => {
             className="d-flex flex-column align-items-center"
           >
             <Row className="mb-4 align-items-center">
-              <Image src="holder.js/171x180" rounded />
-              {/* <Col xs={10} md={10}>
-                <Image src="holder.js/171x180" rounded />
-              </Col> */}
+              <Col xs={10} md={10}>
+                <Image className="image" src="/images/image3.png" rounded />
+              </Col>
             </Row>
 
             <Row className="mb-4 align-items-center">
@@ -101,10 +98,9 @@ const ThriftingComponent = () => {
             className="d-flex flex-column align-items-center"
           >
             <Row className="mb-4 align-items-center">
-              <Image src="holder.js/171x180" rounded />
-              {/* <Col xs={10} md={10}>
-                <Image src="holder.js/171x180" rounded />
-              </Col> */}
+              <Col xs={10} md={10}>
+                <Image className="image" src="/images/image4.png" rounded />
+              </Col>
             </Row>
 
             <Row className="mb-4 align-items-center">
