@@ -23,7 +23,7 @@ const TopNavigation = () => {
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0 fw-medium">
                         <li className="nav-item pe-3 ps-3">
-                            <Link className="nav-link" href="#">Home</Link>
+                            <Link className="nav-link" href="/">Home</Link>
                         </li>
                         <li className="nav-item pe-3 ps-3">
                             <Link className="nav-link" href="/shop">Shop</Link>
