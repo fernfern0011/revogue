@@ -1,7 +1,6 @@
 "use client"
 import React, { useState } from 'react';
 import Sidebar from "../components/Sidebar/Sidebar";
-import ProductGrid from "../components/ProductGrid";
 
 import { backendUrl } from '../../../config';
 import './page.css'
