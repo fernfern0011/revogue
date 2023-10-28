@@ -1,6 +1,12 @@
 /* define primary colors */
 $primary_1: #fff;
 $primary_2: #333;
+$primary_3: #17B5B5;
+
+/* define font size */
+$h1: 20px;
+$normal_text: 16px;
+$footer_text: 12px;
 
 * {
   box-sizing: border-box;
@@ -12,17 +18,49 @@ html
 body {  
   max-width: 100vw;
   height: 100vh;
-  padding: 0 1.5rem;
+  padding: 0 40px;
   overflow-x: hidden;
 }
 
 .navbar {
+  width: 100%;
+  padding: 20px 0px; 
   color: $primary_2;
+}
+
+.navbar li {
+  width: inherit;
+  height: 50px;
+}
+
+.navbar li:hover {
+  background-color: rgba($color: $primary_3, $alpha: 5%);
+  border-bottom: $primary_3 solid 3px;
+}
+
+#navbarSupportedContent a {
+  width: inherit;
+  height: inherit;
+  color: $primary_2;
+}
+
+#navbarSupportedContent a:hover {
+  color: $primary_3;
+}
+
+.dropdown a {
+  color: $primary_2;
+  text-decoration: none;
+}
+
+.dropdown a:hover {
+  color: $primary_3;
 }
 
 .footer {
   width: 100%;
   padding: 10px 0;
+  font-size: $footer_text;
   color: $primary_1;
   text-align: center;
   background-color: $primary_2;

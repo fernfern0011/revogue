@@ -8,15 +8,15 @@ import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import '../styles/ProductListing.css'
 
-const ProductListing = () => {
+const ProductListing = ({ productid, productname, price, images }) => {
   return (
-    <Col xs="12" sm="6" md="4" className="px-2 pb-3">
+    <Col xs="12" sm="12" md="6" lg="4" className="px-2 pb-3" id={productid}>
       <Card style={{ width: "auto" }}>
-        <Card.Img variant="top" src="./pic1.png" />
+        <Card.Img variant="top" src="" alt={images} />
         <Card.Body>
-          <Card.Title>Raven Hoodie With Black colored Design</Card.Title>
-          <Card.Text>
-            <b>$19.99</b>
+          <Card.Title className="fs-6">{productname}</Card.Title>
+          <Card.Text className="fs-6">
+            <b>{price}</b>
           </Card.Text>
           <div className="text-center">
             <Button variant="contained" className="custom-button mx-auto">
@@ -25,7 +25,7 @@ const ProductListing = () => {
           </div>
         </Card.Body>
       </Card>
-    </Col>
+    </Col >
   );
 };
 

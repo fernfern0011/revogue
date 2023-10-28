@@ -5,8 +5,6 @@ import Button from "@mui/material/Button";
 import { BrowserRouter as Router } from "react-router";
 import { NavLink } from "react-router-dom";
 import SidebarComponent from "../components/SidebarComponent";
-import Footer from "../components/Footer";
-import Navbar from "../components/Navbar";
 
 //bootstrap imports
 import "bootstrap/dist/css/bootstrap.css";
@@ -45,8 +43,7 @@ const PersonalInfoComponent = () => {
 
   return (
     <main className={styles.main}>
-      <Navbar />
-
+ 
       <Container fluid className="mt-3 mb-5 px-5">
         <div >
           <p>
@@ -114,9 +111,6 @@ const PersonalInfoComponent = () => {
           </Col>
         </Row>
       </Container>
-      <Footer/>
-
-
     </main>
   );
 };
