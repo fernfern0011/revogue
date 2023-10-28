@@ -5,7 +5,7 @@ export default async function getAllProducts() {
         { headers: { "Content-Type": "application/json" }, next: { revalidate: 60 }},
     );
 
-    if (!res.ok) throw new Error(`failed to fetch user`)
+    if (!res.ok) throw new Error(`failed to fetch product`)
 
     return res.json();
 }
