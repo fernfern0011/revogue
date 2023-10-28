@@ -1,7 +1,6 @@
 "use client"
 import React, { useState } from 'react';
 import Sidebar from "../components/Sidebar/Sidebar";
-
 import { backendUrl } from '../../../config';
 import './page.css'
 import ProductListing from '../components/ProductListing';
@@ -15,16 +14,17 @@ async function getProductData() {
 
   const getProductStatus = getProductRes.status;
   if (getProductStatus == 200) {
-    return getProductRes.json();
+    return await getProductRes.json();
+  } else {
+    return [];
   }
 
 }
 
 async function ShopPage() {
   const productData = await getProductData();
-  const productList = productData.data;
 
-  if (productList.length == 0) {
+  if (productData.length == 0) {
     return (
       <div className='relative flex items-center justify-center'>
         <img src="empty.png" alt="" />
@@ -33,6 +33,8 @@ async function ShopPage() {
     )
   }
 
+  const productList = productData.data;
+  
   return (
     <div>
       <div className="d-flex col-lg-12 mt-4 py-3 bg-primary">
