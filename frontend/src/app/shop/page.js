@@ -4,11 +4,11 @@ import Sidebar from "../components/Sidebar/Sidebar";
 import './page.css'
 import ProductListing from '../components/ProductListing';
 import { Suspense } from 'react';
-import getAllProducts from '../api/getAllProducts';
+// import getAllProducts from '../api';
 
 async function ShopPage() {
-  const productData = await getAllProducts();
-  const productList = await productData.data;
+  // const productData = await getAllProducts();
+  // const productList = await productData.data;
 
   return (
     <div>
@@ -22,11 +22,11 @@ async function ShopPage() {
         </div>
 
         <div className='d-flex flex-wrap col-lg-9'>
-          <Suspense fallback={<p>Loading...</p>}>
+          {/* <Suspense fallback={<p>Loading...</p>}>
             {productList.map((product) => (
               <ProductListing productid={product.productid} productname={product.productname} price={product.price} image={product.images} />
             ))}
-          </Suspense>
+          </Suspense> */}
         </div>
       </div>
     </div>
