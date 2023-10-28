@@ -4,7 +4,7 @@ import { ProfileUpload } from "../../../components/ProfileUpload";
 const UserProfilePage = () => {
     return (
         <div className={styles.container}>
-            <h1>Uesr Profile Page</h1>
+            <h1>User Profile Page</h1>
             <main className={styles.main}>
                 <div className={styles.grid}>
                     <ProfileUpload />

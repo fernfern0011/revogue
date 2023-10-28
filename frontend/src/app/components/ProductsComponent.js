@@ -23,13 +23,13 @@ const ProductsComponent = () => {
       <Container fluid>
         <Row className="mb-4 mx-2 justify-content-center">
           <Col xs="12" sm="6" md="4">
-            <Card style={{ width: "auto" }}>
+            <Card className="card" style={{ width: "auto" }}>
               {/* <Image
                 src={require("../images/pic1.png").default}
                 alt=""
                 fluid
             /> */}
-              <Card.Img className="img-fluid" variant="top" src="./pic1.png" />
+              <Card.Img className="img-fluid" variant="top" src="/images/image5.png" />
               <Card.Body>
                 <Card.Title>Raven Hoodie With Black colored Design</Card.Title>
                 <Card.Text>
@@ -45,8 +45,8 @@ const ProductsComponent = () => {
           </Col>
 
           <Col xs="12" sm="6" md="4">
-            <Card style={{ width: "auto" }}>
-              <Card.Img variant="top" src="./pic1.png" />
+            <Card className="card" style={{ width: "auto" }}>
+              <Card.Img className="img-fluid" variant="top" src="/images/image5.png" />
               <Card.Body>
                 <Card.Title>Raven Hoodie With Black colored Design</Card.Title>
                 <Card.Text>
@@ -62,8 +62,8 @@ const ProductsComponent = () => {
           </Col>
 
           <Col xs="12" sm="6" md="4">
-            <Card style={{ width: "auto" }}>
-              <Card.Img variant="top" src="./pic1.png" />
+            <Card className="card" style={{ width: "auto" }}>
+              <Card.Img className="img-fluid" variant="top" src="/images/image5.png" />
               <Card.Body>
                 <Card.Title>Raven Hoodie With Black colored Design</Card.Title>
                 <Card.Text>

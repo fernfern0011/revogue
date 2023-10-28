@@ -48,6 +48,18 @@ export default function Home() {
 //           <h1 style={{ textAlign: "center" }}>Why Thrifting?</h1>
 //         </Row>
 
+
+  //       {/* ProductsComponent */}
+   //      <Row className="mb-4 mx-2 justify-content-center">
+  //         <ProductsComponent />
+  //       </Row>
+ //      </Container>
+        
+ //      <Footer/>
+//     </main>
+//   );
+// }
+
 //         {/* ThriftingComponent */}
 //         <Row className="mb-4 mx-2 justify-content-center">
 //           <ThriftingComponent />
@@ -67,7 +79,6 @@ export default function Home() {
 
 //       {/* tester */}
 //       <AddressComponent />
-
 //       <ProductGrid />
 
 //       <Contact />

@@ -11,8 +11,8 @@ import '../styles/ProductListing.css'
 const ProductListing = () => {
   return (
     <Col xs="12" sm="6" md="4" className="px-2 pb-3">
-      <Card style={{ width: "auto" }}>
-        <Card.Img variant="top" src="./pic1.png" />
+      <Card className="card" style={{ width: "auto" }}>
+        <Card.Img variant="top" src="/images/image5.png" />
         <Card.Body>
           <Card.Title>Raven Hoodie With Black colored Design</Card.Title>
           <Card.Text>

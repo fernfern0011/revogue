@@ -17,8 +17,8 @@ const WishListItem = () => {
     >
       <div style={{width:'3%', alignItems:'center', justifyContent:'center', marginTop:'40px', cursor:'pointer', color:'#807D7E'}}>X</div>
       <img
-        style={{ width: 110, height: 110, borderRadius: 4 }}
-        src="https://via.placeholder.com/110x110"
+        style={{ width: 110, height: 120, borderRadius: 4 }}
+        src="images/image7.png"
       />
       <div
         style={{

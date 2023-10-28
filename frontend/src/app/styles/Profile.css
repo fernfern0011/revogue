@@ -13,7 +13,15 @@
 }
 
 /* this is the css for the text beside the menu icons */
-.menu-icons {
-    margin: 0 10px;
-    font-size: 13px;
+.menu-link {
+    text-decoration: none; /* Remove the underline from the link */
+    display: flex; /* Make the link a flex container to align icon and text */
+    align-items: center; /* Vertically center icon and text */
+    color: black; /* Set a color for the link text */
 }
+  
+.menu-icons {
+margin-left: 10px; /* Adjust the left margin for spacing */
+font-size: 13px;
+}
+  
