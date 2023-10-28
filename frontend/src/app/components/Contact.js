@@ -1,7 +1,50 @@
-import React from 'react'
-import '../styles/ContactComponent.css'
+"use client"
+import axios from 'axios';
+import React, { useState } from 'react'
+// import '../styles/ContactComponent.css'
 import displayImg from '../../../public/background.jpg'
-export default function Contact(){
+
+const Contact = () => {
+
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // Your EmailJS service ID, template ID, and Public Key
+    const serviceId = process.env.NEXT_PUBLIC_EMAIL_SERVICE_ID;
+    const templateId = process.env.NEXT_PUBLIC_EMAIL_TEMPLATE_ID;
+    const publicKey = process.env.NEXT_PUBLIC_EMAIL_PUBLIC_KEY;
+
+    // Create an object with EmailJS service ID, template ID, Public Key, and Template params
+    const data = {
+      service_id: serviceId,
+      template_id: templateId,
+      user_id: publicKey,
+      template_params: {
+        from_name: `${firstName} ${lastName}`,
+        from_email: email,
+        to_name: 'ReVogue Support',
+        message: message,
+      }
+    };
+
+    // Send the email using EmailJS
+    try {
+      const res = await axios.post("https://api.emailjs.com/api/v1.0/email/send", data);
+      console.log(res.data);
+      setFirstName('');
+      setLastName('');
+      setEmail('');
+      setMessage('');
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   return (
     <div className='flex-container'>
         <div className='picture-display'>
