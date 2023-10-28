@@ -18,7 +18,7 @@ const Order = () => {
                 <b>Order no: #123456789</b> <br/>
                 <span className="cardTopText">
                 <b>Order Date: </b>12/12/2021 12:40 PM<br/>
-                <b>Order Status: </b>Pending<br/>
+                <b>Order Status: </b>Cancelled<br/>
                 </span>
             </Card.Text>
         </Card.Header>

@@ -43,7 +43,7 @@ const PersonalInfoComponent = () => {
 
   return (
     <main className={styles.main}>
- 
+
       <Container fluid className="mt-3 mb-5 px-5">
         <div >
           <p>
@@ -58,8 +58,8 @@ const PersonalInfoComponent = () => {
             <SidebarComponent />
           </Col>
 
-         {/* info */}
-         <Col lg="10" className="float-left custom">
+          {/* info */}
+          <Col lg="10" className="float-left custom">
             {items.map((item, index) => (
               <div key={index}>
                 <Row className="d-flex align-items-center">
@@ -77,7 +77,7 @@ const PersonalInfoComponent = () => {
                         <input
                           type="text"
                           value={item.value}
-                          onChange={(e) => {}}
+                          onChange={(e) => { }}
                         />
                       </Col>
                     )}
@@ -113,6 +113,6 @@ const PersonalInfoComponent = () => {
       </Container>
     </main>
   );
-};
+}
 
 export default PersonalInfoComponent;
