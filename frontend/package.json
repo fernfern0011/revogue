@@ -28,6 +28,7 @@
     "react-bootstrap": "^2.9.0",
     "react-dom": "18.2.0",
     "react-router-dom": "^6.17.0",
+    "sass": "^1.69.4",
     "validator": "^13.11.0"
   }
 }
