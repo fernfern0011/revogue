@@ -40,9 +40,9 @@ app.post('/create-payment-intent', async (req, res) => {
 });
 
 //TEST
-app.get('/', (req, res) => {
-  res.send('Stripe Payment Backend');
-});
+// app.get('/', (req, res) => {
+//   res.send('Stripe Payment Backend');
+// });
 
 app.listen(process.env.PORT, () => {
   console.log(`Server started on port ${process.env.PORT}`);
