@@ -21,23 +21,23 @@ app.use("/api/mypurchases", require("./routes/mypurchases.route"))
 app.use("/api/mysales", require("./routes/mysales.route"))
 
 //Stripe
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+// const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
-app.post('/create-payment-intent', async (req, res) => {
-  const { amount, currency } = req.body;
+// app.post('/create-payment-intent', async (req, res) => {
+//   const { amount, currency } = req.body;
 
-  try {
-    const paymentIntent = await stripe.paymentIntents.create({
-      amount,
-      currency,
-    });
+//   try {
+//     const paymentIntent = await stripe.paymentIntents.create({
+//       amount,
+//       currency,
+//     });
 
-    res.json({ clientSecret: paymentIntent.client_secret });
-  } catch (error) {
-    console.error(error);
-    res.status(500).send(error);
-  }
-});
+//     res.json({ clientSecret: paymentIntent.client_secret });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).send(error);
+//   }
+// });
 
 //TEST
 // app.get('/', (req, res) => {
