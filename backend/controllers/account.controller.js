@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 
 const accountController = {
-    getAll: async (req, res) => {
+    getAllAccounts: async (req, res) => {
         try {
             var sql = 'SELECT * FROM account ORDER BY accid ASC'
 
@@ -18,7 +18,7 @@ const accountController = {
     },
     getById: async (req, res) => {
         try {
-            var { accid } = req.body;
+            var { accid } = req.query;
             var sql = 'SELECT * FROM account WHERE accid = $1'
 
             const { rows } = await postgre.query(sql, [accid])

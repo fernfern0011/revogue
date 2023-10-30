@@ -4,7 +4,7 @@ const postgre = require('../config/database')
 const myPurchasesController = {
     getAllPurchases: async (req, res) => {
         try {
-            const { buyerid } = req.body;
+            const { buyerid } = req.query;
             const sql = `SELECT * FROM mypurchases WHERE buyerid = $1 ORDER BY created_on ASC;`
 
             const { rows } = await postgre.query(sql, [buyerid])
@@ -62,28 +62,10 @@ const myPurchasesController = {
     getToBeConfirmedOrders: async (req, res) => {
         try {
 
-            const { buyerid } = req.body;
+            const { buyerid } = req.query;
             const sql = `SELECT * FROM mypurchases WHERE buyerid = $1 AND isreceived = $2 AND iscancelled = $3 AND isconfirmed = $4 AND iscompleted = $5 ORDER BY created_on DESC;`
 
             const { rows } = await postgre.query(sql, [buyerid, false, false, false, false])
-
-            if (rows[0]) {
-                return res.status(200).json({ data: rows })
-            }
-
-            res.status(404).json({ msg: "No orders exists" })
-
-        } catch (error) {
-            res.status(404).json({ msg: error.msg })
-        }
-    },
-    getConfirmedOrders: async (req, res) => {
-        try {
-
-            const { buyerid } = req.body;
-            const sql = `SELECT * FROM mypurchases WHERE buyerid = $1 AND isconfirmed = $2 ORDER BY created_on DESC;`
-
-            const { rows } = await postgre.query(sql, [buyerid, true])
 
             if (rows[0]) {
                 return res.status(200).json({ data: rows })
@@ -127,10 +109,28 @@ const myPurchasesController = {
             res.status(404).json({ msg: error.msg })
         }
     },
+    getConfirmedOrders: async (req, res) => {
+        try {
+
+            const { buyerid } = req.query;
+            const sql = `SELECT * FROM mypurchases WHERE buyerid = $1 AND isconfirmed = $2 ORDER BY created_on DESC;`
+
+            const { rows } = await postgre.query(sql, [buyerid, true])
+
+            if (rows[0]) {
+                return res.status(200).json({ data: rows })
+            }
+
+            res.status(404).json({ msg: "No orders exists" })
+
+        } catch (error) {
+            res.status(404).json({ msg: error.msg })
+        }
+    },
     getToReceiveOrders: async (req, res) => {
         try {
 
-            const { buyerid, sellerid, orderid } = req.body;
+            const { buyerid, sellerid, orderid } = req.query;
             const sql = `SELECT mp.* FROM mypurchases mp INNER JOIN mysales ms 
                          ON mp.orderid = ms.orderid AND mp.buyerid = ms.buyerid AND mp.sellerid = ms.sellerid
                          WHERE mp.buyerid = $1 AND mp.sellerid = $2 AND mp.orderid = $3 AND ms.isshipped = $4 AND mp.isreceived = $5;`
@@ -183,7 +183,7 @@ const myPurchasesController = {
     getCancelledOrders: async (req, res) => {
         try {
 
-            const { buyerid } = req.body;
+            const { buyerid } = req.query;
             const sql = `SELECT * from mypurchases WHERE buyerid = $1 AND iscancelled = $2 ORDER BY created_on DESC;`
 
             const { rows } = await postgre.query(sql, [buyerid, true])
@@ -202,7 +202,7 @@ const myPurchasesController = {
     getCompletedOrders: async (req, res) => {
         try {
 
-            const { buyerid } = req.body;
+            const { buyerid } = req.query;
             const sql = `SELECT * from mypurchases WHERE buyerid = $1 AND iscompleted = $2 ORDER BY created_on DESC;`
 
             const { rows } = await postgre.query(sql, [buyerid, true])

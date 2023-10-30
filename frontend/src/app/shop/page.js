@@ -1,7 +1,6 @@
 import React from 'react';
 import Sidebar from "../components/Sidebar/Sidebar";
 import './page.css'
-import { backendUrl } from '../../../config';
 import ProductListing from '../components/ProductListing';
 import { Suspense } from 'react';
 // import { getAllProducts } from '../lib/product/data';

@@ -5,6 +5,7 @@ const addressController = require("../controllers/address.controller")
 
 router.get("/get-all-addresses", addressController.getAllAddresses)
 router.get("/get-default-address", addressController.getDefaultAddress)
+router.get("/get-all-businesses", addressController.getAllBusinesses)
 router.post("/add-new-address", addressController.addNewAddress)
 router.put("/update", addressController.updateAddress)
 router.put("/set-default", addressController.setDefault)
