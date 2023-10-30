@@ -1,12 +1,12 @@
 "use client";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import { BrowserRouter as Router } from "react-router";
 import { NavLink } from "react-router-dom";
 import SidebarComponent from "../components/SidebarComponent";
-import Footer from "../components/Footer";
-import Navbar from "../components/Navbar";
+// import Footer from "../components/Footer";
+// import Navbar from "../components/Navbar";
 
 //bootstrap imports
 import "bootstrap/dist/css/bootstrap.css";
@@ -15,13 +15,43 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Table from "react-bootstrap/Table";
 // import Sidebar from './sidebar';
+// import fetch from 'node-fetch';
 
 //style imports
 import styles from "../page.module.css";
 import "../styles/PersonalInfoComponent.css";
 import { Padding } from "@mui/icons-material";
 
-const PersonalInfoComponent = () => {
+async function handler(req, res) {
+  try {
+    const response = await get("http://localhost:5000/api/account/", {
+      headers: { 
+        "Content-Type": "application/json" 
+      },
+      body: { "accid": 1 },
+    });
+    if (response.ok) {
+      const info = await response.json();
+      res.json(info.data);
+    } else {
+      throw new Error("Error fetching cart items");
+    }
+  } catch (error) {
+    console.error("Error fetching cart items:", error);
+    res.status(500).json({ error: "Error fetching cart items" });
+  }
+}
+
+// const PersonalInfoComponent = () => {
+function PersonalInfoComponent() {
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    // Call your async function within useEffect
+    handler()
+      .then((info) => setData(info.data))
+      .catch((error) => console.error(error));
+  }, []);
 
   const [editableItem, setEditableItem] = useState(null);
 
@@ -45,10 +75,11 @@ const PersonalInfoComponent = () => {
 
   return (
     <main className={styles.main}>
-      <Navbar />
+      {/* <Navbar /> */}
 
+      {/* <h1>{info.username}</h1>  */}
       <Container fluid className="mt-3 mb-5 px-5">
-        <div >
+        <div>
           <p>
             Home &nbsp; {">"} &nbsp; Account Setting &nbsp; {">"} &nbsp;{" "}
             <b>Personal Info</b>
@@ -61,8 +92,8 @@ const PersonalInfoComponent = () => {
             <SidebarComponent />
           </Col>
 
-         {/* info */}
-         <Col lg="10" className="float-left custom">
+          {/* info */}
+          <Col lg="10" className="float-left custom">
             {items.map((item, index) => (
               <div key={index}>
                 <Row className="d-flex align-items-center">
@@ -114,11 +145,9 @@ const PersonalInfoComponent = () => {
           </Col>
         </Row>
       </Container>
-      <Footer/>
-
-
+      {/* <Footer/> */}
     </main>
   );
-};
+}
 
 export default PersonalInfoComponent;
