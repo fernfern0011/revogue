@@ -1,5 +1,4 @@
-"use client"
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Sidebar from "../components/Sidebar/Sidebar";
 import './page.css'
 import ProductListing from '../components/ProductListing';
@@ -22,7 +21,7 @@ async function ShopPage() {
         </div>
 
         <div className='d-flex flex-wrap col-lg-9'>
-          <Suspense fallback={<p>Loading...</p>}>
+          <Suspense fallback={<p>Loading products...</p>}>
             {productData.map((product) => (
               <ProductListing key={product.productid} productid={product.productid} productname={product.productname} price={product.price} image={product.images} />
             ))}
