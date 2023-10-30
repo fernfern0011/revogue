@@ -11,7 +11,6 @@ async function getProductData() {
     headers: { "Content-Type": "application/json" }
   })
 
-  console.log(getProductRes.status);
   if (!getProductRes.status == 200) {
     throw new Error('Failed to fetch products')
   }
