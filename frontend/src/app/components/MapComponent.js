@@ -69,14 +69,14 @@ export default function MapComponent() {
 
   // Define the custom icons
   const defaultIcon = L.icon({
-    iconUrl: 'static/images/black_marker.png',
+    iconUrl: 'static/images/main_marker.png',
     iconSize: [38, 25], // Adjust the size based on your marker image
     iconAnchor: [22, 94], // Adjust the anchor point
     popupAnchor: [-3, -76], // Adjust the popup anchor
   });
 
   const closeIcon = L.icon({
-    iconUrl: 'static/images/marker.jpg',
+    iconUrl: 'static/images/blue_marker.jpg',
     iconSize: [38, 25], // Adjust the size based on your marker image
     iconAnchor: [22, 94], // Adjust the anchor point
     popupAnchor: [-3, -76], // Adjust the popup anchor
