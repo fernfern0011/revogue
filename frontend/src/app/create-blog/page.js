@@ -11,8 +11,6 @@ import { TipTap } from "./TipTap";
 import styles from "../page.module.css";
 import "../styles/TipTap.css";
 import "../styles/CreateBlogComponent.css";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
 
 const CreateBlogComponent = () => {
   const [validated, setValidated] = useState(false);
@@ -36,7 +34,6 @@ const CreateBlogComponent = () => {
 
   return (
     <main className={styles.main}>
-      <Navbar />
       <Container fluid>
         <div className="m-5">
           <h1 className="pgTitle fw-bold">Create A Blog</h1>
@@ -83,7 +80,6 @@ const CreateBlogComponent = () => {
           </Form>
         </div>
       </Container>
-      <Footer/>
     </main>
   );
 };

@@ -1,6 +1,6 @@
 'use client'
 import { useState } from "react";
-import styles from "../styles/Home.module.css";
+import styles from "../../../styles/Home.module.css";
 import { CldUploadWidget } from 'next-cloudinary';
 
 export function ProductUpload() {

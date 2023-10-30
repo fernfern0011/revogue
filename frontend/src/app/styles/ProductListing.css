@@ -7,3 +7,7 @@
     background-color: #17B5B5; 
     color: white; 
 }
+
+.card {
+  border: none;
+}

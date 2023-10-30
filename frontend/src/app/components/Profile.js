@@ -76,56 +76,69 @@ function Profile() {
 
         {/* popup menu items */}
         <MenuItem onClick={handleClose}>
+          <a href="personal-info" className="menu-link">
             <div className="menu-icons1">
-                <PermIdentityIcon />
+              <PermIdentityIcon />
             </div>
             <div className="menu-icons">
-                Account Setting
+              Account Setting
             </div>
+          </a>
         </MenuItem>
 
         <MenuItem onClick={handleClose}>
+          <a href="wishlist" className="menu-link">
             <div className="menu-icons1">
-                <FavoriteBorderIcon />
+              <FavoriteBorderIcon />
             </div>
             <div className="menu-icons">
-                Wishlist
+              Wishlist
             </div>
+          </a>
         </MenuItem>
 
         <MenuItem onClick={handleClose}>
+          <a href="create_post_page" className="menu-link">
             <div className="menu-icons1">
-                <AddCircleOutlineIcon />
+              <AddCircleOutlineIcon />
             </div>
             <div className="menu-icons">
-                Add Item            </div>
+              Add Item
+            </div>
+          </a>
         </MenuItem>
 
         <MenuItem onClick={handleClose}>
+          <a href="" className="menu-link">
             <div className="menu-icons1">
-                <LocalOfferIcon />
+              <LocalOfferIcon />
             </div>
             <div className="menu-icons">
-                My Listing
+              My Listing
             </div>
+          </a>
         </MenuItem>
 
         <MenuItem onClick={handleClose}>
+          <a href="orders" className="menu-link">
             <div className="menu-icons1">
-                <ShoppingBagIcon />
+              <ShoppingBagIcon />
             </div>
             <div className="menu-icons">
-                My Orders
+              My Orders
             </div>
+          </a>
         </MenuItem>
 
         <MenuItem onClick={handleClose}>
+          <a href="" className="menu-link">
             <div className="menu-icons1">
-                <ReceiptLongSharpIcon />
+              <ReceiptLongSharpIcon />
             </div>
             <div className="menu-icons">
-                My Blog
+              My Blog
             </div>
+          </a>
         </MenuItem>
 
         <MenuItem onClick={handleClose}>

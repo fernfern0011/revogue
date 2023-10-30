@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, Row } from 'react-bootstrap';
 import Order from './Order';
 
-const OrderGrid = () => {
+const OrderGridActive = () => {
   // Generate an array of 9 elements to render the ProductListing component 9 times
   const orders = Array.from({ length: 12 }, (_, index) => (
     <Order key={index} />
@@ -15,4 +15,4 @@ const OrderGrid = () => {
   );
 };
     
-export default OrderGrid;
+export default OrderGridActive;
