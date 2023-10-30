@@ -1,6 +1,6 @@
 "use client"
 import React, { useEffect, useState } from 'react';
-import MapComponent from './components/Maps.js';
+import MapComponent from './Maps';
 
 
 function Home() {
