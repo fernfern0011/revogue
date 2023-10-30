@@ -8,7 +8,7 @@ import { Suspense } from 'react';
 
 async function getProductData() {
   // get product list
-  const getProductRes = await fetch(`${backendUrl}/api/product/get-all-products`, {
+  const getProductRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/product/get-all-products`, {
     headers: { "Content-Type": "application/json" }
   })
 
