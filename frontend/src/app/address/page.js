@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import { BrowserRouter as Router } from "react-router";
 import { NavLink } from "react-router-dom";
-import SidebarComponent from "../components/SidebarComponent";
 
 //bootstrap imports
 import "bootstrap/dist/css/bootstrap.css";

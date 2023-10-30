@@ -1,6 +1,6 @@
 "use client";
-import Image from "next/image";
 import React, { useState, useEffect } from "react";
+import Sidebar from "../components/Sidebar/Sidebar";
 import Button from "@mui/material/Button";
 import { BrowserRouter as Router } from "react-router";
 import { NavLink } from "react-router-dom";
@@ -11,70 +11,41 @@ import "bootstrap/dist/css/bootstrap.css";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Table from "react-bootstrap/Table";
-// import Sidebar from './sidebar';
-// import fetch from 'node-fetch';
 
 //style imports
 import styles from "../page.module.css";
 import "../styles/PersonalInfoComponent.css";
-import { Padding } from "@mui/icons-material";
 
-async function handler(req, res) {
-  try {
-    const response = await get("http://localhost:5000/api/account/", {
-      headers: { 
-        "Content-Type": "application/json" 
+//retrieve data from backend API
+async function getInfoData() {
+  var accid = 1;
+  const getInfoRes = await fetch(
+    `http://localhost:5000/api/account?accid=${accid}`,
+    {
+      headers: {
+        "Content-Type": "application/json",
       },
-      body: { "accid": 1 },
-    });
-    if (response.ok) {
-      const info = await response.json();
-      res.json(info.data);
-    } else {
-      throw new Error("Error fetching cart items");
     }
-  } catch (error) {
-    console.error("Error fetching cart items:", error);
-    res.status(500).json({ error: "Error fetching cart items" });
+  );
+
+  const getInfoStatus = getInfoRes.status;
+  if (getInfoStatus == 200) {
+    return getInfoRes.json();
   }
 }
 
-// const PersonalInfoComponent = () => {
-function PersonalInfoComponent() {
-  const [data, setData] = useState(null);
+async function PersonalInfoPage() {
+  //load data from backend
+  const infoData = await getInfoData();
+  const info = infoData.data;
 
-  useEffect(() => {
-    // Call your async function within useEffect
-    handler()
-      .then((info) => setData(info.data))
-      .catch((error) => console.error(error));
-  }, []);
-
-  const [editableItem, setEditableItem] = useState(null);
-
-  const items = [
-    { label: "Username", value: "test" },
-    { label: "Email Address", value: "test" },
-    { label: "Contact Number", value: "test" },
-    { label: "Password", value: "test" },
-    { label: "Bio", value: "lo" },
-  ];
-
-  const handleEditClick = (index) => {
-    setEditableItem(index);
-  };
-
-  const handleSaveClick = (index) => {
-    // Handle the saving logic here, e.g., update the value in your data
-    // For simplicity, let's just cancel editing
-    setEditableItem(null);
-  };
+  // const [editableItem, setEditableItem] = useState(null);
+  // const [username, setUsername] = useState(info[0].username); 
+  // const [email, setEmail] = useState(info[0].accemail); 
+  // const [password, setPassword] = useState(info[0].accpass); 
 
   return (
     <main className={styles.main}>
-
-      {/* <h1>{info.username}</h1>  */}
       <Container fluid className="mt-3 mb-5 px-5">
         <div>
           <p>
@@ -89,54 +60,59 @@ function PersonalInfoComponent() {
             <SidebarComponent />
           </Col>
 
-          {/* info */}
+          {/* Personal info */}
           <Col lg="10" className="float-left custom">
-            {items.map((item, index) => (
-              <div key={index}>
+            {info.map((accountData) => (
+              <div key={accountData.accid}>
+
+                {/* username */}
                 <Row className="d-flex align-items-center">
                   <p>
-                    <strong>{item.label}</strong>
+                    <strong>Username</strong>
                   </p>
-
                   <div className="d-flex align-items-center ml-auto">
-                    {editableItem !== index ? (
-                      <Col>
-                        <p className="mr-3">{item.value}</p>
-                      </Col>
-                    ) : (
-                      <Col>
-                        <input
-                          type="text"
-                          value={item.value}
-                          onChange={(e) => { }}
-                        />
-                      </Col>
-                    )}
+                    <Col>
+                      <p className="mr-3">{accountData.username}</p>
+                    </Col>
 
                     <Col></Col>
-
-                    <Col className="d-flex align-items-center">
-                      {editableItem !== index ? (
-                        <Button
-                          variant="text"
-                          className="ml-auto"
-                          onClick={() => handleEditClick(index)}
-                        >
-                          Change
-                        </Button>
-                      ) : (
-                        <Button
-                          variant="text"
-                          className="ml-auto"
-                          onClick={() => handleSaveClick(index)}
-                        >
-                          Save
-                        </Button>
-                      )}
-                    </Col>
+                    <Col className="d-flex align-items-center"></Col>
                   </div>
                 </Row>
                 <hr />
+
+                 {/* username */}
+                 <Row className="d-flex align-items-center mt-3">
+                  <p>
+                    <strong>Email</strong>
+                  </p>
+                  <div className="d-flex align-items-center ml-auto">
+                    <Col>
+                      <p className="mr-3">{accountData.accemail}</p>
+                    </Col>
+
+                    <Col></Col>
+                    <Col className="d-flex align-items-center"></Col>
+                  </div>
+                </Row>
+                <hr />
+
+                {/* username */}
+                <Row className="d-flex align-items-center mt-3">
+                  <p>
+                    <strong>Password</strong>
+                  </p>
+                  <div className="d-flex align-items-center ml-auto">
+                    <Col>
+                      <p className="mr-3">{accountData.accpass}</p>
+                    </Col>
+
+                    <Col></Col>
+                    <Col className="d-flex align-items-center"></Col>
+                  </div>
+                </Row>
+                <hr />
+
               </div>
             ))}
           </Col>
@@ -146,4 +122,4 @@ function PersonalInfoComponent() {
   );
 }
 
-export default PersonalInfoComponent;
+export default PersonalInfoPage;

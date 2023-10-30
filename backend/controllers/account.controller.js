@@ -18,8 +18,7 @@ const accountController = {
     },
     getById: async (req, res) => {
         try {
-            var { accid } = req.body;
-            console.log(accid)
+            var { accid } = req.query;
             var sql = 'SELECT * FROM account WHERE accid = $1'
 
             const { rows } = await postgre.query(sql, [accid])
