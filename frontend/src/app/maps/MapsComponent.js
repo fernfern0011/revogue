@@ -1,17 +1,15 @@
-"use client"
 import React, { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import axios from 'axios';
-import L from 'leaflet'; // Import Leaflet
+import L from 'leaflet';
 
-export default function MapComponent() {
+export default function MapsComponent() {
   const defaultCenter = [1.296568, 103.852119]; // Default center
   const [businesses, setBusinesses] = useState([]);
   const [userLocation, setUserLocation] = useState(null);
 
   useEffect(() => {
-    // Fetch user's current location
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         setUserLocation({
@@ -23,13 +21,11 @@ export default function MapComponent() {
   }, []);
 
   useEffect(() => {
-    // Fetch business data from your backend endpoint
     const fetchBusinesses = async () => {
       try {
         const response = await axios.get('http://localhost:3001/businesses');
         const businessData = response.data;
 
-        // Geocode addresses using Nominatim
         const geocodedBusinesses = await Promise.all(
           businessData.map(async (business) => {
             const address = encodeURIComponent(business.address);
@@ -53,39 +49,38 @@ export default function MapComponent() {
           })
         );
 
-        // Filter out businesses with valid coordinates
         const validBusinesses = geocodedBusinesses.filter((business) => business !== null);
-
-        // Update state with the valid businesses
         setBusinesses(validBusinesses);
       } catch (error) {
         console.error('Error fetching business data:', error);
       }
     };
 
-    // Call the function to fetch and geocode businesses when the component mounts
     fetchBusinesses();
   }, []);
 
-  // Define the custom icons
-  const defaultIcon = L.icon({
-    iconUrl: 'static/images/main_marker.png',
-    iconSize: [38, 25], // Adjust the size based on your marker image
-    iconAnchor: [22, 94], // Adjust the anchor point
-    popupAnchor: [-3, -76], // Adjust the popup anchor
-  });
+  // let customIconDefault = null;
+  // let customIconClose = null;
 
-  const closeIcon = L.icon({
-    iconUrl: 'static/images/blue_marker.jpg',
-    iconSize: [38, 25], // Adjust the size based on your marker image
-    iconAnchor: [22, 94], // Adjust the anchor point
-    popupAnchor: [-3, -76], // Adjust the popup anchor
-  });
+  // if (typeof window !== 'undefined') {
+    let defaultIcon = L.icon({
+      iconUrl: 'static/images/main_marker.png', // Specify the URL to your default marker image
+      iconSize: [18, 25], // Adjust the size based on your marker image
+      iconAnchor: [22, 94], // Adjust the anchor point
+      popupAnchor: [-3, -76], // Adjust the popup anchor
+    });
+
+    let closeIcon = L.icon({
+      iconUrl: 'static/images/blue_marker.jpg', // Specify the URL to your close marker image
+      iconSize: [38, 25], // Adjust the size based on your marker image
+      iconAnchor: [22, 94], // Adjust the anchor point
+      popupAnchor: [-3, -76], // Adjust the popup anchor
+    });
+  //}
 
   const inRadiusBusinesses = businesses.filter((business) => {
     if (userLocation) {
-      // Calculate distance using the Haversine formula
-      const R = 6371; // Earth's radius in km
+      const R = 6371;
       const lat1 = userLocation.latitude;
       const lon1 = userLocation.longitude;
       const lat2 = business.latitude;
@@ -99,9 +94,9 @@ export default function MapComponent() {
       const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
       const distance = R * c;
 
-      return distance <= 5; // Check if the business is within 10 km of the user
+      return distance <= 5;
     }
-    return false; // If user location is not available, exclude the business
+    return false;
   });
 
   return (
@@ -131,7 +126,5 @@ export default function MapComponent() {
 }
 
 function handleViewDetails(business) {
-  // Implement your logic for showing business details here
-  // You can open a modal, navigate to a new page, or take any other action
   console.log('View Details clicked for:', business);
 }
