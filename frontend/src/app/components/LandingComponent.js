@@ -4,27 +4,25 @@ import * as React from "react";
 import Button from "@mui/material/Button";
 
 //bootstrap imports
-import "bootstrap/dist/css/bootstrap.css";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
 //style imports
-import styles from "../page.module.css";
-import "../styles/LandingPage.css";
+import styles from "../styles/LandingPage.css";
 
 const LandingComponent = () => {
   return (
     <main className={styles.main}>
       <Container fluid>
-        <Row className="mb-4 mx-2">
+        <Row className="d-flex align-items-center mb-4 mx-2">
           <Col xs="12" md="6">
             <h1>
               <b>Welcome to ReVogue</b>
             </h1>
             <p style={{ fontSize: 30 }}>Your Sustainable</p>
-            <h1 className="coloring">Shopping</h1>
-            <h1 className="coloring">Destination</h1>
+            <h1 className="coloring fw-bold">Shopping</h1>
+            <h1 className="coloring fw-bold">Destination</h1>
             <p>"Discover Sustainability. Embrace Greenify.</p>
             <p>Your Eco-Friendly Haven for Conscious Shopping."</p>
             <Button variant="contained" className="custom-button">
@@ -37,7 +35,6 @@ const LandingComponent = () => {
               <Image
                 className="img-fluid"
                 src="/images/pic1.png"
-                alt=""
                 width={700}
                 height={700}
                 style={{ maxWidth: "100%", height: "auto" }}

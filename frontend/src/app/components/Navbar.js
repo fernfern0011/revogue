@@ -34,7 +34,7 @@ function Navbar() {
             </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="product-listing">
+            <a className="nav-link" href="Shop">
               Shop
             </a>
           </li>

@@ -1,5 +1,5 @@
 import styles from "../../../styles/Home.module.css";
-import { ProfileUpload } from "../../../components/ProfileUpload";
+import { ProfileUpload } from "../components/ProfileUpload";
 
 const UserProfilePage = () => {
     return (

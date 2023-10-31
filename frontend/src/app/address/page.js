@@ -5,8 +5,6 @@ import Button from "@mui/material/Button";
 import { BrowserRouter as Router } from "react-router";
 import { NavLink } from "react-router-dom";
 import SidebarComponent from "../components/SidebarComponent";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
 
 //bootstrap imports
 import "bootstrap/dist/css/bootstrap.css";
@@ -21,7 +19,6 @@ import "../styles/AddressComponent.css";
 const AddressComponent = () => {
   return (
     <main className={styles.main}>
-      <Navbar />
 
       <Container fluid className="mt-3 mb-5 px-5">
         <div>
@@ -117,9 +114,6 @@ const AddressComponent = () => {
           </Col>
         </Row>
       </Container>
-
-      <Footer/>
-
     </main>
   );
 };

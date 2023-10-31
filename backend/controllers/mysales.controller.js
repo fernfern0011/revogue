@@ -5,7 +5,7 @@ const mySalesController = {
     getAllSales: async (req, res) => {
         try {
 
-            const { sellerid } = req.body;
+            const { sellerid } = req.query;
             const sql = `SELECT * FROM mysales WHERE sellerid = $1 ORDER BY created_on ASC;`
 
             const { rows } = await postgre.query(sql, [sellerid])
@@ -25,7 +25,7 @@ const mySalesController = {
     getNewOrders: async (req, res) => {
         try {
 
-            const { sellerid } = req.body;
+            const { sellerid } = req.query;
             const sql = `SELECT * from mysales WHERE sellerid = $1 AND isshipped = $2 AND iscancelled = $3 AND isconfirmed = $4 AND iscompleted = $5 ORDER BY created_on ASC;`
 
             const { rows } = await postgre.query(sql, [sellerid, false, false, false, false])
