@@ -5,8 +5,8 @@ import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 // material ui imports
 import Button from '@mui/material/Button';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-// import NotificationsNoneSharpIcon from '@mui/icons-material/NotificationsNoneSharp';
-// import SearchIcon from '@mui/icons-material/Search';
+import SearchIcon from '@mui/icons-material/Search';
+import NotificationsNoneSharpIcon from '@mui/icons-material/NotificationsNoneSharp';
 
 // other imports
 import '../styles/Navbar.css';
@@ -58,22 +58,26 @@ function Navbar() {
           </div>
 
           <div style={{ float: 'right' }}>
-            <Button className="personal-info">
               <Profile />
-            </Button>
-          </div>
-          <li className="nav-item">
-            {/* Insert profile */}
-          </li>
+            </div>
 
-          <li className="nav-item" style={{ float: 'right' }}>
-            <a className="nav-link" href="register">
-              <Button className="button">Login</Button>
-            </a>
-          </li>
-          
-        </ul>
-      </div>
+            {/* profile image */}
+            <li className="nav-item">
+              {/* insert profile */}
+            </li>
+            
+            {/* cart / search / notification icons */}
+            <div style={{ float: 'right' }}>
+              <SearchIcon className="icon search" />
+              <ShoppingCartOutlinedIcon className="icon cart" />
+              <NotificationsNoneSharpIcon className="icon notification" />
+            </div>
+
+          </ul>
+
+          {/* <SearchBar /> */}
+
+        </div>
     </nav>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Sidebar from "../components/Sidebar/Sidebar";
 import './page.css'
 import ProductListing from '../components/ProductListing';
@@ -7,10 +7,13 @@ import { getAllProducts } from '../lib/product/data';
 
 async function ShopPage() {
   const productData = await getAllProducts();
-  const [errorMessage, setErrorMessage] = useState('Loading products...');
 
   if (productData.length == 0) {
-    setErrorMessage('No products')
+    return (
+      <div className='relative flex items-center justify-center'>
+        <h1 className='absolute top-[80%] text-2xl text-purple-600'>No products</h1>
+      </div>
+    )
   }
 
   return (
@@ -25,7 +28,7 @@ async function ShopPage() {
         </div>
 
         <div className='d-flex flex-wrap col-lg-9'>
-          <Suspense fallback={<p>{errorMessage}</p>}>
+          <Suspense fallback={<p>Loading products...</p>}>
             {productData.map((product) => (
               <ProductListing key={product.productid} productid={product.productid} productname={product.productname} price={product.price} image={product.images} />
             ))}

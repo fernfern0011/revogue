@@ -34,7 +34,7 @@ const VerticalCarousel = () => {
 
   const thumbnails = [
     '../images/Raccoon.jpg', 
-    '../images/raccoon1.jfif', 
+    '../images/raccoon0.webp', 
     '../images/raccoonStands.jfif'
   ]; // Replace with actual image paths
 
@@ -111,10 +111,11 @@ const VerticalCarousel = () => {
       </div>
     </div>
 
-    <hr className="line" />
-
-    <Button className="profile">
-      <img src="../images/Raccoon.jpg" className="profile-image" /> Some Name
+    <Button
+      className="profile"
+    >
+      <img src="../images/Raccoon.jpg" className="profile-image" /> 
+      Some Name
     </Button>
       
     </div>
