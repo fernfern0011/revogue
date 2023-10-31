@@ -7,14 +7,14 @@ import L from 'leaflet';
 export default function MapsComponent() {
   const defaultCenter = [1.296568, 103.852119]; // Default center
   const [businesses, setBusinesses] = useState([]);
-  const [userLocation, setUserLocation] = useState(null);
+  const [userLocation, setUserLocation] = useState({lat: 0, lon: 0});
 
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         setUserLocation({
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
+          lat: position.coords.latitude,
+          lon: position.coords.longitude,
         });
       });
     }
@@ -65,24 +65,33 @@ export default function MapsComponent() {
   // if (typeof window !== 'undefined') {
     let defaultIcon = L.icon({
       iconUrl: 'static/images/main_marker.png', // Specify the URL to your default marker image
-      iconSize: [18, 25], // Adjust the size based on your marker image
-      iconAnchor: [22, 94], // Adjust the anchor point
-      popupAnchor: [-3, -76], // Adjust the popup anchor
+      iconSize: [40 * 0.6, 59 * 0.6], // Adjust the size based on your marker image
+      iconAnchor: [20 * 0.6, 59 * 0.6], // Adjust the anchor point
+      popupAnchor: [0 * 0.6, -59 * 0.6], // Adjust the popup anchor
     });
 
     let closeIcon = L.icon({
-      iconUrl: 'static/images/blue_marker.jpg', // Specify the URL to your close marker image
-      iconSize: [38, 25], // Adjust the size based on your marker image
-      iconAnchor: [22, 94], // Adjust the anchor point
-      popupAnchor: [-3, -76], // Adjust the popup anchor
+      iconUrl: 'static/images/close_marker.png', // Specify the URL to your close marker image
+      iconSize: [40 * 0.6, 59 * 0.6], // Adjust the size based on your marker image
+      iconAnchor: [20 * 0.6, 59 * 0.6], // Adjust the anchor point
+      popupAnchor: [0 * 0.6, -59 * 0.6], // Adjust the popup anchor
     });
+
+    let myLocation = L.icon({
+      iconUrl: 'static/images/mylocation.png', // Specify the URL to your close marker image
+      iconSize: [20, 20], // Adjust the size based on your marker image
+      iconAnchor: [10, 10], // Adjust the anchor point
+      popupAnchor: [0, -20], // Adjust the popup anchor
+    });
+
+    
   //}
 
   const inRadiusBusinesses = businesses.filter((business) => {
     if (userLocation) {
       const R = 6371;
-      const lat1 = userLocation.latitude;
-      const lon1 = userLocation.longitude;
+      const lat1 = userLocation.lat;
+      const lon1 = userLocation.lon;
       const lat2 = business.latitude;
       const lon2 = business.longitude;
 
@@ -121,6 +130,10 @@ export default function MapsComponent() {
           </Popup>
         </Marker>
       ))}
+
+      if(userLocation){
+        <Marker icon={myLocation} position={userLocation}></Marker>
+      }
     </MapContainer>
   );
 }
