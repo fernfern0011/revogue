@@ -1,7 +1,7 @@
 "use client"
 import axios from 'axios';
 import React, { useState } from 'react'
-import '../styles/ContactComponent.css'
+// import '../styles/ContactComponent.css'
 import displayImg from '../../../public/background.jpg'
 
 const Contact = () => {
@@ -15,9 +15,9 @@ const Contact = () => {
     e.preventDefault();
 
     // Your EmailJS service ID, template ID, and Public Key
-    const serviceId = 'service_w7vfh9m';
-    const templateId = 'template_y7alhuq';
-    const publicKey = 'cRBSWSgN4tpiDpNAG';
+    const serviceId = process.env.NEXT_PUBLIC_EMAIL_SERVICE_ID;
+    const templateId = process.env.NEXT_PUBLIC_EMAIL_TEMPLATE_ID;
+    const publicKey = process.env.NEXT_PUBLIC_EMAIL_PUBLIC_KEY;
 
     // Create an object with EmailJS service ID, template ID, Public Key, and Template params
     const data = {
@@ -87,5 +87,3 @@ const Contact = () => {
     </div>
   )
 }
-
-export default Contact
