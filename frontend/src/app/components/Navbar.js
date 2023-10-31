@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 import Button from '@mui/material/Button';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import SearchIcon from '@mui/icons-material/Search';
+import NotificationsNoneSharpIcon from '@mui/icons-material/NotificationsNoneSharp';
 
 // other imports
 import '../styles/Navbar.css';
