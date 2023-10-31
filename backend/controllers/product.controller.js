@@ -16,7 +16,7 @@ const productController = {
     },
     getProductById: async (req, res) => {
         try {
-            var { productid } = req.body;
+            var { productid } = req.query;
             var sql = 'SELECT * FROM product WHERE productid = $1'
 
             const { rows } = await postgre.query(sql, [productid])
@@ -33,7 +33,7 @@ const productController = {
     },
     getProductByAccId: async (req, res) => {
         try {
-            var { accid } = req.body;
+            var { accid } = req.query;
             var sql = 'SELECT * FROM product WHERE accid = $1'
 
             const { rows } = await postgre.query(sql, [accid])

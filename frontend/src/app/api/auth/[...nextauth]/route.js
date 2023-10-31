@@ -19,7 +19,7 @@ const handler = NextAuth({
             },
             async authorize(credentials) {
 
-                const res = await fetch('http://localhost:5000/api/account/login', {
+                const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/account/login`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ accemail: credentials.email, accpass: credentials.password })

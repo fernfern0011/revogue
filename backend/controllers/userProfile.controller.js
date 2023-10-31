@@ -1,7 +1,7 @@
 const postgre = require('../config/database')
 
 const userProfileController = {
-    getAll: async (req, res) => {
+    getAllUserProfile: async (req, res) => {
         try {
             var sql = 'SELECT * FROM userprofile ORDER BY accid ASC'
 
@@ -13,9 +13,9 @@ const userProfileController = {
             res.status(404).json({ msg: error.msg })
         }
     },
-    getById: async (req, res) => {
+    getUserProfileById: async (req, res) => {
         try {
-            var { accid } = req.body;
+            var { accid } = req.query;
             var sql = 'SELECT * FROM userprofile WHERE accid = $1'
 
             const { rows } = await postgre.query(sql, [accid])

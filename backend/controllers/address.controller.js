@@ -4,7 +4,7 @@ const postgre = require('../config/database')
 const addressController = {
     getAllAddresses: async (req, res) => {
         try {
-            const { accid } = req.body;
+            const { accid } = req.query;
             const sql = 'SELECT * FROM address WHERE accid = $1 ORDER BY addressid ASC;'
 
             const { rows } = await postgre.query(sql, [accid])
@@ -21,7 +21,7 @@ const addressController = {
     },
     getDefaultAddress: async (req, res) => {
         try {
-            const { accid } = req.body;
+            const { accid } = req.query;
             const sql = 'SELECT * FROM address WHERE accid = $1 AND isDefault = $2;'
 
             const { rows } = await postgre.query(sql, [accid, true])
@@ -36,21 +36,37 @@ const addressController = {
             res.status(404).json({ msg: error.msg })
         }
     },
+    getAllBusinesses: async (req, res) => {
+        try {
+            const sql = 'SELECT * FROM address WHERE isBusiness = $1;'
+
+            const { rows } = await postgre.query(sql, [true])
+
+            if (rows[0]) {
+                return res.status(200).json({ data: rows })
+            }
+
+            res.status(404).json({ msg: "No business address" })
+
+        } catch (error) {
+            res.status(404).json({ msg: error.msg })
+        }
+    },
     addNewAddress: async (req, res) => {
         try {
-            const { accid, fname, lname, phone, street, unit, postal_code, delivery_instruction, isDefault } = req.body;
+            const { accid, fname, lname, phone, street, unit, postal_code, delivery_instruction, isDefault, isBusiness } = req.body;
 
             const selectData = `SELECT * from address;`
             const retrieveExistingDefaultAddress = `SELECT addressid FROM address WHERE accid = $1 AND isDefault = $2;`
-            const insertNewAddress = `INSERT INTO address(addressid, accid, fname, lname, phone, street, unit, postal_code, delivery_instruction, isDefault)
-                       VALUES(nextval('address_id_seq'), $1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *`
+            const insertNewAddress = `INSERT INTO address(addressid, accid, fname, lname, phone, street, unit, postal_code, delivery_instruction, isDefault, isBusiness)
+                       VALUES(nextval('address_id_seq'), $1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *`
             const updateDefaultAddress = `UPDATE address SET isDefault = $1 WHERE addressid = $2 RETURNING *;`
 
             // Check if table is empty
             const { rows } = await postgre.query(selectData);
 
             if (!rows[0]) {
-                const { rows } = await postgre.query(insertNewAddress, [accid, fname, lname, phone, street, unit, postal_code, delivery_instruction, true])
+                const { rows } = await postgre.query(insertNewAddress, [accid, fname, lname, phone, street, unit, postal_code, delivery_instruction, true, isBusiness])
 
                 if (rows[0]) {
                     return res.status(201).json({ msg: "Address is added", data: rows[0] })
@@ -61,7 +77,7 @@ const addressController = {
 
                 // Check if new address is set to default, if not then add new address directly
                 if (isDefault == false) {
-                    const { rows } = await postgre.query(insertNewAddress, [accid, fname, lname, phone, street, unit, postal_code, delivery_instruction, isDefault])
+                    const { rows } = await postgre.query(insertNewAddress, [accid, fname, lname, phone, street, unit, postal_code, delivery_instruction, isDefault, isBusiness])
 
                     if (rows[0]) {
                         return res.status(201).json({ msg: "Address is added", data: rows[0] })
@@ -87,7 +103,7 @@ const addressController = {
                                     } else {
                                         if (result.rows[0]) {
                                             // Add new address with default address
-                                            const { rows } = await postgre.query(insertNewAddress, [accid, fname, lname, phone, street, unit, postal_code, delivery_instruction, isDefault])
+                                            const { rows } = await postgre.query(insertNewAddress, [accid, fname, lname, phone, street, unit, postal_code, delivery_instruction, isDefault, isBusiness])
 
                                             if (rows[0]) {
                                                 return res.status(201).json({ msg: "Address is added", data: rows[0] })
@@ -100,7 +116,7 @@ const addressController = {
                                 })
                             } else {
                                 // Add new address with default address
-                                const { rows } = await postgre.query(insertNewAddress, [accid, fname, lname, phone, street, unit, postal_code, delivery_instruction, isDefault])
+                                const { rows } = await postgre.query(insertNewAddress, [accid, fname, lname, phone, street, unit, postal_code, delivery_instruction, isDefault, isBusiness])
 
                                 if (rows[0]) {
                                     return res.status(201).json({ msg: "Address is added", data: rows[0] })
@@ -118,11 +134,11 @@ const addressController = {
     },
     updateAddress: async (req, res) => {
         try {
-            const { fname, lname, phone, street, unit, postal_code, delivery_instruction, isDefault, accid, addressid } = req.body;
+            const { fname, lname, phone, street, unit, postal_code, delivery_instruction, isDefault, isBusiness, accid, addressid } = req.body;
             const retrieveExistingDefaultAddress = `SELECT addressid FROM address WHERE accid = $1 AND isDefault = $2;`
             const updateDefaultAddress = `UPDATE address SET isDefault = $1 WHERE addressid = $2 RETURNING *;`
             const updateAddress = `UPDATE address SET fname = $1, lname = $2, phone = $3, street = $4, unit = $5, postal_code = $6,
-                                    delivery_instruction = $7, isDefault = $8 WHERE accid = $9 AND addressid = $10 RETURNING *;`
+                                    delivery_instruction = $7, isDefault = $8, isBusiness = $9 WHERE accid = $10 AND addressid = $11 RETURNING *;`
 
             // Get existing default address first
             postgre.query(retrieveExistingDefaultAddress, [accid, true], async (error, existingDefaultAddress) => {
@@ -143,7 +159,7 @@ const addressController = {
                             // if existing default address is not same as updating address
                             // Check if updating address is set to default, if not then update address directly
                             if (isDefault == false) {
-                                const { rows } = await postgre.query(updateAddress, [fname, lname, phone, street, unit, postal_code, delivery_instruction, isDefault, accid, addressid])
+                                const { rows } = await postgre.query(updateAddress, [fname, lname, phone, street, unit, postal_code, delivery_instruction, isDefault, isBusiness, accid, addressid])
 
                                 if (rows[0]) {
                                     return res.status(201).json({ msg: "Address is updated", data: rows[0] })
@@ -158,7 +174,7 @@ const addressController = {
                                     } else {
                                         if (result.rows[0]) {
                                             // update address with default address
-                                            const { rows } = await postgre.query(updateAddress, [fname, lname, phone, street, unit, postal_code, delivery_instruction, isDefault, accid, addressid])
+                                            const { rows } = await postgre.query(updateAddress, [fname, lname, phone, street, unit, postal_code, delivery_instruction, isDefault, isBusiness, accid, addressid])
 
                                             if (rows[0]) {
                                                 return res.status(201).json({ msg: "Address is updated", data: rows[0] })
@@ -177,7 +193,7 @@ const addressController = {
                             return res.status(404).json({ msg: "You must have at least one default address" })
                         } else {
                             // update address with default address
-                            const { rows } = await postgre.query(updateAddress, [fname, lname, phone, street, unit, postal_code, delivery_instruction, isDefault, accid, addressid])
+                            const { rows } = await postgre.query(updateAddress, [fname, lname, phone, street, unit, postal_code, delivery_instruction, isDefault, isBusiness, accid, addressid])
 
                             if (rows[0]) {
                                 return res.status(201).json({ msg: "Address is updated", data: rows[0] })

@@ -4,7 +4,7 @@ const postgre = require('../config/database')
 const cartController = {
     getAllCartItems: async (req, res) => {
         try {
-            const { accid } = req.body;
+            const { accid } = req.query;
             const sql = `SELECT productname, price, size, quantity, images FROM product p 
                         INNER JOIN cart c ON p.productid = c.productid AND c.accid = $1 ORDER BY c.created_on DESC;`
 
