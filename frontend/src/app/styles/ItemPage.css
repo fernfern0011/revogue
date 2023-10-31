@@ -12,7 +12,7 @@
   justify-content: center;
   align-items: center;
   height: 100%;
-  width: 50vw;
+  width: 60vw;
 }
 
 .carousel {
@@ -24,14 +24,13 @@
   height: 64px; /* Adjust the height to accommodate the border */
   width: 64px; /* Adjust the width to accommodate the border */
   border-radius: 5px;
+  margin: 15px 10px 15px 0;
 }
 
 .thumbnail.active {
-  border: 3px #18b5b5 solid;
-  position: relative;
+  border: 2px solid #000000;
   border-radius: 5px;
-  height: 69px;
-  width: 69px;
+  margin: 15px 0;
 }
 
 .slide {
@@ -41,9 +40,10 @@
 }
 
 
+
 /* RIGHT SIDE STUFF */
 .other-content {
-  flex: 3;
+  flex: 2;
   padding: 40px;
   height: 100%;
   display: flex;
@@ -67,6 +67,10 @@
   text-transform: capitalize;
   color: gray;
   float: right;
+}
+
+.wishlist-button {
+  float:right;
 }
 
 h1 {

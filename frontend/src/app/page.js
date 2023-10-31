@@ -10,18 +10,7 @@ import Row from "react-bootstrap/Row";
 
 // Component imports
 import Navbar from './components/Navbar'
-import LandingComponent from "./components/LandingComponent";
-import ThriftingComponent from "./components/ThriftingComponent";
-import ProductsComponent from "./components/ProductsComponent";
-import  Contact  from './components/Contact'
-import Footer from './components/Footer'
-import Sidebar from './components/Sidebar/Sidebar'
-
-// test
-import AddToCartComponent from "./components/AddToCartComponent";
-import PersonalInfoComponent from "./components/PersonalInfoComponent";
-import AddressComponent from "./components/AddressComponent";
-import ProductGrid from "./components/ProductGrid";
+import VerticalCarousel from './components/ItemPage'
 
 export default function Home() {
   return (
@@ -30,30 +19,8 @@ export default function Home() {
         <title>Home Page</title>
       </Head>
 
-      <Container fluid>
-              <Navbar />
-        {/* LandingComponent */}
-        <Row className="mb-4 mx-2">
-          <LandingComponent />
-        </Row>
+      <Navbar />
 
-        {/* Why Thrifting Title */}
-        <Row className="mb-4 mx-2">
-          <h1 style={{ textAlign: "center" }}>Why Thrifting?</h1>
-        </Row>
-
-        {/* ThriftingComponent */}
-        <Row className="mb-4 mx-2 justify-content-center">
-          <ThriftingComponent />
-        </Row>
-
-        {/* ProductsComponent */}
-        <Row className="mb-4 mx-2 justify-content-center">
-          <ProductsComponent />
-        </Row>
-      </Container>
-        
-      <Footer/>
     </main>
   );
 }

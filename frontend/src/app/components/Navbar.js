@@ -60,20 +60,25 @@ function Navbar() {
           <div style={{ float: 'right' }}>
             <Button className="personal-info">
               <Profile />
-            </Button>
-          </div>
-          <li className="nav-item">
-            {/* Insert profile */}
-          </li>
+            </div>
 
-          <li className="nav-item" style={{ float: 'right' }}>
-            <a className="nav-link" href="register">
-              <Button className="button">Login</Button>
-            </a>
-          </li>
-          
-        </ul>
-      </div>
+            {/* profile image */}
+            <li className="nav-item">
+              {/* insert profile */}
+            </li>
+            
+            {/* cart / search / notification icons */}
+            <div style={{ float: 'right' }}>
+              <SearchIcon className="icon search" />
+              <ShoppingCartOutlinedIcon className="icon cart" />
+              <NotificationsNoneSharpIcon className="icon notification" />
+            </div>
+
+          </ul>
+
+          {/* <SearchBar /> */}
+
+        </div>
     </nav>
   );
 }
