@@ -64,14 +64,14 @@ export default function MapsComponent() {
 
   // if (typeof window !== 'undefined') {
     let defaultIcon = L.icon({
-      iconUrl: 'static/images/main_marker.png', // Specify the URL to your default marker image
+      iconUrl: 'static/images/blackmarker.png', // Specify the URL to your default marker image
       iconSize: [40 * 0.6, 59 * 0.6], // Adjust the size based on your marker image
       iconAnchor: [20 * 0.6, 59 * 0.6], // Adjust the anchor point
       popupAnchor: [0 * 0.6, -59 * 0.6], // Adjust the popup anchor
     });
 
     let closeIcon = L.icon({
-      iconUrl: 'static/images/close_marker.png', // Specify the URL to your close marker image
+      iconUrl: 'static/images/main_marker.png', // Specify the URL to your close marker image
       iconSize: [40 * 0.6, 59 * 0.6], // Adjust the size based on your marker image
       iconAnchor: [20 * 0.6, 59 * 0.6], // Adjust the anchor point
       popupAnchor: [0 * 0.6, -59 * 0.6], // Adjust the popup anchor
@@ -109,32 +109,35 @@ export default function MapsComponent() {
   });
 
   return (
-    <MapContainer center={defaultCenter} zoom={12} style={{ width: '100%', height: '400px' }}>
-      <TileLayer
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-      />
+    <div className='container-fluid d-flex justify-content-center align-items-center' >
+      <MapContainer center={defaultCenter} zoom={12} style={{ width: '70vw', height: '70vh' }}>
+        <TileLayer
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        />
 
-      {businesses.map((business, index) => (
-        <Marker
-          key={index}
-          position={[business.latitude, business.longitude]}
-          icon={inRadiusBusinesses.includes(business) ? closeIcon : defaultIcon}
-        >
-          <Popup>
-            <strong>{business.name}</strong>
-            <br />
-            {business.address}
-            <br />
-            <button onClick={() => handleViewDetails(business)}>View Details</button>
-          </Popup>
-        </Marker>
-      ))}
+        {businesses.map((business, index) => (
+          <Marker
+            key={index}
+            position={[business.latitude, business.longitude]}
+            icon={inRadiusBusinesses.includes(business) ? closeIcon : defaultIcon}
+          >
+            <Popup>
+              <strong>{business.name}</strong>
+              <br />
+              {business.address}
+              <br />
+              <button onClick={() => handleViewDetails(business)}>View Details</button>
+            </Popup>
+          </Marker>
+        ))}
 
-      if(userLocation){
-        <Marker icon={myLocation} position={userLocation}></Marker>
-      }
-    </MapContainer>
+        if(userLocation){
+          <Marker icon={myLocation} position={userLocation}></Marker>
+        }
+      </MapContainer>
+    </div>
+    
   );
 }
 

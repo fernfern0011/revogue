@@ -15,10 +15,13 @@ function Home() {
   }, []);
 
   return (
-    <div>
+    <div className='d-flex justify-content-center flex-column container-fluid text-center page-container'>
       <h1>Business Locations</h1>
       <br></br>
-      <MapComponent businesses={businesses}/>
+      <div className='map-container'>
+        <MapComponent businesses={businesses}/>
+      </div>
+      
     </div>
   );
 }
