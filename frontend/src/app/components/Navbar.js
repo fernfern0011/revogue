@@ -5,8 +5,6 @@ import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 // material ui imports
 import Button from '@mui/material/Button';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-// import NotificationsNoneSharpIcon from '@mui/icons-material/NotificationsNoneSharp';
-// import SearchIcon from '@mui/icons-material/Search';
 
 // other imports
 import '../styles/Navbar.css';
@@ -58,7 +56,6 @@ function Navbar() {
           </div>
 
           <div style={{ float: 'right' }}>
-            <Button className="personal-info">
               <Profile />
             </div>
 
