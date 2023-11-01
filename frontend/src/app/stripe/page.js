@@ -1,32 +1,92 @@
 "use client"
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
+import { useSession } from 'next-auth/react';
 
-// Make sure to call `loadStripe` outside of a component’s render to avoid
-// recreating the `Stripe` object on every render.
-const stripePromise = loadStripe(
-  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
-);
+const stripe = require('stripe')('sk_test_51O2p9QFD3c4VDISeYPMwEIN9FUSwgdfeqZpcGhhQ6l7af7xrQAXIJ6mb3bbcRNfJFA2zuOojGGtLukbwuEdmgyqt00MRd5fHHK');
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
 
 export default function PreviewPage() {
-  const createCheckoutSession = async () => {
-    // Send a POST request to your server to create a Stripe checkout session
-    const response = await fetch('/api/create-stripe-product', {
-      method: 'POST',
-    });
+  const [productData, setProductData] = useState(null);
+  const [newsession, setnewSession] = useState(null);
 
-    if (response.ok) {
-      const sessionData = await response.json();
-      const sessionURL = sessionData.session.url;
-      
+  const {data: session} = useSession();
+  let accID;
+  if (session){
+    accID = session.id;
+    console.log(accID);
+  }
+  const createCheckoutSession = async () => {
+    try {
+      const stripes = await stripePromise;
+      console.log(stripes)
+
+
+      if(!stripe){
+        console.error('Stripe is not available.')
+        return;
+      }
+
+      const response = await fetch(`http://localhost:5000/api/cart/get-all-cartitems?accid=${accID}`);
+      if (!response.ok) {
+        throw new Error('Error fetching product information');
+      }
+      const responseData = await response.json();
+      const cartItems = responseData.data;
+      console.log(cartItems)
+
+      if (!Array.isArray(cartItems) || cartItems.length === 0) {
+        throw new Error('No cart items found.');
+      }
+
+      const productData = [];
+
+      for (const cartItem of cartItems) {
+        const productName = cartItem.productname;
+        const productPrice = parseFloat(cartItem.price);
+
+        const product = await stripe.products.create({
+          name: productName,
+        });
+
+        const priceInCents = Math.round(productPrice * 100);
+
+        const price = await stripe.prices.create({
+          product: product.id,
+          unit_amount: priceInCents,
+          currency: 'sgd',
+        });
+
+        productData.push({ product, price });
+      }
+
+      const lineItems = productData.map((item) => ({
+        price: item.price.id,
+        quantity: 1,
+      }));
+
+      const session = await stripe.checkout.sessions.create({
+        line_items: lineItems,
+        mode: 'payment',
+        success_url: `${window.location.origin}/?success=true`,
+        cancel_url: `${window.location.origin}/?canceled=true`,
+        automatic_tax: { enabled: true },
+      });
+
+      setProductData(productData);
+      setnewSession(newsession);
+
+
       // Redirect to the Stripe Checkout page
-      window.location.href = sessionURL;
+      window.location.href = session.url;
+    } catch (err) {
+      console.error(err);
     }
   };
 
-  React.useEffect(() => {
-    // Check to see if this is a redirect back from Checkout
+  useEffect(() => {
     const query = new URLSearchParams(window.location.search);
+
     if (query.get('success')) {
       console.log('Order placed! You will receive an email confirmation.');
     }
