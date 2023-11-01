@@ -2,8 +2,6 @@
 import React, { useState } from "react";
 import Sidebar from "../components/Sidebar/Sidebar";
 import Button from "@mui/material/Button";
-import { BrowserRouter as Router } from "react-router";
-import { NavLink } from "react-router-dom";
 import SidebarComponent from "../components/SidebarComponent";
 
 //bootstrap imports
@@ -93,7 +91,6 @@ async function PersonalInfoPage() {
   return (
     <main className={styles.main}>
       <Container fluid className="mt-3 mb-5 px-5">
-        <div>
           <p>
             Home &nbsp; {">"} &nbsp; Account Setting &nbsp; {">"} &nbsp;{" "}
             <b>Personal Info</b>
@@ -107,17 +104,17 @@ async function PersonalInfoPage() {
           </Col>
 
           {/* Personal info */}
-          <Col lg="10" className="float-left custom">
+          <Col lg="10" className="float-left custom"  style={{ paddingLeft: '50px' }}>
             {info.map((accountData, index) => (
               <div key={accountData.accid}>
                 {/* username */}
-                <Row className="d-flex align-items-center">
+                <Row className="d-flex align-items-center mt-lg-0 mt-4">
                   <p>
                     <strong>Username</strong>
                   </p>
                   <div className="d-flex align-items-center ml-auto">
                     <Col>
-                      <p className="mr-3">{accountData.username}</p>
+                      <p className="mr-3" style={{ fontSize: "14px", color: "#505050" }}>{accountData.username}</p>
                     </Col>
 
                     <Col></Col>

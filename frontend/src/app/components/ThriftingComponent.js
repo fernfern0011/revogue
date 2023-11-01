@@ -30,13 +30,12 @@ const ThriftingComponent = () => {
             </Row>
 
             <Row className="mb-4 align-items-center">
-              <h5>Sustainable Products</h5>
+              <h5>An Eco-friendly Choice</h5>
             </Row>
 
             <Row className="mb-4 align-items-center text-center">
               <p>
-                Explore our carefully curated selection of sustainable products,
-                each designed to reduce your carbon footprint
+              92 million tons of garments produced every year land in massive dumping grounds. By shopping secondhand, you're helping to reduce the amount of waste that ends up in landfills.
               </p>
             </Row>
           </Col>
@@ -54,14 +53,12 @@ const ThriftingComponent = () => {
             </Row>
 
             <Row className="mb-4 align-items-center">
-              <h5>Eco-Friendly Choices</h5>
+              <h5>Saving Resources</h5>
             </Row>
 
             <Row className="mb-4 align-items-center text-center">
               <p>
-                Make conscious choices with our eco-friendly products, knowing
-                that your purchases promote ethical sourcing and responsible
-                manufacturing practices.
+                Quadrupling the average life span of an item of clothing results in 75% savings in freshwater used for dyeing and other processes. 
               </p>
             </Row>
           </Col>
@@ -79,14 +76,12 @@ const ThriftingComponent = () => {
             </Row>
 
             <Row className="mb-4 align-items-center">
-              <h5>High Quality Selection</h5>
+              <h5>Lower Carbon Footprint</h5>
             </Row>
 
             <Row className="mb-4 align-items-center text-center">
               <p>
-                Invest in long-lasting and reliable products that meet our
-                stringent quality standards, ensuring your satisfaction and the
-                longevity of your purchases.
+                Extending the average life of clothes by just three months of active use per item leads to a 5-10% reduction in each item's carbon, water and waste footprints.
               </p>
             </Row>
           </Col>
@@ -104,13 +99,12 @@ const ThriftingComponent = () => {
             </Row>
 
             <Row className="mb-4 align-items-center">
-              <h5>Sustainable Packaging</h5>
+              <h5>Low Effort, High Impact</h5>
             </Row>
 
             <Row className="mb-4 align-items-center text-center">
               <p>
-                Our sustainable packaging ensures that your orders arrive safely
-                while minimizing their impact on the planet.
+              If every consumer this year bought just one secondhand garment instead of a new one, it would lower CO2 emissions by over 2 billion pounds, or take 76 million cars off the road for a day. 
               </p>
             </Row>
           </Col>

@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import { BrowserRouter as Router } from "react-router";
 import { NavLink } from "react-router-dom";
+import SidebarComponentAddress from "../components/SidebarComponentAddress";
 
 //bootstrap imports
 import "bootstrap/dist/css/bootstrap.css";
@@ -74,12 +75,12 @@ async function AddressPage() {
         <br></br>
         <Row className="d-flex">
           <Col lg="2">
-            <SidebarComponent />
+            <SidebarComponentAddress />
           </Col>
 
           <Col lg="10" className="float-left">
             {/* current address */}
-            <Row className="d-flex">
+            <Row className="d-flex mt-lg-0 mt-4">
               <h4 className="title">Default address</h4>
 
               <br />
@@ -106,7 +107,6 @@ async function AddressPage() {
                   <Button variant="text">Remove</Button>&nbsp;|&nbsp;
                   <Button variant="text">Edit</Button>&nbsp;
                 </div>
-              ))}
             </Row>
 
             <br></br>
@@ -126,7 +126,6 @@ async function AddressPage() {
                   Add New +
                 </Button>
               </Col>
-
               <br />
 
               {nonDefaultAddresses.map((data) => (
@@ -135,7 +134,7 @@ async function AddressPage() {
                     <h4>
                       {data.fname} {data.lname}
                     </h4>
-                    <br></br>
+                    <br/>
                     <p>{data.phone}</p>
                     <p>{data.street}</p>
                     <p>{data.postal_code}</p>
