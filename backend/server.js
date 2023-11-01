@@ -20,12 +20,6 @@ app.use("/api/cart", require("./routes/cart.route"))
 app.use("/api/mypurchases", require("./routes/mypurchases.route"))
 app.use("/api/mysales", require("./routes/mysales.route"))
 
-app.get('/', (req, res) => {
-  // Code to retrieve all users from the database
-  res.status(200).send("Test World");
-});
-
-
 app.listen(process.env.PORT, () => {
   console.log(`Server started on port ${process.env.PORT}`);
 })
