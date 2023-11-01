@@ -1,9 +1,6 @@
 "use client";
 import Image from "next/image";
 import React, { useState } from "react";
-// import Button from "@mui/material/Button";
-import { BrowserRouter as Router } from "react-router";
-import { NavLink } from 'react-bootstrap';
 
 //bootstrap imports
 import "bootstrap/dist/css/bootstrap.css";
@@ -16,7 +13,7 @@ import "../styles/SidebarComponent.css";
 //image imports
 import accountPic from "../../../public/images/icon/account.png";
 
-const SidebarComponent = () => {
+const SidebarComponentAddress = () => {
   return (
     <div className="d-flex" id="wrapper" >
       {/* Sidebar */}
@@ -25,8 +22,9 @@ const SidebarComponent = () => {
           <Nav.Link
             as="a"
             href="personal-info"
-            className="list-group-item list-group-item-action list-group-item-light py-3 border-0 bold-text"
-            active
+            className="list-group-item list-group-item-action list-group-item-light py-3 border-0 bold-text white-background"
+            activeClassName="active" // Apply the 'active' class when the link is active
+            style={{ fontSize: "14px" }} // Add this line
           >
             <img
               src="/images/icon/account.png"
@@ -41,7 +39,9 @@ const SidebarComponent = () => {
           <Nav.Link
             as="a"
             href="address"
-            className="list-group-item list-group-item-action list-group-item-light py-3 border-0 bold-text"
+            className="list-group-item list-group-item-action list-group-item-light py-3 border-0 bold-text gray-background"
+            activeClassName="active"
+            style={{ fontSize: "14px" }} // Add this line
           >
             <img
               src="/images/icon/icons8-location-24.png"
@@ -56,7 +56,9 @@ const SidebarComponent = () => {
           <Nav.Link
             // as="a"
             to="./PersonalInfoComponent"
-            className="list-group-item list-group-item-action list-group-item-light py-3 border-0 bold-text"
+            className="list-group-item list-group-item-action list-group-item-light py-3 border-0 bold-text white-background"
+            activeClassName="active"
+            style={{ fontSize: "14px" }} // Add this line
           >
             <img
               src="images/icon/icons8-wallet-24.png"
@@ -71,7 +73,9 @@ const SidebarComponent = () => {
           <Nav.Link
             // as="a"
             to="./PersonalInfoComponent"
-            className="list-group-item list-group-item-action list-group-item-light py-3 border-0 bold-text"
+            className="list-group-item list-group-item-action list-group-item-light py-3 border-0 bold-text white-background"
+            activeClassName="active"
+            style={{ fontSize: "14px" }} // Add this line
           >
             <img
               src="/images/icon/icons8-image-24.png"
@@ -88,4 +92,4 @@ const SidebarComponent = () => {
   );
 };
 
-export default SidebarComponent;
+export default SidebarComponentAddress;

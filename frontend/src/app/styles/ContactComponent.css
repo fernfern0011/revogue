@@ -1,42 +1,43 @@
 body{
   margin: 0;
-  font-family:'Courier New', Courier, monospace;
   background-color: white;
-  padding-top: 120px;
 }
 
 *{
   box-sizing: border-box;
 }
 
-form{
-  display: black;
-  background-color: white;
-  box-shadow: 1px 1px 3px 2px;
-  margin: 40px auto;
-  max-width: 800px;
-  max-height: 600px;
-  padding: 20px;
-  border-radius: 10px;
-  margin-left: 100px;
-  text-align: center;
-}
-
 form input, textarea{
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin: 10px auto;
+  margin: 5px 0;
   padding: 10px;
-  font-family:Arial, Helvetica, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+}
+
+form input {
+  height: 35px;
+}
+
+textarea {
+  margin-top: 10px;
+}
+
+h1 {
+  font-size: 18px;
+  font-weight: bold;
 }
 
 .title1{
-  font-size: 30px;
+  font-size: 14px;
+  margin: 0;
 }
 
 .title2{
-  font-size: 20px;
+  font-size: 14px;
+  margin: 0;
 }
 
 button {
@@ -44,14 +45,10 @@ button {
   background-color: #17B5B5;
   border: #17B5B5;
   color: white;
-  height: 45px;
-  width: 100px;
-  border-radius: 15px;
-}
-
-.picture-display{
-  max-height: 600px;
-  max-width: 200px;
+  height: 32px;
+  width: 80px;
+  border-radius: 5px;
+  font-size: 14px;
 }
 
 .flex-container {
@@ -65,7 +62,43 @@ button {
   justify-content: center;
 }
 
-img {
-  max-width: 800px;
-  max-height: 600px;
+.name-fields {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* ContactComponent.css */
+.contact-container {
+  position: relative;
+  display: flex;
+  width: 100%;
+  margin: 40px 0;
+  justify-content: center;
+}
+
+.emailForm {
+  max-width: 100%;
+  max-height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: white;
+  margin: auto;
+  padding: 20px;
+  text-align: center;
+  border: 1px solid black
+}
+
+form{
+  display: black;
+  background-color: white;
+  margin: 40px auto;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+picture-display {
+  max-height: 100%;
 }
