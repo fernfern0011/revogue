@@ -18,7 +18,7 @@ import "../styles/AddressComponent.css";
 async function getDefaultAddressData() {
   var accid = 1;
   const getDefaultAddressRes = await fetch(
-    `http://localhost:5000/api/address/get-default-address?accid=${accid}`,
+    `https://revogue-backend.vercel.app/api/address/get-default-address?accid=${accid}`,
     {
       headers: {
         "Content-Type": "application/json",
@@ -35,7 +35,7 @@ async function getDefaultAddressData() {
 async function getAddressData() {
   var accid = 1;
   const getAddressRes = await fetch(
-    `http://localhost:5000/api/address/get-all-addresses?accid=${accid}`,
+    `https://revogue-backend.vercel.app/api/address/get-all-addresses?accid=${accid}`,
     {
       headers: {
         "Content-Type": "application/json",
@@ -49,6 +49,7 @@ async function getAddressData() {
 }
 
 async function AddressPage() {
+  console.log(process.env.backendUrl);
   //load default data
   const defaultData = await getDefaultAddressData();
   const defaultAddr = defaultData.data;

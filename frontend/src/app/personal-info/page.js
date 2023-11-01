@@ -81,7 +81,7 @@ async function PersonalInfoPage() {
 
     const formData = new FormData(event.target);
     const response = await fetch(
-      "http://localhost:5000/api/account/update-password/",
+      `https://revogue-backend.vercel.app/api/account/update-password/`,
       {
         method: "POST",
         body: formData,
