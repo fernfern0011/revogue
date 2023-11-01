@@ -5,8 +5,17 @@ import Image from 'next/image'
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined';
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
+import { Button } from "react-bootstrap";
+import { signOut, useSession } from "next-auth/react";
 
 const TopNavigation = () => {
+    const { data: session, status } = useSession();
+    let accName;
+
+    if (session) {
+        accName = session.user.name;
+    }
+
     return (
         <nav className="navbar navbar-expand-lg navbar-light">
             <div className="container-fluid">
@@ -36,7 +45,6 @@ const TopNavigation = () => {
                         </li>
                     </ul>
 
-
                     <div className="d-flex align-items-center justify-content-end">
                         {/* Shopping Cart */}
                         <Link className="text-reset me-3" href="#">
@@ -60,54 +68,68 @@ const TopNavigation = () => {
                         </div>
 
                         {/* Profile */}
-                        <div className="dropdown profile">
-                            <Link
-                                className="dropdown-toggle d-flex align-items-center hidden-arrow"
-                                href="#"
-                                id="navbarDropdownMenuAvatar"
-                                role="button"
-                                data-bs-toggle="dropdown"
-                                aria-expanded="false"
-                            >
-                                <img
-                                    src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
-                                    className="rounded-circle ps-2 pe-2"
-                                    height="25"
-                                    alt="Black and White Portrait of a Man"
-                                    loading="lazy"
-                                />
-                                <span className="ps-2 pe-2">Placeholder Name</span>
+                        {status === 'authenticated' ?
+                            <div className="dropdown profile">
+                                <Link
+                                    className="dropdown-toggle d-flex align-items-center hidden-arrow"
+                                    href="#"
+                                    id="navbarDropdownMenuAvatar"
+                                    role="button"
+                                    data-bs-toggle="dropdown"
+                                    aria-expanded="false"
+                                >
+                                    <img
+                                        src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
+                                        className="rounded-circle ps-2 pe-2"
+                                        height="25"
+                                        alt="Black and White Portrait of a Man"
+                                        loading="lazy"
+                                    />
+                                    <span className="ps-2 pe-2">{accName}</span>
+                                </Link>
+
+                                <ul
+                                    className="dropdown-menu dropdown-menu-end"
+                                    aria-labelledby="navbarDropdownMenuAvatar"
+                                >
+                                    <li>
+                                        <Link className="dropdown-item" href="#">My profile</Link>
+                                    </li>
+                                    <li>
+                                        <Link className="dropdown-item" href="#">Account Settings</Link>
+                                    </li>
+                                    <li>
+                                        <Link className="dropdown-item" href="#">Wishlist</Link>
+                                    </li>
+                                    <li>
+                                        <Link className="dropdown-item" href="#">My Listings</Link>
+                                    </li>
+                                    <li>
+                                        <Link className="dropdown-item" href="#">My Purchases</Link>
+                                    </li>
+                                    <li>
+                                        <Link className="dropdown-item" href="#">My Sales</Link>
+                                    </li>
+                                    <li>
+                                        <Link className="dropdown-item" href="#">My Blogs</Link>
+                                    </li>
+                                    <li>
+                                        <Link className="dropdown-item" href="#">Logout</Link>
+                                    </li>
+                                </ul>
+                            </div>
+                            :
+                            <Link className="nav-link" href={"/login"}>
+                                <Button className="button">Login</Button>
                             </Link>
-                            <ul
-                                className="dropdown-menu dropdown-menu-end"
-                                aria-labelledby="navbarDropdownMenuAvatar"
-                            >
-                                <li>
-                                    <Link className="dropdown-item" href="#">My profile</Link>
-                                </li>
-                                <li>
-                                    <Link className="dropdown-item" href="#">Account Settings</Link>
-                                </li>
-                                <li>
-                                    <Link className="dropdown-item" href="#">Wishlist</Link>
-                                </li>
-                                <li>
-                                    <Link className="dropdown-item" href="#">My Listings</Link>
-                                </li>
-                                <li>
-                                    <Link className="dropdown-item" href="#">My Purchases</Link>
-                                </li>
-                                <li>
-                                    <Link className="dropdown-item" href="#">My Sales</Link>
-                                </li>
-                                <li>
-                                    <Link className="dropdown-item" href="#">My Blogs</Link>
-                                </li>
-                                <li>
-                                    <Link className="dropdown-item" href="#">Logout</Link>
-                                </li>
-                            </ul>
-                        </div>
+                        }
+
+                        <Button className="button"
+                            onClick={async (e) => {
+                                e.preventDefault();
+                                console.log();
+                                signOut({ redirect: true, callbackUrl: "/" })
+                            }}>Logout</Button>
                     </div>
                 </div>
 
