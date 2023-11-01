@@ -35,6 +35,7 @@ const LandingComponent = () => {
               <Image
                 className="img-fluid"
                 src="/images/pic1.png"
+                alt=""
                 width={700}
                 height={700}
                 style={{ maxWidth: "100%", height: "auto" }}

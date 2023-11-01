@@ -83,7 +83,7 @@ const accountController = {
     verifyAccount: async (req, res) => {
         try {
             var { accemail, accpass } = req.body;
-            var sql = `SELECT accemail, accpass FROM account WHERE accemail = $1`
+            var sql = `SELECT * FROM account WHERE accemail = $1`
 
             const { rows } = await postgre.query(sql, [accemail.toLowerCase()])
 
