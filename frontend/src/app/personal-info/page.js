@@ -18,7 +18,7 @@ import "../styles/PersonalInfoComponent.css";
 async function getInfoData() {
   var accid = 1;
   const getInfoRes = await fetch(
-    `http://localhost:5000/api/account?accid=${accid}`,
+    `https://revogue-backend.vercel.app/api/account?accid=${accid}`,
     {
       headers: {
         "Content-Type": "application/json",
@@ -91,6 +91,7 @@ async function PersonalInfoPage() {
   return (
     <main className={styles.main}>
       <Container fluid className="mt-3 mb-5 px-5">
+        <div>
           <p>
             Home &nbsp; {">"} &nbsp; Account Setting &nbsp; {">"} &nbsp;{" "}
             <b>Personal Info</b>

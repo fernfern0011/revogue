@@ -107,6 +107,7 @@ async function AddressPage() {
                   <Button variant="text">Remove</Button>&nbsp;|&nbsp;
                   <Button variant="text">Edit</Button>&nbsp;
                 </div>
+              ))}
             </Row>
 
             <br></br>
