@@ -52,7 +52,7 @@ export const authOption = {
             session.accessToken = token.accessToken;
 
             if (session?.accessToken) {
-                const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/user-profile?accid=${token.id}`, {
+                const res = await fetch(`${process.env.backendUrl}/api/user-profile?accid=${token.id}`, {
                     headers: { "Content-Type": "application/json" }
                 });
 
