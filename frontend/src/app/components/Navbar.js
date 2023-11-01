@@ -13,6 +13,8 @@ import '../styles/Navbar.css';
 import Profile from './Profile.js';
 // import SearchBar from './SearchBar.js';
 
+import Profile2 from './Profile2.js';
+
 function Navbar() {
   const [isSearchActive, setSearchActive] = useState(false);
 
@@ -68,7 +70,7 @@ function Navbar() {
             
             {/* cart / search / notification icons */}
             <div style={{ float: 'right' }}>
-              <SearchIcon className="icon search" />
+              {/* <SearchIcon className="icon search" /> */}
               <ShoppingCartOutlinedIcon className="icon cart" />
               <NotificationsNoneSharpIcon className="icon notification" />
             </div>
@@ -76,6 +78,7 @@ function Navbar() {
           </ul>
 
           {/* <SearchBar /> */}
+          <Profile2  />
 
         </div>
     </nav>

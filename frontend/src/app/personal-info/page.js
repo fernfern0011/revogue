@@ -2,8 +2,6 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import Button from "@mui/material/Button";
-import { BrowserRouter as Router } from "react-router";
-import { NavLink } from "react-router-dom";
 import SidebarComponent from "../components/SidebarComponent";
 
 //bootstrap imports
@@ -28,7 +26,7 @@ const PersonalInfoComponent = () => {
     { label: "Email Address", value: "test" },
     { label: "Contact Number", value: "test" },
     { label: "Password", value: "test" },
-    { label: "Bio", value: "lo" },
+    { label: "Bio", value: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Integer feugiat scelerisque varius morbi enim. Amet facilisis magna etiam tempor. Adipiscing diam donec adipiscing tristique risus nec feugiat in. Ac turpis egestas integer eget aliquet nibh praesent tristique magna. Ut tellus elementum sagittis vitae et leo duis ut diam. Cursus eget nunc scelerisque viverra. Bibendum arcu vitae elementum curabitur vitae. Fusce ut placerat orci nulla pellentesque dignissim. Id porta nibh venenatis cras sed felis eget. Ullamcorper a lacus vestibulum sed arcu." },
   ];
 
   const handleEditClick = (index) => {
@@ -45,7 +43,7 @@ const PersonalInfoComponent = () => {
     <main className={styles.main}>
 
       <Container fluid className="mt-3 mb-5 px-5">
-        <div >
+        <div className="breadcrumb">
           <p>
             Home &nbsp; {">"} &nbsp; Account Setting &nbsp; {">"} &nbsp;{" "}
             <b>Personal Info</b>
@@ -59,25 +57,29 @@ const PersonalInfoComponent = () => {
           </Col>
 
           {/* info */}
-          <Col lg="10" className="float-left custom">
+          <Col lg="10" className="float-left custom" style={{ paddingLeft: '50px' }}>
             {items.map((item, index) => (
               <div key={index}>
-                <Row className="d-flex align-items-center">
+                <Row className="d-flex align-items-center mt-lg-0 mt-4">
                   <p>
                     <strong>{item.label}</strong>
                   </p>
 
                   <div className="d-flex align-items-center ml-auto">
                     {editableItem !== index ? (
-                      <Col>
-                        <p className="mr-3">{item.value}</p>
+                      <Col md={10} xs={9}>
+                        <p 
+                        className="mr-3"
+                        style={{ fontSize: "14px", color: "#505050" }}
+                        >{item.value}</p>
                       </Col>
                     ) : (
-                      <Col>
+                      <Col md={10} xs={9}>
                         <input
                           type="text"
                           value={item.value}
                           onChange={(e) => { }}
+                          className="w-100"
                         />
                       </Col>
                     )}
@@ -88,8 +90,9 @@ const PersonalInfoComponent = () => {
                       {editableItem !== index ? (
                         <Button
                           variant="text"
-                          className="ml-auto"
+                          className="ml-auto button"
                           onClick={() => handleEditClick(index)}
+                          style={{ marginBottom: '12px' }}
                         >
                           Change
                         </Button>

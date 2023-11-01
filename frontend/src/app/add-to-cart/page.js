@@ -19,7 +19,6 @@ import { Padding } from "@mui/icons-material";
 const AddToCartComponent = () => {
   return (
     <main className={styles.main}>
-      <Navbar />
       <div className="ps-5 mt-3">
         <p>Home &nbsp; {">"} &nbsp; <b>Add To Cart</b></p>
       </div>

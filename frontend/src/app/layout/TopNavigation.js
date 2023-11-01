@@ -7,9 +7,11 @@ import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 
 const TopNavigation = () => {
+
     return (
         <nav className="navbar navbar-expand-lg navbar-light">
             <div className="container-fluid">
+                
                 <Link className="navbar-brand mt-2 mt-lg-0" href="/">
                     <Image
                         src="/images/revogue-logo.png"
@@ -36,7 +38,6 @@ const TopNavigation = () => {
                         </li>
                     </ul>
 
-
                     <div className="d-flex align-items-center justify-content-end">
                         {/* Shopping Cart */}
                         <Link className="text-reset me-3" href="#">
@@ -60,7 +61,7 @@ const TopNavigation = () => {
                         </div>
 
                         {/* Profile */}
-                        <div className="dropdown profile">
+                        <div>
                             <Link
                                 className="dropdown-toggle d-flex align-items-center hidden-arrow"
                                 href="#"

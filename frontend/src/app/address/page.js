@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import { BrowserRouter as Router } from "react-router";
 import { NavLink } from "react-router-dom";
-import SidebarComponent from "../components/SidebarComponent";
+import SidebarComponentAddress from "../components/SidebarComponentAddress";
 
 //bootstrap imports
 import "bootstrap/dist/css/bootstrap.css";
@@ -31,38 +31,38 @@ const AddressComponent = () => {
         <br></br>
         <Row className="d-flex">
           <Col lg="2">
-            <SidebarComponent />
+            <SidebarComponentAddress />
           </Col>
 
           <Col lg="10" className="float-left">
             {/* current address */}
-            <Row className="d-flex">
+            <Row className="d-flex mt-lg-0 mt-4">
               <h4 className="title">Default address</h4>
 
               <br />
 
               <div className="jumbotron jumbotron-fluid custom-jumbotron">
-                <h4>Name</h4>
-                <p>postal</p>
-                <p>address</p>
+                <h5>Marci Fummons</h5>
+                <p>8980252455</p>
+                <p>1/4 Pragatinagar Flats, opp. jain derasar , near Jain derasar, Vijaynagar road</p>
                 <Row fluid>
-                  <Col className="col-1">
-                    <h4>
-                      <span class="badge bg-secondary">Home</span>
-                    </h4>
-                  </Col>
-                  <Col className="col-1">
-                    <h4>
-                      <span class="badge bg-secondary">
-                        Default billing address
-                      </span>
-                    </h4>
-                  </Col>
-                  <Col className="col-11 col-sm-12"></Col>
+                <Col className="col-1">
+                  <h6>
+                    <span className="badge">Home</span>
+                  </h6>
+                </Col>
+                <Col className="col-1">
+                  <h6>
+                    <span className="badge">
+                      Default billing address
+                    </span>
+                  </h6>
+                </Col>
+                  <Col className="col-10 col-sm-12"></Col>
                 </Row>
                 <br />
-                <Button variant="text">Remove</Button>&nbsp;|&nbsp;
-                <Button variant="text">Edit</Button>
+                <Button className="button" variant="text">Remove&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</Button>
+                <Button className="button" variant="text"> Edit</Button>
               </div>
             </Row>
 
@@ -75,11 +75,11 @@ const AddressComponent = () => {
 
             {/* additional address */}
             <Row className="d-flex">
-              <Col className="col-2">
+              <Col className="col-6">
                 <h4 className="title">Additional address</h4>
               </Col>
-              <Col className="col-8"></Col>
-              <Col className="col-2">
+              <Col className="col-2"></Col>
+              <Col className="col-4">
                 <Button variant="text" className="addBtn">
                   Add New +
                 </Button>
@@ -93,9 +93,9 @@ const AddressComponent = () => {
                 <p>address</p>
                 <Row fluid>
                   <Col>
-                    <h4>
-                      <span className="badge bg-secondary">Tag</span>
-                    </h4>
+                    <h6>
+                      <span className="badge">Office</span>
+                    </h6>
                   </Col>
                   {/* <Col>
                     <h4>
@@ -106,9 +106,9 @@ const AddressComponent = () => {
                   </Col> */}
                 </Row>
                 <br />
-                <Button variant="text">Remove</Button>&nbsp;|&nbsp;
-                <Button variant="text">Edit</Button>&nbsp;|&nbsp;
-                <Button variant="text">Set as default</Button>
+                <Button className="button" variant="text">Remove&nbsp;&nbsp;|</Button>
+                <Button className="button" variant="text"> Edit&nbsp;&nbsp;&nbsp;|</Button>
+                <Button className="button" variant="text"> Set as default</Button>
               </div>
             </Row>
           </Col>
