@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import { BrowserRouter as Router } from "react-router";
 import { NavLink } from "react-router-dom";
-import SidebarComponent from "../components/SidebarComponent";
+import SidebarComponentAddress from "../components/SidebarComponentAddress";
 
 //bootstrap imports
 import "bootstrap/dist/css/bootstrap.css";
@@ -36,7 +36,7 @@ const AddAddressComponent = () => {
     <main className={styles.main}>
 
       <Container fluid className="px-5 mt-5">
-        <div>
+        <div className="breadcrumb">
           <p>
             Home &nbsp; {">"} &nbsp; Account Setting &nbsp; {">"} &nbsp;{" "}
             <b>Add New Address</b>
@@ -46,10 +46,10 @@ const AddAddressComponent = () => {
         <br></br>
         <Row>
           <Col lg="2">
-            <SidebarComponent />
+            <SidebarComponentAddress />
           </Col>
 
-          <Col lg="10" className="float-left">
+          <Col lg="10" className="float-left mt-lg-0 mt-4">
             <h4 className="title">Add New Address</h4>
 
             <Container fluid>
@@ -66,6 +66,7 @@ const AddAddressComponent = () => {
                         First Name<span>*</span>
                       </Form.Label>
                       <Form.Control
+                        className="custom"
                         type="text"
                         placeholder="First Name"
                         required
@@ -82,6 +83,7 @@ const AddAddressComponent = () => {
                         Last Name<span>*</span>
                       </Form.Label>
                       <Form.Control
+                        className="custom"
                         type="text"
                         placeholder="Last Name"
                         required
@@ -100,6 +102,7 @@ const AddAddressComponent = () => {
                         Street Address<span>*</span>
                       </Form.Label>
                       <Form.Control
+                        className="custom"
                         type="text"
                         placeholder="Street Address"
                         required
@@ -113,7 +116,7 @@ const AddAddressComponent = () => {
                   <Col lg={6}>
                     <Form.Group>
                       <Form.Label className="custom-label">Unit No</Form.Label>
-                      <Form.Control type="text" placeholder="Unit No" />
+                      <Form.Control className="custom" type="text" placeholder="Unit No" />
                     </Form.Group>
                   </Col>
                 </Row>
@@ -125,6 +128,7 @@ const AddAddressComponent = () => {
                         Phone Number<span>*</span>
                       </Form.Label>
                       <Form.Control
+                        className="custom"
                         type="text"
                         placeholder="Phone Number"
                         required
@@ -141,6 +145,7 @@ const AddAddressComponent = () => {
                         Postal Code<span>*</span>
                       </Form.Label>
                       <Form.Control
+                        className="custom"
                         type="text"
                         placeholder="Postal Code"
                         required
@@ -159,8 +164,9 @@ const AddAddressComponent = () => {
                         Delivery Instruction
                       </Form.Label>
                       <Form.Control
+                        className="custom"
                         as="textarea"
-                        rows={3}
+                        rows={5}
                         placeholder="Delivery Instruction"
                       />
                     </Form.Group>
@@ -171,6 +177,7 @@ const AddAddressComponent = () => {
                   <Col>
                     <FormGroup>
                       <Form.Check
+                        className="custom-checkbox"
                         type="checkbox"
                         label="Set as Default Shipping Address"
                       />
@@ -182,6 +189,7 @@ const AddAddressComponent = () => {
                   <Col>
                     <FormGroup>
                       <Form.Check
+                        className="custom-checkbox"
                         type="checkbox"
                         label="Set as Default Billing Address"
                       />

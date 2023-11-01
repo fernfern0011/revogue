@@ -1,4 +1,3 @@
-
 "use client"
 import * as React from "react";
 import Button from "@mui/material/Button";
@@ -9,7 +8,7 @@ import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import '../styles/ProductListing.css'
 
-const ProductListing = ({ productid, productname, price, images }) => {
+const ProfileListing = ({ productid, productname, price, images }) => {
   return (
     <Col xs="12" sm="12" md="6" lg="4" className="px-2 pb-3" id={productid}>
       <Card className="card" style={{ width: "auto" }}>
@@ -19,15 +18,10 @@ const ProductListing = ({ productid, productname, price, images }) => {
           <Card.Text className="fs-6">
             <b>{price}</b>
           </Card.Text>
-          <div className="text-center">
-            <Button variant="contained" className="custom-button mx-auto">
-              BUY NOW
-            </Button>
-          </div>
         </Card.Body>
       </Card>
     </Col >
   );
 };
 
-export default ProductListing;
+export default ProfileListing;

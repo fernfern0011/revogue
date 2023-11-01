@@ -80,9 +80,11 @@ const AddressComponent = () => {
               </Col>
               <Col className="col-2"></Col>
               <Col className="col-4">
+              <a href="add-address">
                 <Button variant="text" className="addBtn">
                   Add New +
                 </Button>
+              </a>
               </Col>
 
               <br />

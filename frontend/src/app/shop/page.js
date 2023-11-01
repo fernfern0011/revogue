@@ -1,9 +1,16 @@
 import React from 'react';
-import Sidebar from "../components/Sidebar/Sidebar";
+// import Sidebar from "../components/Sidebar/Sidebar";
 import './page.css'
 import ProductListing from '../components/ProductListing';
 import { Suspense } from 'react';
 import { getAllProducts } from '../lib/product/data';
+
+// sidebar
+import Gender from "../components/Sidebar/Gender/Gender";
+import Size from "../components/Sidebar/Size/Size";
+import Category from "../components/Sidebar/Category/Category";
+import Price from "../components/Sidebar/Price/Price";
+// import "../components/Sidebar/Sidebar.css";
 
 async function ShopPage() {
   const productData = await getAllProducts();
@@ -18,13 +25,22 @@ async function ShopPage() {
 
   return (
     <div>
+
       <div className="d-flex col-lg-12 mt-4 py-3 bg-primary">
         sort
       </div>
 
+      <div className="d-flex col-lg-12 mt-4 py-3 bg-secondary">
+        <p>filter</p>
+      </div>
+
       <div className='d-flex mx-auto py-3 bg-secondary'>
-        <div className="col-lg-3">
-          <p>filter</p>
+        
+        <div className="vertical-stack">
+          <Gender />
+          <Size />
+          <Category />
+          <Price />
         </div>
 
         <div className='d-flex flex-wrap col-lg-9'>
