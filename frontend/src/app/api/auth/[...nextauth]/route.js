@@ -1,6 +1,8 @@
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
 
+let userEmail = null;
+
 export const authOption = {
     providers: [
         CredentialsProvider({
@@ -28,6 +30,7 @@ export const authOption = {
                 const user = await res.json();
 
                 if (res.ok && user) {
+                    userEmail = credentials.email;
                     return user;
                 };
 
@@ -83,5 +86,7 @@ export const authOption = {
 }
 
 const handler = NextAuth(authOption);
+
+export {userEmail} 
 
 export { handler as GET, handler as POST };

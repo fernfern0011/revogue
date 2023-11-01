@@ -26,7 +26,6 @@ export default function MapsComponent() {
         const response = await axios.get('http://localhost:5000/api/address/get-all-businesses');
         const responseData = response.data;
         const businessData = responseData.data;
-        console.log(businessData)
 
         const geocodedBusinesses = await Promise.all(
           businessData.map(async (business) => {
