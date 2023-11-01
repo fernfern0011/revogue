@@ -18,7 +18,7 @@ import "../styles/PersonalInfoComponent.css";
 async function getInfoData() {
   var accid = 1;
   const getInfoRes = await fetch(
-    `http://localhost:5000/api/account?accid=${accid}`,
+    `https://revogue-backend.vercel.app/api/account?accid=${accid}`,
     {
       headers: {
         "Content-Type": "application/json",
