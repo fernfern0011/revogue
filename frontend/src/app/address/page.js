@@ -136,7 +136,6 @@ async function AddressPage() {
                       {data.fname} {data.lname}
                     </h4>
                     <br></br>
-                    {/* <p>{data.addressid}</p> */}
                     <p>{data.phone}</p>
                     <p>{data.street}</p>
                     <p>{data.postal_code}</p>
