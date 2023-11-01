@@ -10,8 +10,28 @@
         {
             "src": "/api/account",
             "dest": "/server.js"
-          },
-        {
+        }, {
+            "src": "/api/user-profile",
+            "dest": "/server.js"
+        }, {
+            "src": "/api/address",
+            "dest": "/server.js"
+        }, {
+            "src": "/api/product",
+            "dest": "/server.js"
+        }, {
+            "src": "/api/wishlist",
+            "dest": "/server.js"
+        }, {
+            "src": "/api/cart",
+            "dest": "/server.js"
+        }, {
+            "src": "/api/mypurchases",
+            "dest": "/server.js"
+        }, {
+            "src": "/api/mysales",
+            "dest": "/server.js"
+        }, {
             "src": "/api/(.*)",
             "dest": "/server.js"
         }
