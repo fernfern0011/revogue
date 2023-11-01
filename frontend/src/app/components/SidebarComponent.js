@@ -3,7 +3,7 @@ import Image from "next/image";
 import React, { useState } from "react";
 // import Button from "@mui/material/Button";
 import { BrowserRouter as Router } from "react-router";
-import { NavLink } from "react-router-dom";
+import { NavLink } from 'react-bootstrap';
 
 //bootstrap imports
 import "bootstrap/dist/css/bootstrap.css";
@@ -26,7 +26,8 @@ const SidebarComponent = () => {
             as="a"
             href="personal-info"
             className="list-group-item list-group-item-action list-group-item-light py-3 border-0 bold-text"
-            activeClassName="active" // Apply the 'active' class when the link is active
+            // activeClassName="active" // Apply the 'active' class when the link is active
+            active
           >
             <img
               src="/images/icon/account.png"
@@ -42,7 +43,7 @@ const SidebarComponent = () => {
             as="a"
             href="address"
             className="list-group-item list-group-item-action list-group-item-light py-3 border-0 bold-text"
-            activeClassName="active"
+            // activeClassName="active"
           >
             <img
               src="/images/icon/icons8-location-24.png"
@@ -58,7 +59,7 @@ const SidebarComponent = () => {
             // as="a"
             to="./PersonalInfoComponent"
             className="list-group-item list-group-item-action list-group-item-light py-3 border-0 bold-text"
-            activeClassName="active"
+            // activeClassName="active"
           >
             <img
               src="images/icon/icons8-wallet-24.png"
@@ -74,7 +75,7 @@ const SidebarComponent = () => {
             // as="a"
             to="./PersonalInfoComponent"
             className="list-group-item list-group-item-action list-group-item-light py-3 border-0 bold-text"
-            activeClassName="active"
+            // activeClassName="active"
           >
             <img
               src="/images/icon/icons8-image-24.png"

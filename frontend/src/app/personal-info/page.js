@@ -1,6 +1,6 @@
 "use client";
-import Image from "next/image";
 import React, { useState } from "react";
+import Sidebar from "../components/Sidebar/Sidebar";
 import Button from "@mui/material/Button";
 import { BrowserRouter as Router } from "react-router";
 import { NavLink } from "react-router-dom";
@@ -11,41 +11,89 @@ import "bootstrap/dist/css/bootstrap.css";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Table from "react-bootstrap/Table";
-// import Sidebar from './sidebar';
 
 //style imports
 import styles from "../page.module.css";
 import "../styles/PersonalInfoComponent.css";
-import { Padding } from "@mui/icons-material";
 
-const PersonalInfoComponent = () => {
+//retrieve data from backend API
+async function getInfoData() {
+  var accid = 1;
+  const getInfoRes = await fetch(
+    `http://localhost:5000/api/account?accid=${accid}`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
 
-  const [editableItem, setEditableItem] = useState(null);
+  const getInfoStatus = getInfoRes.status;
+  if (getInfoStatus == 200) {
+    return getInfoRes.json();
+  }
+}
 
-  const items = [
-    { label: "Username", value: "test" },
-    { label: "Email Address", value: "test" },
-    { label: "Contact Number", value: "test" },
-    { label: "Password", value: "test" },
-    { label: "Bio", value: "lo" },
-  ];
+async function PersonalInfoPage() {
+  const [editableItem1, setEditableItem1] = useState(false);
+  const [editableItem2, setEditableItem2] = useState(false);
 
-  const handleEditClick = (index) => {
-    setEditableItem(index);
+  //for email button
+  const handleEditClick1 = () => {
+    console.log("test");
+    setEditableItem1(true);
+  };
+  const handleSaveClick1 = () => {
+    setEditableItem1(false);
   };
 
-  const handleSaveClick = (index) => {
-    // Handle the saving logic here, e.g., update the value in your data
-    // For simplicity, let's just cancel editing
-    setEditableItem(null);
+  //for pw button
+  const handleEditClick2 = () => {
+    console.log("test2");
+    setEditableItem2(true);
   };
+  const handleSaveClick2 = () => {
+    setEditableItem2(false);
+  };
+
+  //load data from backend
+  const infoData = await getInfoData();
+  const info = infoData.data;
+
+  //email form (this is incomplete but does not give error, keep it first for reference)
+  async function onSubmitEmail(event) {
+    event.preventDefault();
+
+    const formData = new FormData(event.target);
+    const response = await fetch(
+      `https://revogue-backend.vercel.app/api/account/update-email/`,
+      {
+        method: "POST",
+        body: formData,
+      }
+    );
+    const data = await response.json();
+  }
+
+  //password form (this is incomplete but does not give error, keep it first for reference)
+  async function onSubmitPw(event) {
+    event.preventDefault();
+
+    const formData = new FormData(event.target);
+    const response = await fetch(
+      `https://revogue-backend.vercel.app/api/account/update-password/`,
+      {
+        method: "POST",
+        body: formData,
+      }
+    );
+    const data = await response.json();
+  }
 
   return (
     <main className={styles.main}>
-
       <Container fluid className="mt-3 mb-5 px-5">
-        <div >
+        <div>
           <p>
             Home &nbsp; {">"} &nbsp; Account Setting &nbsp; {">"} &nbsp;{" "}
             <b>Personal Info</b>
@@ -58,52 +106,123 @@ const PersonalInfoComponent = () => {
             <SidebarComponent />
           </Col>
 
-          {/* info */}
+          {/* Personal info */}
           <Col lg="10" className="float-left custom">
-            {items.map((item, index) => (
-              <div key={index}>
+            {info.map((accountData, index) => (
+              <div key={accountData.accid}>
+                {/* username */}
                 <Row className="d-flex align-items-center">
                   <p>
-                    <strong>{item.label}</strong>
+                    <strong>Username</strong>
                   </p>
-
                   <div className="d-flex align-items-center ml-auto">
-                    {editableItem !== index ? (
-                      <Col>
-                        <p className="mr-3">{item.value}</p>
-                      </Col>
-                    ) : (
-                      <Col>
-                        <input
-                          type="text"
-                          value={item.value}
-                          onChange={(e) => { }}
-                        />
-                      </Col>
-                    )}
+                    <Col>
+                      <p className="mr-3">{accountData.username}</p>
+                    </Col>
 
                     <Col></Col>
-
-                    <Col className="d-flex align-items-center">
-                      {editableItem !== index ? (
-                        <Button
-                          variant="text"
-                          className="ml-auto"
-                          onClick={() => handleEditClick(index)}
-                        >
-                          Change
-                        </Button>
-                      ) : (
-                        <Button
-                          variant="text"
-                          className="ml-auto"
-                          onClick={() => handleSaveClick(index)}
-                        >
-                          Save
-                        </Button>
-                      )}
-                    </Col>
+                    <Col className="d-flex align-items-center"></Col>
                   </div>
+                </Row>
+                <hr />
+
+                {/* email */}
+                <Row className="d-flex align-items-center mt-3">
+                  <form onSubmit={onSubmitEmail}>
+                    <p>
+                      <strong>Email</strong>
+                    </p>
+
+                    <div className="d-flex align-items-center ml-auto">
+                      <Col>
+                        {editableItem1 === true ? (
+                          <input
+                            type="text"
+                            name="newemail"
+                            defaultValue={accountData.accemail}
+                          />
+                        ) : (
+                          <p className="mr-3">{accountData.accemail}</p>
+                        )}
+                      </Col>
+
+                      <Col></Col>
+
+                      <Col>
+                        {editableItem1 === true ? (
+                          <Button
+                            variant="outlined"
+                            type="submit"
+                            onClick={() => handleSaveClick1()}
+                          >
+                            Save
+                          </Button>
+                        ) : (
+                          ""
+                        )}
+
+                        {editableItem1 === false ? (
+                          <Button
+                            variant="outlined"
+                            onClick={() => handleEditClick1()}
+                          >
+                            Change
+                          </Button>
+                        ) : (
+                          ""
+                        )}
+                      </Col>
+
+                      <Col className="d-flex align-items-center"></Col>
+                    </div>
+                  </form>
+                </Row>
+                <hr />
+
+                {/* pw */}
+                <Row className="d-flex align-items-center mt-3">
+                  <form onSubmit={onSubmitPw}>
+                    <p>
+                      <strong>Password</strong>
+                    </p>
+
+                    <div className="d-flex align-items-center ml-auto">
+                      <Col>
+                        {editableItem2 === index ? (
+                          <input
+                            type="password"
+                            name="newpass"
+                            defaultValue={accountData.accpass}
+                          />
+                        ) : (
+                          <p className="mr-3">********</p>
+                        )}
+                      </Col>
+
+                      <Col></Col>
+
+                      <Col>
+                        {editableItem2 === index ? (
+                          <Button
+                            variant="outlined"
+                            type="submit"
+                            onClick={() => handleSaveClick2(index)}
+                          >
+                            Save
+                          </Button>
+                        ) : (
+                          <Button
+                            variant="outlined"
+                            onClick={() => handleEditClick2(index)}
+                          >
+                            Change
+                          </Button>
+                        )}
+                      </Col>
+
+                      <Col className="d-flex align-items-center"></Col>
+                    </div>
+                  </form>
                 </Row>
                 <hr />
               </div>
@@ -115,4 +234,4 @@ const PersonalInfoComponent = () => {
   );
 }
 
-export default PersonalInfoComponent;
+export default PersonalInfoPage;
