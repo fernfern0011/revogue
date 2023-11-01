@@ -8,7 +8,7 @@ function Home() {
 
   useEffect(() => { 
     // Fetch data from your backend endpoint
-    fetch('http://localhost:3001/businesses')
+    fetch('http://localhost:5000/api/address/get-all-businesses')
       .then((response) => response.json())
       .then((data) => setBusinesses(data))
       .catch((error) => console.error('Error fetching data:', error));

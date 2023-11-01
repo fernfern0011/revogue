@@ -23,12 +23,14 @@ export default function MapsComponent() {
   useEffect(() => {
     const fetchBusinesses = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/businesses');
-        const businessData = response.data;
+        const response = await axios.get('http://localhost:5000/api/address/get-all-businesses');
+        const responseData = response.data;
+        const businessData = responseData.data;
+        console.log(businessData)
 
         const geocodedBusinesses = await Promise.all(
           businessData.map(async (business) => {
-            const address = encodeURIComponent(business.address);
+            const address = encodeURIComponent(business.street);
             try {
               const response = await axios.get(
                 `https://nominatim.openstreetmap.org/search?format=json&q=${address}`
@@ -123,9 +125,9 @@ export default function MapsComponent() {
             icon={inRadiusBusinesses.includes(business) ? closeIcon : defaultIcon}
           >
             <Popup>
-              <strong>{business.name}</strong>
+              <strong>{business.fname} {business.lname}</strong>
               <br />
-              {business.address}
+              {business.street}
               <br />
               <button onClick={() => handleViewDetails(business)}>View Details</button>
             </Popup>
