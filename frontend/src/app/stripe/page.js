@@ -1,6 +1,8 @@
 "use client"
 import React from 'react';
 import { loadStripe } from '@stripe/stripe-js';
+import { useSession } from 'next-auth/react';
+
 
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the `Stripe` object on every render.
@@ -10,6 +12,15 @@ const stripePromise = loadStripe(
 );
 
 export default function PreviewPage() {
+
+  const {data: session} = useSession();
+  let accID;
+  if(session){
+    accID = session.id
+    console.log(accID)
+  }
+  
+
   const createCheckoutSession = async () => {
     // Send a POST request to your server to create a Stripe checkout session
     const response = await fetch('/api/create-stripe-product', {

@@ -1,27 +1,39 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-import { userEmail } from '@/app/api/auth/[...nextauth]/route';
-const nodemailer = require('nodemailer');
+// import { userEmail } from '@/app/api/auth/[...nextauth]/route';
+// const nodemailer = require('nodemailer');
+import { useSession } from 'next-auth/react';
+
 
 // Nodemailer configuration
-const transporter = nodemailer.createTransport({
-  service: 'gmail', // e.g., 'Gmail', 'Yahoo', etc.
-  auth: {
-    user: 'revogue2023@gmail.com',
-    pass: 'yeex axcs uusx dzlx',
-  },
-});
+// const transporter = nodemailer.createTransport({
+//   service: 'gmail', // e.g., 'Gmail', 'Yahoo', etc.
+//   auth: {
+//     user: 'revogue2023@gmail.com',
+//     pass: 'yeex axcs uusx dzlx',
+//   },
+// });
 
 export default async function handler(req, res) {
+
+  const {data: session} = useSession();
+  let accID;
+  if(session){
+    accID = session.id
+    console.log(accID)
+    console.log(req)
+  }
+
   if (req.method === 'POST') {
     try {
       // Fetch product information from your API endpoint (e.g., localhost:3000/cart)
-      const response = await fetch('http://localhost:5000/api/cart/get-all-cartitems');
+      const response = await fetch(`http://localhost:5000/api/cart/get-all-cartitems?accid=${accID}`);
       if (!response.ok) {
         throw new Error('Error fetching product information');
       }
       
       const responseData = await response.json();
       const cartItems = responseData.data;
+      console.log(cartItems)
 
       if (!Array.isArray(cartItems) || cartItems.length === 0) {
         throw new Error('No cart items found.');
@@ -67,41 +79,41 @@ export default async function handler(req, res) {
         automatic_tax: { enabled: true },
       });
 
-      const mailOptions = {
-        from: 'revogue2023@gmail.com', // Sender email address
-        to: userEmail, // Recipient email address
-        subject: 'Payment Confirmation',
-        html: `
-          <html>
-            <head>
-              <style>
-                /* Add your CSS styles here */
-              </style>
-            </head>
-            <body>
-              <div style="background-color: #f4f4f4; padding: 20px;">
-              <h1 style="color: #17B5B5;">Thank you for your purchase!</h1>
-              <p>Order status: Payment Successful</p>
-              </div>
-            </body>
-          </html>
-        `,
-      };
+      // const mailOptions = {
+      //   from: 'revogue2023@gmail.com', // Sender email address
+      //   to: 'sathwikchiluveru@gmail.com', // Recipient email address
+      //   subject: 'Payment Confirmation',
+      //   html: `
+      //     <html>
+      //       <head>
+      //         <style>
+      //           /* Add your CSS styles here */
+      //         </style>
+      //       </head>
+      //       <body>
+      //         <div style="background-color: #f4f4f4; padding: 20px;">
+      //         <h1 style="color: #17B5B5;">Thank you for your purchase!</h1>
+      //         <p>Order status: Payment Successful</p>
+      //         </div>
+      //       </body>
+      //     </html>
+      //   `,
+      // };
 
-      transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-          console.error('Email error:', error);
-          res.status(500).send('Email could not be sent');
-        } else {
-          console.log('Email sent:', info.response);
-          // Clear form fields
-          // setFirstName('');
-          // setLastName('');
-          // setEmail('');
-          // setMessage('');
-          res.status(200).send('Payment and email were successful');
-        }
-      });
+      // transporter.sendMail(mailOptions, (error, info) => {
+      //   if (error) {
+      //     console.error('Email error:', error);
+      //     res.status(500).send('Email could not be sent');
+      //   } else {
+      //     console.log('Email sent:', info.response);
+      //     // Clear form fields
+      //     // setFirstName('');
+      //     // setLastName('');
+      //     // setEmail('');
+      //     // setMessage('');
+      //     res.status(200).send('Payment and email were successful');
+      //   }
+      // });
 
       res.json({ productData, session });
     } catch (err) {
