@@ -76,7 +76,7 @@ function Navbar() {
           </ul>
 
           {/* <SearchBar /> */}
-          <Profile2  />
+          {/* <Profile2  /> */}
 
         </div>
     </nav>
