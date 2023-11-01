@@ -16,25 +16,22 @@ import ThriftingComponent from "./components/ThriftingComponent";
 
 export default function Home() {
   return (
-    <div>
-      <Container fluid>
-        <Row className="mb-4 mx-2">
-          {/* LandingComponent */}
-          <LandingComponent />
-        </Row>
+    <Container fluid>
+      <Row className="mb-4 mx-2">
+        {/* LandingComponent */}
+        <LandingComponent />
+      </Row>
 
-        {/* Why Thrifting Title */}
-        <Row className="mb-4 mx-2">
-          <h1 style={{ textAlign: "center" }}>Why Thrifting?</h1>
-        </Row>
+      {/* Why Thrifting Title */}
+      <Row className="mb-4 mx-2">
+        <h1 style={{ textAlign: "center" }}>Why Thrifting?</h1>
+      </Row>
 
-        { /* ThriftingComponent */}
-        <Row className="mb-4 mx-2 justify-content-center">
-          <ThriftingComponent />
-        </Row>
-
-      </Container>
-    </div>
+      { /* ThriftingComponent */}
+      <Row className="mb-4 mx-2 justify-content-center">
+        <ThriftingComponent />
+      </Row>
+    </Container>
   )
 };
 

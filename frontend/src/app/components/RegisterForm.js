@@ -1,13 +1,18 @@
-'use client';
-import React, { useState } from 'react';
+"use client";
+import Link from "next/link";
 import validator from 'validator';
-import { useRouter } from 'next/navigation'
+import React, { useState } from 'react';
+import { useRouter } from "next/navigation";
+import { Button } from 'react-bootstrap';
 
-export default function Form() {
-    const router = useRouter()
+export default function RegisterForm() {
+    const router = useRouter();
+    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const [error, setError] = useState({});
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async e => {
         e.preventDefault();
 
         var err = 0, falseInput = false;
@@ -18,7 +23,7 @@ export default function Form() {
         const passwordRegex = new RegExp(/(?=(.*[0-9]))(?=.*[\!@#$%^&*()\\[\]{}\-_+=~`|:;"'<>,./?])(?=.*[a-z])(?=(.*[A-Z]))(?=(.*)).{8,}/);
 
         // If it does not fulfil the name regex
-        if (nameRegex.test(e.target.username.value) == false) {
+        if (nameRegex.test(username) == false) {
             err += 1;
             setError((prevError) => {
                 prevError.username = true;
@@ -28,7 +33,7 @@ export default function Form() {
         };
 
         // If input is not an email
-        if (validator.isEmail(e.target.email.value) == false) {
+        if (validator.isEmail(email) == false) {
             err += 1;
             setError((prevError) => {
                 prevError.email = true;
@@ -38,7 +43,7 @@ export default function Form() {
         };
 
         // If input does not pass the password requirement
-        if (passwordRegex.test(e.target.password.value) == false) {
+        if (passwordRegex.test(password) == false) {
             err += 1;
             setError((prevError) => {
                 prevError.password = true;
@@ -48,18 +53,17 @@ export default function Form() {
         };
 
         if (err === 0) {
-            const res = await fetch(`http://localhost:5000/api/account/create`, {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/account/create`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     username: e.target.username.value,
                     accemail: e.target.email.value,
                     accpass: e.target.password.value
                 }),
-                headers: { 'Content-Type': 'application/json' },
-                method: 'POST'
             }).catch(error => { console.log(error); });
 
             const status = await res.status;
-            console.log(status);
 
             switch (status) {
                 case 201:
@@ -79,38 +83,46 @@ export default function Form() {
         }
 
     };
+
+
     return (
-        <form
-            className="flex flex-col gap-2 mx-auto max-w-md mt-10"
-            method='post'
-            onSubmit={handleSubmit}
-        >
+        <form className="flex flex-col gap-2 mx-auto max-w-md mt-10" method='POST' onSubmit={handleSubmit}>
             <label htmlFor='username'>Username</label>
             <input
+                onChange={e => setUsername(e.target.value)}
                 name="username" type="text" id="username" required
             />
             {(error.username && <p>Username cannot be empty/have a number</p>)}
             <br />
             <label htmlFor='email'>Email</label>
             <input
+                onChange={e => setEmail(e.target.value)}
                 name="email" type="text" id="email" required
             />
             {(error.email && <p>Please key in a valid email</p>)}
             <br />
             <label htmlFor='password'>Password</label>
             <input
+                onChange={e => setPassword(e.target.value)}
                 type="password" id="password" required
             />
-            {(error.password && <p>Password needs to have:
-                <ul>
-                    <li>Use uppercase &amp; lowercase letter,</li>
-                    <li>1 number,</li>
-                    <li>1 special character,</li>
-                    <li>at least 8 characters</li>
-                </ul></p>)
+            {(error.password &&
+                <div>
+                    <span>Password needs to have:</span>
+                    <ul>
+                        <li>Use uppercase &amp; lowercase letter,</li>
+                        <li>1 number,</li>
+                        <li>1 special character,</li>
+                        <li>at least 8 characters</li>
+                    </ul>
+                </div>)
             }
             <br />
-            <button type="submit">Register</button>
+
+            <Button className="button" type='submit'>Register</Button>
+            <div>
+                Already have an account? <Link href="/login">Login here</Link>
+            </div>
         </form>
     );
 }

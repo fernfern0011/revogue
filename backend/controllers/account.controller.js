@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 
 const accountController = {
-    getAll: async (req, res) => {
+    getAllAccounts: async (req, res) => {
         try {
             var sql = 'SELECT * FROM account ORDER BY accid ASC'
 
@@ -83,7 +83,7 @@ const accountController = {
     verifyAccount: async (req, res) => {
         try {
             var { accemail, accpass } = req.body;
-            var sql = `SELECT accemail, accpass FROM account WHERE accemail = $1`
+            var sql = `SELECT * FROM account WHERE accemail = $1`
 
             const { rows } = await postgre.query(sql, [accemail.toLowerCase()])
 

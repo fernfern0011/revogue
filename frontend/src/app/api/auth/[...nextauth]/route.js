@@ -1,7 +1,7 @@
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-const handler = NextAuth({
+export const authOption = {
     providers: [
         CredentialsProvider({
             name: 'credentials',
@@ -19,7 +19,7 @@ const handler = NextAuth({
             },
             async authorize(credentials) {
 
-                const res = await fetch('http://localhost:5000/api/account/login', {
+                const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/account/login`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ accemail: credentials.email, accpass: credentials.password })
@@ -35,9 +35,53 @@ const handler = NextAuth({
                 return null;
             },
         }),
-    ], pages: {
-        signIn: "/signin",
+    ],
+    callbacks: {
+        jwt: async ({ token, user }) => {
+            // first time jwt callback is run, user object is available
+            if (user) {
+                token.accessToken = user.token;
+                token.id = user.result.accid;
+                token.name = user.result.username;
+                token.email = user.result.accemail;
+            };
+
+            return token;
+        },
+        session: async ({ session, token }) => {
+            session.accessToken = token.accessToken;
+
+            if (session?.accessToken) {
+                const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/user-profile?accid=${token.id}`, {
+                    headers: { "Content-Type": "application/json" }
+                });
+
+                const data = await res.json();
+
+                if (data) {
+                    session.id = token.id;
+                    session.image = "data.uprofileimage";
+                }
+            };
+
+            return session;
+        }
+    },
+    session: {
+        jwt: true,
+        maxAge: 60 * 60 * 24 // 24 hours
+    },
+    secret: process.env.NEXTAUTH_SECRET,
+    pages: {
+        signIn:
+        {
+            error: "Invalid email or password",
+            status: 200,
+            ok: true,
+        }
     }
-})
+}
+
+const handler = NextAuth(authOption);
 
 export { handler as GET, handler as POST };

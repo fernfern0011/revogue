@@ -1,0 +1,14 @@
+.page-container {
+    height: 100dvh;
+    background-color: white;
+    color: black;
+    align-items: center;
+}
+
+.map-container{
+    height: 479px;
+    background-color: grey;
+    display: flex;
+    align-items: center;
+    border-radius: 10px
+}
