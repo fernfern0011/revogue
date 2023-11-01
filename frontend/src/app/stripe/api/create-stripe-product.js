@@ -1,5 +1,5 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-
+import { userEmail } from '@/app/api/auth/[...nextauth]/route';
 const nodemailer = require('nodemailer');
 
 // Nodemailer configuration
@@ -15,11 +15,13 @@ export default async function handler(req, res) {
   if (req.method === 'POST') {
     try {
       // Fetch product information from your API endpoint (e.g., localhost:3000/cart)
-      const response = await fetch('http://localhost:3000/api/cart');
+      const response = await fetch('http://localhost:5000/api/cart/get-all-cartitems');
       if (!response.ok) {
         throw new Error('Error fetching product information');
       }
-      const cartItems = await response.json();
+      
+      const responseData = await response.json();
+      const cartItems = responseData.data;
 
       if (!Array.isArray(cartItems) || cartItems.length === 0) {
         throw new Error('No cart items found.');
@@ -67,7 +69,7 @@ export default async function handler(req, res) {
 
       const mailOptions = {
         from: 'revogue2023@gmail.com', // Sender email address
-        to: `sathwikchiluveru@gmail.com`, // Recipient email address
+        to: userEmail, // Recipient email address
         subject: 'Payment Confirmation',
         html: `
           <html>
@@ -79,10 +81,7 @@ export default async function handler(req, res) {
             <body>
               <div style="background-color: #f4f4f4; padding: 20px;">
               <h1 style="color: #17B5B5;">Thank you for your purchase!</h1>
-              <p>Order no: #</p>
-              <p>Order date: testdate</p>
-              <p>Order status: pending</p>
-              <p>Shipping address: Test </p>
+              <p>Order status: Payment Successful</p>
               </div>
             </body>
           </html>
