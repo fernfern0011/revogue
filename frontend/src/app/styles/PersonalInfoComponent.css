@@ -1,8 +1,22 @@
 .custom{
-    padding-right: 100px;
+    padding-right: 50px;
 }
 
-.custom-button{
-    background-color: #17B5B5; 
-  color: white;
+.ml-auto button {
+  color: gray;
+  text-transform: capitalize;
+  position: absolute;
+  right: 90px;
+}
+
+p strong {
+  font-size: 15px;
+}
+
+hr {
+  margin-top: 0; /* Adjust the value as needed */
+}
+
+.breadcrumb {
+  font-size: 14px;
 }

@@ -19,6 +19,7 @@ const TopNavigation = () => {
     return (
         <nav className="navbar navbar-expand-lg navbar-light">
             <div className="container-fluid">
+                
                 <Link className="navbar-brand mt-2 mt-lg-0" href="/">
                     <Image
                         src="/images/revogue-logo.png"

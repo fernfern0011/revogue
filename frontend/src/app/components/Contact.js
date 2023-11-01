@@ -1,7 +1,9 @@
 "use client"
 import axios from 'axios';
 import React, { useState } from 'react'
-// import '../styles/ContactComponent.css'
+import '../styles/ContactComponent.css'
+// import displayImg from '../../../public/background.jpg'
+import Image from "next/image";
 
 const Contact = () => {
 
@@ -45,27 +47,38 @@ const Contact = () => {
   }
 
   return (
+    <div className="contact-container">
     <div className='flex-container'>
       <div className='picture-display'>
-        <img src="/images/image6.png" alt='why' />
+        <Image
+          className="img-fluid"
+          src="/images/image6.png"
+          alt="why"
+          width={300}
+          height={600}
+        />
       </div>
       <div>
         <form onSubmit={handleSubmit} className='emailForm'>
           <h1>Contact Us</h1>
           <p className='title1'>Need to get in touch with us?</p>
           <p className='title2'>Fill out the form with your inquiry</p>
-          <input
-            type="text"
-            placeholder="Your First Name"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-          />
-          <input
-            type="text"
-            placeholder="Your Last Name"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-          />
+          <div className="name-fields">
+            <input
+              type="text"
+              placeholder="Your First Name"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              style={{marginRight: '3px'}}
+            />
+            <input
+              type="text"
+              placeholder="Your Last Name"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              style={{marginLeft: '3px'}}
+            />
+          </div>
           <input
             type="email"
             placeholder="Your Email"
@@ -74,15 +87,18 @@ const Contact = () => {
           />
           <textarea
             cols="38"
-            rows="6"
+            rows="5"
             placeholder='Message'
             value={message}
             onChange={(e) => setMessage(e.target.value)}
           >
           </textarea>
-          <button type="submit">Send Email</button>
+          <button type="submit">SUBMIT</button>
         </form>
       </div>
     </div>
+    </div>
   )
 }
+
+export default Contact
