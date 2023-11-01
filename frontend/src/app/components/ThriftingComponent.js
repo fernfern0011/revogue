@@ -12,10 +12,13 @@ import Image from "react-bootstrap/Image";
 import styles from "../page.module.css";
 import "../styles/ThriftingComponent.css";
 
-const ThriftingComponent = () => {
+const ThriftingComponent = ({ text }) => {
   return (
     <main className={styles.main}>
       <Container fluid>
+        <Row className="mb-4 mx-2">
+          <h1 style={{ textAlign: "center" }}>{text}</h1>
+        </Row>
         <Row className="mb-4 mx-2 justify-content-center">
           <Col
             xs="12"
@@ -35,7 +38,7 @@ const ThriftingComponent = () => {
 
             <Row className="mb-4 align-items-center text-center">
               <p>
-              92 million tons of garments produced every year land in massive dumping grounds. By shopping secondhand, you're helping to reduce the amount of waste that ends up in landfills.
+                92 million tons of garments produced every year land in massive dumping grounds. By shopping secondhand, you're helping to reduce the amount of waste that ends up in landfills.
               </p>
             </Row>
           </Col>
@@ -58,7 +61,7 @@ const ThriftingComponent = () => {
 
             <Row className="mb-4 align-items-center text-center">
               <p>
-                Quadrupling the average life span of an item of clothing results in 75% savings in freshwater used for dyeing and other processes. 
+                Quadrupling the average life span of an item of clothing results in 75% savings in freshwater used for dyeing and other processes.
               </p>
             </Row>
           </Col>
@@ -104,7 +107,7 @@ const ThriftingComponent = () => {
 
             <Row className="mb-4 align-items-center text-center">
               <p>
-              If every consumer this year bought just one secondhand garment instead of a new one, it would lower CO2 emissions by over 2 billion pounds, or take 76 million cars off the road for a day. 
+                If every consumer this year bought just one secondhand garment instead of a new one, it would lower CO2 emissions by over 2 billion pounds, or take 76 million cars off the road for a day.
               </p>
             </Row>
           </Col>

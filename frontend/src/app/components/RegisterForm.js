@@ -53,7 +53,7 @@ export default function RegisterForm() {
         };
 
         if (err === 0) {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/account/create`, {
+            const res = await fetch(`${process.env.backendUrl}/api/account/create`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

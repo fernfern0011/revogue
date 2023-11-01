@@ -54,7 +54,7 @@ const productController = {
             const sql = `INSERT INTO product(productid, accid, productname, description, price, size, quantity, category, forwomen, formen, images)
                          VALUES(nextval('product_id_seq'), $1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *`
 
-            const { rows } = await postgre.query(sql, [accid, productname, description, price, size, quantity, category, forwomen, formen, images])
+            const { rows } = await postgre.query(sql, [accid, productname, description, price, size, 1, category, forwomen, formen, images])
 
             if (rows[0]) {
                 return res.status(201).json({ msg: "Product is created", data: rows[0] })

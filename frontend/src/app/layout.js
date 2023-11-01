@@ -1,11 +1,11 @@
-import './globals.scss'
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { Inter } from 'next/font/google'
-import TopNavigation from './layout/TopNavigation'
-import Footer from './layout/Footer'
-import NextAuthSessionProvider from './sessionProvider';
+import "./globals.scss";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Inter } from "next/font/google";
+import TopNavigation from "./layout/TopNavigation";
+import Footer from "./layout/Footer";
+import NextAuthSessionProvider from "./sessionProvider";
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   title: "ReVogue",
@@ -23,5 +23,5 @@ export default function RootLayout({ children }) {
         </NextAuthSessionProvider>
       </body>
     </html>
-  )
+  );
 }

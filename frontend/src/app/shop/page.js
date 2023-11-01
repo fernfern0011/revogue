@@ -3,7 +3,20 @@ import React from 'react';
 import './page.css'
 import ProductListing from '../components/ProductListing';
 import { Suspense } from 'react';
-import { getAllProducts } from '../lib/product/data';
+
+async function getAllProducts() {
+
+  // get product list
+  const getProductRes = await fetch(`${process.env.backendUrl}/api/product/get-all-products`, {
+    headers: { "Content-Type": "application/json" }
+  })
+
+  const getProductStatus = getProductRes.status;
+
+  if (getProductStatus == 200) {
+    return getProductRes.json();
+  }
+}
 
 // sidebar
 import Gender from "../components/Sidebar/Gender/Gender";
@@ -14,6 +27,7 @@ import Price from "../components/Sidebar/Price/Price";
 
 async function ShopPage() {
   const productData = await getAllProducts();
+  const productList = productData.data;
 
   if (productData.length == 0) {
     return (
@@ -45,7 +59,7 @@ async function ShopPage() {
 
         <div className='d-flex flex-wrap col-lg-9'>
           <Suspense fallback={<p>Loading products...</p>}>
-            {productData.map((product) => (
+            {productList.map((product) => (
               <ProductListing key={product.productid} productid={product.productid} productname={product.productname} price={product.price} image={product.images} />
             ))}
           </Suspense>

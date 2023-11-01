@@ -1,6 +1,6 @@
 .container {
   max-width: 100vw;
-  max-height: 100vh;
+  min-height: 100vh;
   display: flex;
   justify-content: space-between;
 }
@@ -39,8 +39,6 @@
   /* Add other styles like border or margin if desired */
 }
 
-
-
 /* RIGHT SIDE STUFF */
 .other-content {
   flex: 2;
@@ -49,7 +47,6 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start; /* Align items at the top of the container */
-
 }
 
 .buttons-container {
@@ -58,7 +55,8 @@
   align-items: center;
 }
 
-.cart-button, .wishlist-button {
+.cart-button,
+.wishlist-button {
   flex: 1; /* Distribute available space equally */
   margin: 0 5px; /* Add some spacing between the buttons */
 }
@@ -70,7 +68,7 @@
 }
 
 .wishlist-button {
-  float:right;
+  float: right;
 }
 
 h1 {
@@ -87,7 +85,7 @@ p {
   margin-bottom: 40px;
 }
 
-span {
+.other-content span {
   color: black;
   font-weight: bold;
   font-size: 17px;
