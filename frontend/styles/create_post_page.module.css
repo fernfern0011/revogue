@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 100vh;
+    min-height: 80vh;
     width: 100%;
   }
 
@@ -11,7 +11,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 30vw;
+    min-height: 20vw;
     width: 30vw;
     border: 2px dashed #A39D9D;
     margin-right: 20px;
