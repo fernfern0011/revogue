@@ -1,5 +1,5 @@
-"use client"
-import React, { useState, useEffect } from "react";
+"use client";
+import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import { BrowserRouter as Router } from "react-router";
 import { NavLink } from "react-router-dom";
@@ -14,59 +14,51 @@ import SidebarComponent from "../components/SidebarComponent";
 import styles from "../page.module.css";
 import "../styles/AddressComponent.css";
 
+//retrieve default data from backend API
+async function getDefaultAddressData() {
+  var accid = 1;
+  const getDefaultAddressRes = await fetch(
+    `http://localhost:5000/api/address/get-default-address?accid=${accid}`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  const getDefaultAddressStatus = getDefaultAddressRes.status;
+  if (getDefaultAddressStatus == 200) {
+    return getDefaultAddressRes.json();
+  }
+}
+
+//retrieve additional data from backend API
 async function getAddressData() {
-
-  // get product list
-  const getAddressRes = await get(`${backendUrl}/api/product/get-all-products`, {
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ "accid": 1 })
-  })
-
+  var accid = 1;
+  const getAddressRes = await fetch(
+    `http://localhost:5000/api/address/get-all-addresses?accid=${accid}`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
   const getAddressStatus = getAddressRes.status;
   if (getAddressStatus == 200) {
     return getAddressRes.json();
   }
-
 }
 
 async function AddressPage() {
-  // const [addressData, setAddressData] = useState(null);
+  //load default data
+  const defaultData = await getDefaultAddressData();
+  const defaultAddr = defaultData.data;
 
-  // // Fetch address data when the component mounts
-  // useEffect(() => {
-  //   async function fetchAddressData() {
-  //     try {
-  //       const response = await fetch(
-  //         "http://localhost:5000/api/address/get-all-addresses",
-  //         {
-  //           method: "POST", // You mentioned that you need to use POST method
-  //           headers: { "Content-Type": "application/json" },
-  //           body: JSON.stringify({ "accid": 1 }),
-  //         }
-  //       );
+  //load additional default data
+  const addressData = await getAddressData();
+  const addresses = addressData.data;
 
-  //       if (response.status === 200) {
-  //         const data = await response.json();
-  //         console.log(data);
-  //         setAddressData(data);
-  //       } else {
-  //         console.error("Error fetching address data.");
-  //       }
-  //     } catch (error) {
-  //       console.error("An error occurred:", error);
-  //     }
-  //   }
-
-  //   fetchAddressData();
-  // }, []); // The empty dependency array ensures the effect runs only once on mount.
-  const AddressData = await getAddressData();
-  const addressList = AddressData.data;
-
-  if(!addressList){
-    return alert('failed');
-  }
-
-  console.log(addressList);
+  // Filter addresses where isdefault is false
+  const nonDefaultAddresses = addresses.filter((data) => !data.isdefault);
 
   return (
     <main className={styles.main}>
@@ -91,19 +83,29 @@ async function AddressPage() {
 
               <br />
 
-              <div className="jumbotron jumbotron-fluid custom-jumbotron">
-                {addressData ? ( // Check if addressData is available
-                  <div>
-                    <h4>Name: {addressData.fname} {addressData.lname}</h4>
-                    <p>Phone: {addressData.phone}</p>
-                    <p>Street: {addressData.street}</p>
-                    <p>Postal Code: {addressData.postal_code}</p>
+              {defaultAddr.map((data, index) => (
+                <div className="jumbotron jumbotron-fluid custom-jumbotron">
+                  <div key={index}>
+                    <h4>
+                      {data.fname} {data.lname}
+                    </h4>
+                    <br></br>
+                    <p>{data.phone}</p>
+                    <p>{data.street}</p>
+                    <p>{data.postal_code}</p>
                   </div>
-                ) : (
-                  <p>Loading address data...</p>
-                )}
-                {/* Additional address data goes here */}
-              </div>
+                  <Row fluid>
+                    <Col>
+                      <h4>
+                        <span className="badge bg-secondary">Default</span>
+                      </h4>
+                    </Col>
+                  </Row>
+                  <br />
+                  <Button variant="text">Remove</Button>&nbsp;|&nbsp;
+                  <Button variant="text">Edit</Button>&nbsp;
+                </div>
+              ))}
             </Row>
 
             <br></br>
@@ -114,10 +116,10 @@ async function AddressPage() {
 
             {/* additional address */}
             <Row className="d-flex">
-              <Col className="col-2">
-                <h4 className="title">Additional address</h4>
+              <Col className="col-3">
+                <h4 className="title">Additional Address</h4>
               </Col>
-              <Col className="col-8"></Col>
+              <Col className="col-6"></Col>
               <Col className="col-2">
                 <Button variant="text" className="addBtn">
                   Add New +
@@ -126,22 +128,33 @@ async function AddressPage() {
 
               <br />
 
-              <div className="jumbotron jumbotron-fluid custom-jumbotron">
-                <h4>Name</h4>
-                <p>postal</p>
-                <p>address</p>
-                <Row fluid>
-                  <Col>
+              {nonDefaultAddresses.map((data) => (
+                <div className="jumbotron jumbotron-fluid custom-jumbotron mb-3">
+                  <div key={data.addressid}>
                     <h4>
-                      <span className="badge bg-secondary">Tag</span>
+                      {data.fname} {data.lname}
                     </h4>
-                  </Col>
-                </Row>
-                <br />
-                <Button variant="text">Remove</Button>&nbsp;|&nbsp;
-                <Button variant="text">Edit</Button>&nbsp;|&nbsp;
-                <Button variant="text">Set as default</Button>
-              </div>
+                    <br></br>
+                    {/* <p>{data.addressid}</p> */}
+                    <p>{data.phone}</p>
+                    <p>{data.street}</p>
+                    <p>{data.postal_code}</p>
+                  </div>
+                  <Row fluid>
+                    <Col>
+                      <h4>
+                        <span className="badge bg-secondary">
+                          {data.isbusiness ? "Business" : "Additional"}
+                        </span>
+                      </h4>
+                    </Col>
+                  </Row>
+                  <br />
+                  <Button variant="text">Remove</Button>&nbsp;|&nbsp;
+                  <Button variant="text">Edit</Button>&nbsp;|&nbsp;
+                  <Button variant="text">Set as default</Button>
+                </div>
+              ))}
             </Row>
           </Col>
         </Row>

@@ -4,7 +4,7 @@ const postgre = require('../config/database')
 const addressController = {
     getAllAddresses: async (req, res) => {
         try {
-            const { accid } = req.body;
+            const { accid } = req.query;
             const sql = 'SELECT * FROM address WHERE accid = $1 ORDER BY addressid ASC;'
 
             const { rows } = await postgre.query(sql, [accid])
@@ -21,7 +21,7 @@ const addressController = {
     },
     getDefaultAddress: async (req, res) => {
         try {
-            const { accid } = req.body;
+            const { accid } = req.query;
             const sql = 'SELECT * FROM address WHERE accid = $1 AND isDefault = $2;'
 
             const { rows } = await postgre.query(sql, [accid, true])
