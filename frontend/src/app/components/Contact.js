@@ -2,7 +2,6 @@
 import axios from 'axios';
 import React, { useState } from 'react'
 // import '../styles/ContactComponent.css'
-import displayImg from '../../../public/background.jpg'
 
 const Contact = () => {
 
