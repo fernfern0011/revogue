@@ -91,6 +91,7 @@ async function PersonalInfoPage() {
   return (
     <main className={styles.main}>
       <Container fluid className="mt-3 mb-5 px-5">
+        <div>
           <p>
             Home &nbsp; {">"} &nbsp; Account Setting &nbsp; {">"} &nbsp;{" "}
             <b>Personal Info</b>
