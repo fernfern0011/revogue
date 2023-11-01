@@ -44,6 +44,12 @@ app.use("/api/mysales", require("./routes/mysales.route"))
 //   res.send('Stripe Payment Backend');
 // });
 
+app.get('/', (req, res) => {
+  // Code to retrieve all users from the database
+  res.status(200).send("Test World");
+});
+
+
 app.listen(process.env.PORT, () => {
   console.log(`Server started on port ${process.env.PORT}`);
 })
