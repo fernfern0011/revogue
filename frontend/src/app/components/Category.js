@@ -1,31 +1,34 @@
 import * as React from 'react';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
-import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-export default function SelectLabels() {
-  const [size, setSize] = React.useState('');
+export default function Category({ setFormData }) {
+  const [selectedCategory, setCategory] = React.useState('');
 
-  const handleChange = (event) => {
-    setSize(event.target.value);
-  };
+  React.useEffect(() => {
+    setFormData(prevData => ({
+      ...prevData,
+      category: selectedCategory
+    }))
+  }, [selectedCategory])
 
   return (
     <div>
-        <InputLabel
-            htmlFor="standard-brandName"
-            sx={{ textAlign: 'left', fontSize: 13, color: 'black' }}
-        >
-            Category <span style={{ color: 'red' }}>*</span>
-        </InputLabel>
+      <InputLabel
+        htmlFor="standard-brandName"
+        sx={{ textAlign: 'left', fontSize: 13, color: 'black' }}
+      >
+        Category <span style={{ color: 'red' }}>*</span>
+      </InputLabel>
       <FormControl required >
         <Select
           labelId="demo-simple-select-helper-label"
           id="demo-simple-select-helper"
-          value={size}
-          onChange={handleChange}
+          name='category'
+          value={selectedCategory}
+          onChange={(e) => setCategory(e.target.value)}
           sx={{
             '& .MuiSelect-select': {
               fontSize: 13, // Adjust the font size as needed
@@ -37,7 +40,7 @@ export default function SelectLabels() {
           <MenuItem value="Top">Top</MenuItem>
           <MenuItem value="Bottom">Bottom</MenuItem>
           <MenuItem value="Dresss">Dress</MenuItem>
-          <MenuItem value="OuterWear">Outer Wear</MenuItem>
+          <MenuItem value="Outer Wear">Outer Wear</MenuItem>
         </Select>
       </FormControl>
     </div>
