@@ -8,9 +8,9 @@ import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
 import '../styles/Order.css'
 
-const Purchase = ({ purchaseItem }) => {
+const SalesPending = ({ saleItem }) => {
 
-    const parsedOrderDetailsArray = purchaseItem.orderdetails.map((orderDetailString) => {
+    const parsedOrderDetailsArray = saleItem.orderdetails.map((orderDetailString) => {
         try {
           return JSON.parse(orderDetailString);
         } catch (error) {
@@ -24,10 +24,10 @@ const Purchase = ({ purchaseItem }) => {
       <Card style={{ width: "auto" }} className="card">
         <Card.Header>
             <Card.Text className="cardTop">
-                <b>Order no: </b>{purchaseItem.orderid}<br/>
+                <b>Order no: </b>{saleItem.orderid}<br/>
                 <span className="cardTopText">
-                <b>Order Date: </b>{purchaseItem.created_on}<br/>
-                <b>Order Status: </b>{purchaseItem.iscompleted ? "Completed" : "Pending"}<br/>
+                <b>Order Date: </b>{saleItem.created_on}<br/>
+                <b>Order Status: </b>{saleItem.iscompleted ? "Completed" : "Pending"}<br/>
                 </span>
             </Card.Text>
         </Card.Header>
@@ -41,20 +41,15 @@ const Purchase = ({ purchaseItem }) => {
                 <Card.Text key={index} className="cardText">
                   <b>{parsedOrderDetails.productname || "N/A"}</b> <br/>
                   <b>Qty: </b>{parsedOrderDetails.quantity || "N/A"}<br/>
-                  <span className="cardTopText">Total: ${purchaseItem.totalprice}</span>
+                  <span className="cardTopText">Total: ${saleItem.totalprice}</span>
                 </Card.Text>
               ))}
             </Col>
         </Row>
-        <div className="text-center">
-            <Button variant="contained" className="custom-button mx-auto">
-            Receive
-            </Button>
-        </div>
         </Card.Body>
       </Card>
     </Col>
   );
 };
 
-export default Purchase;
+export default SalesPending;

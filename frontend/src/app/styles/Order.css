@@ -10,6 +10,13 @@
     margin-top: 10px;
 }
 
+.custom-confirm-button {
+    background-color: green; 
+    color: white; 
+    text-transform: capitalize;
+    margin-top: 10px;
+}
+
 .custom-cancel-button {
     background-color: red; 
     color: white; 
@@ -48,5 +55,5 @@
     text-align: center;
     margin: auto; /* Center the box horizontally within the container */
     color: #17B5B5;
-  }
+}
   

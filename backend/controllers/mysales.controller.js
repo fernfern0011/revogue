@@ -108,7 +108,7 @@ const mySalesController = {
     getToShipOrders: async (req, res) => {
         try {
 
-            const { sellerid } = req.body;
+            const { sellerid } = req.query;
             const sql = `SELECT * from mysales WHERE sellerid = $1 AND isconfirmed = $2 ORDER BY created_on ASC;`
 
             const { rows } = await postgre.query(sql, [sellerid, true])
@@ -158,7 +158,7 @@ const mySalesController = {
     getInProgressOrders: async (req, res) => {
         try {
 
-            const { buyerid, sellerid, orderid } = req.body;
+            const { buyerid, sellerid, orderid } = req.query;
             const sql = `SELECT * FROM mysales ms INNER JOIN mypurchases mp ON 
                         mp.orderid = ms.orderid AND mp.buyerid = ms.buyerid AND mp.sellerid = ms.sellerid
                         WHERE ms.buyerid = $1 AND ms.sellerid = $2 AND ms.orderid = $3 AND ms.isshipped = $4 AND mp.isreceived = $5;`;
@@ -178,7 +178,7 @@ const mySalesController = {
     getCancelledOrders: async (req, res) => {
         try {
 
-            const { sellerid } = req.body;
+            const { sellerid } = req.query;
             const sql = `SELECT * from mysales WHERE sellerid = $1 AND iscancelled = $2 ORDER BY created_on DESC;`
 
             const { rows } = await postgre.query(sql, [sellerid, true])
@@ -197,7 +197,7 @@ const mySalesController = {
     getCompletedOrders: async (req, res) => {
         try {
 
-            const { sellerid } = req.body;
+            const { sellerid } = req.query;
             const sql = `SELECT * from mysales WHERE sellerid = $1 AND iscompleted = $2 ORDER BY created_on DESC;`
 
             const { rows } = await postgre.query(sql, [sellerid, true])
