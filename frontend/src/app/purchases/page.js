@@ -1,10 +1,10 @@
 'use client';
 import React, { useEffect } from 'react';
-import  Navbar  from '../components/Navbar.js';
 import styles from '/styles/orders.module.css';
 import OrderGridActive from '../components/OrderGridActive.js';
 import OrderGridCancelled from '../components/OrderGridCancelled.js';
 import OrderGridCompleted from '../components/OrderGridCompleted.js';
+import OrderGridProcessing from '../components/OrderGridProcessing.js'
 
 export default function LandingPage() {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
@@ -34,41 +34,45 @@ export default function LandingPage() {
     // Show the selected tab content and add an "active" class to the button that opened the tab
     document.getElementById(tabName).style.display = 'block';
     evt.currentTarget.classList.add(styles.active);
+ 
   }
+
 
   return (
     <main className={styles.main}>
-      <div className={styles.breadcrumb}>
-          <p>
-            Home &nbsp; {">"} &nbsp; <b>My Orders</b>
-          </p>
-        </div>
       <div>
             <h1 className={styles.orders}>My Orders</h1>
             <div className={styles.tab}>
-            <button className={styles.tablinks} onClick={(evt) => openTab(evt, 'forYou')}>
-            Active
+            <button className={styles.tablinks} onClick={(evt) => openTab(evt, 'processing')}>
+            Processing
+            </button>  
+            <button className={styles.tablinks} onClick={(evt) => openTab(evt, 'pending')}>
+            Pending
             </button>
-            <button className={styles.tablinks} onClick={(evt) => openTab(evt, 'following')}>
+            <button className={styles.tablinks} onClick={(evt) => openTab(evt, 'cancelled')}>
             Cancelled
             </button>
-            <button className={styles.tablinks} onClick={(evt) => openTab(evt, 'hashtag')}>
+            <button className={styles.tablinks} onClick={(evt) => openTab(evt, 'completed')}>
             Completed
             </button>
         </div>
         <hr className={styles.horizontalLine}/>
 
-        <div id="forYou" className={`${"tabcontent"}`}>
+        <div id="processing" className={`${"tabcontent"}`}>
+            <OrderGridProcessing />
+        </div>
+
+        <div id="pending" className={`${"tabcontent"}`}>
             <OrderGridActive />
         </div>
 
-{/* Following Tab */}
-      <div id="following" className={`${"tabcontent"}`}>
+{/* Cancelled Tab */}
+      <div id="cancelled" className={`${"tabcontent"}`}>
         <OrderGridCancelled />
       </div>
 
-{/* Hashtag Tab */}
-      <div id="hashtag" className={`${"tabcontent"}`}>
+{/* Completed Tab */}
+      <div id="completed" className={`${"tabcontent"}`}>
         <OrderGridCompleted />
       </div>
       </div>

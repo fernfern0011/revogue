@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row } from 'react-bootstrap';
-import OrderCompleted from './OrderCompleted';
+import SalesCompleted from './SalesCompleted';
+import '../styles/Order.css'
 
-export default function OrderGridCompleted() {
-  const [purchaseItems, setPurchaseItems] = useState([]);
+export default function OrderGridActive() {
+  const [saleItems, setsaleItems] = useState([]);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/mypurchases/get-completed-orders?buyerid=1')
+    fetch('http://localhost:5000/api/mysales/get-completed-orders?sellerid=1')
       .then((response) => {
         if (!response.ok) {
           throw new Error('Error fetching product information');
@@ -15,26 +16,26 @@ export default function OrderGridCompleted() {
         return response.json();
       })
       .then((responseData) => {
-        const purchaseItems = responseData.data;
-        if (!Array.isArray(purchaseItems) || purchaseItems.length === 0) {
+        const saleItems = responseData.data;
+        if (!Array.isArray(saleItems) || saleItems.length === 0) {
           throw new Error('No purchase items found.');
         }
-        setPurchaseItems(purchaseItems);
+        setsaleItems(saleItems);
       })
       .catch((error) => {
         setError(error);
       });
   }, []);
 
-  const items = purchaseItems.map((purchaseItem, index) => (
-    <OrderCompleted key={index} purchaseItem={purchaseItem} />
+  const items = saleItems.map((saleItem, index) => (
+    <SalesCompleted key={index} saleItem={saleItem} />
   ));
 
   return (
     <Container className="test">
       {error ? (
         <div className='error-box'>
-          <h1>No Pending Orders</h1>
+          <h1>No Completed Sales</h1>
         </div>
       ) : (
         <Row>{items}</Row>

@@ -1,4 +1,3 @@
-
 import * as React from "react";
 import Button from "@mui/material/Button";
 
@@ -9,16 +8,26 @@ import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
 import '../styles/Order.css'
 
-const Order = () => {
+const OrderCancelled = ({ purchaseItem }) => {
+
+    const parsedOrderDetailsArray = purchaseItem.orderdetails.map((orderDetailString) => {
+        try {
+          return JSON.parse(orderDetailString);
+        } catch (error) {
+          console.error("Error parsing order details JSON:", error);
+          return null; // You can return a default value or handle the error differently
+        }
+    });
+
   return (
     <Col xs="12" sm="6" md="4" className="px-2 pb-3">
       <Card style={{ width: "auto" }} className="card">
         <Card.Header>
             <Card.Text className="cardTop">
-                <b>Order no: #123456789</b> <br/>
+                <b>Order no: </b>{purchaseItem.orderid}<br/>
                 <span className="cardTopText">
-                <b>Order Date: </b>12/12/2021 12:40 PM<br/>
-                <b>Order Status: </b>Cancelled<br/>
+                <b>Order Date: </b>{purchaseItem.created_on}<br/>
+                <b>Order Status: </b>{purchaseItem.iscompleted ? "Completed" : "Pending"}<br/>
                 </span>
             </Card.Text>
         </Card.Header>
@@ -27,12 +36,14 @@ const Order = () => {
                 <Col>
                     <Card.Img src="/images/image7.png"/>
                 </Col>
-            <Col>
-            <Card.Text className="cardText">
-                <b>Floral Printed T-shirt</b> <br/>
-                <b>Qty: </b> 1 <br/>
-                <span className="cardTopText">Total: $24.00</span>
-            </Card.Text>
+                <Col>
+              {parsedOrderDetailsArray.map((parsedOrderDetails, index) => (
+                <Card.Text key={index} className="cardText">
+                  <b>{parsedOrderDetails.productname || "N/A"}</b> <br/>
+                  <b>Qty: </b>{parsedOrderDetails.quantity || "N/A"}<br/>
+                  <span className="cardTopText">Total: ${purchaseItem.totalprice}</span>
+                </Card.Text>
+              ))}
             </Col>
         </Row>
         </Card.Body>
@@ -41,4 +52,4 @@ const Order = () => {
   );
 };
 
-export default Order;
+export default OrderCancelled;

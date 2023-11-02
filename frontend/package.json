@@ -47,6 +47,7 @@
     "react-leaflet": "^4.2.1",
     "react-router-dom": "^6.17.0",
     "react-slick": "^0.29.0",
+    "resend": "^2.0.0",
     "sass": "^1.69.5",
     "slick-carousel": "^1.8.1",
     "stripe": "^14.2.0",
