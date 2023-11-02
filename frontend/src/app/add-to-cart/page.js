@@ -15,15 +15,25 @@ import Navbar from "../components/Navbar";
 import styles from "../page.module.css";
 import "../styles/AddToCart.css";
 import { Padding } from "@mui/icons-material";
+import {useSession} from "next-auth/react";
 
 function AddToCartPage() {
+  const {data: session} = useSession();
+  let accID;
+  if (session){
+    accID = session.id;
+    console.log(accID);
+  }
+  else{
+    console.log('No session')
+  }
+  
   const [cartlist, setCart] = useState(null);
-
+  
   // Fetch cart data using promises
   useEffect(() => {
-    const accid = 1;
     fetch(
-      `https://revogue-backend.vercel.app/api/cart/get-all-cartitems?accid=${accid}`,
+      `https://revogue-backend.vercel.app/api/cart/get-all-cartitems?accid=${accID}`,
       {
         method: "GET",
         headers: {
