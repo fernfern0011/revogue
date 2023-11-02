@@ -1,8 +1,10 @@
+"use client";
 import React, { useState } from "react";
-import "./Size.css";
+import "../Category.css";
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 function Size() {
-  const [isDropdownOpen, setDropdownOpen] = useState(true);
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
 
   const toggleDropdown = () => {
     setDropdownOpen(!isDropdownOpen);
@@ -12,24 +14,31 @@ function Size() {
     console.log("Clicked");
   };
 
+  const iconStyle = {
+    fontSize: 22, // Adjust the font size as needed
+    marginLeft: "149px", // Position the icon 20px to the right
+  };
+
+  const h2Style = {
+    marginBottom: "-5px", // Remove bottom margin
+    marginTop: "-12px",
+  };
+
   return (
-    <div>
-      <h2 className="sidebar-title" onClick={toggleDropdown}>
-        Size 
+    <div className="main">
+      <h2 className="sidebar-title" onClick={toggleDropdown} style={h2Style}>
+        <span style={{ display: 'flex', alignItems: 'center' }}>
+          Size
+          <span className={`dropdown-arrow ${isDropdownOpen ? "open" : ""}`}>
+            <KeyboardArrowDownIcon style={iconStyle} />
+          </span>
+        </span>
       </h2>
 
       <div className={`category-dropdown ${isDropdownOpen ? "open" : ""}`}>
         <label className="sidebar-label-container">
           <input type="checkbox" name="size" onClick={handleCheckboxClick} />
           <span className="checkmark blue-border"></span>Free Size
-        </label>
-        <label className="sidebar-label-container">
-          <input type="checkbox" name="size" onClick={handleCheckboxClick} />
-          <span className="checkmark blue-border"></span>Size XXS
-        </label>
-        <label className="sidebar-label-container">
-          <input type="checkbox" name="size" onClick={handleCheckboxClick} />
-          <span className="checkmark blue-border"></span>Size XS
         </label>
         <label className="sidebar-label-container">
           <input type="checkbox" name="size" onClick={handleCheckboxClick} />
@@ -43,12 +52,8 @@ function Size() {
           <input type="checkbox" name="size" onClick={handleCheckboxClick} />
           <span className="checkmark blue-border"></span>Size L
         </label>
-        <label className="sidebar-label-container">
-          <input type="checkbox" name="size" onClick={handleCheckboxClick} />
-          <span className="checkmark blue-border"></span>Size XL
-        </label>
       </div>
-      <hr/>
+      <hr style={{width: "200px"}}/>
     </div>
   );
 }

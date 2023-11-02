@@ -1,31 +1,94 @@
 'use client';
-import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import React, { useEffect, useState } from 'react';
 import styles from '/styles/create_post_page.module.css';
-import uploadProductButton from '../../../styles/Home.module.css'
-import { CldUploadWidget } from 'next-cloudinary';
+import Size from '../components/Size';
+import Category from '../components/Category';
+import ProductUpload from '../components/ProductUpload';
 
 // MUI imports
-import ImageIcon from '@mui/icons-material/Image';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
-import Dropdown from '../components/Dropdown';
-import Category from '../components/Category';
+import FormLabel from '@mui/material/FormLabel';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
 
 export default function CreatePost1() {
-    const [selectedImage, setSelectedImage] = useState(null);
-    const router = useRouter();
-    const [imageUrls, setImageUrls] = useState([]);
+    const [formData, setFormData] = useState({
+        productname: '',
+        description: '',
+        price: 0,
+        size: '',
+        category: '',
+        images: '',
+        forwomen: false,
+        formen: false
+    })
 
-    const handleDeleteImage = (index) => {
-        setImageUrls(prevImageUrls => {
-            const updateImageUrls = [...prevImageUrls]
-            updateImageUrls.splice(index, 1)
-            return updateImageUrls
+    const handleChange = (e) => {
+        e.preventDefault();
+
+        const { name, value } = e.target;
+        setFormData({
+            ...formData,
+            [name]: value
         })
+    }
+
+    const handleCheckbox = (e) => {
+        e.preventDefault();
+
+        const { name, checked } = e.target;
+        setFormData({
+            ...formData,
+            [name]: checked
+        })
+    }
+
+    const { formen, forwomen } = formData;
+    const errorMessage = [formen, forwomen].filter((v) => v).length < 1;
+
+    const [info, updateInfo] = useState();
+    const [imageUrls, setImageUrls] = useState([])
+    const handleImageChange = () => {
+        const stringimages = JSON.stringify(imageUrls)
+        console.log(stringimages);
+
+        setFormData({
+            ...formData,
+            images: stringimages
+        })
+    }
+
+    useEffect(() => {
+        console.log(formData.images)
+        console.log(formData)
+    }, [formData])
+
+    useEffect(() => {
+        setFormData((prevFormData) => ({
+            ...prevFormData,
+            images: imageUrls.toString(),
+        }))
+    }, [imageUrls])
+
+    const createItem = async () => {
+        handleImageChange()
+
+        if (!errorMessage) {
+            console.log(formData);
+        }
+
+        // try {
+        //     const response = await axios.post('/api/addproduct', formData)
+        //     router.push('/')
+        //     console.log(response)
+        // } catch (error) {
+        //     console.log(error)
+        // }
     }
 
     return (
@@ -33,30 +96,6 @@ export default function CreatePost1() {
         <main className={styles.main}>
             {/* container for image upload */}
             <div style={{ display: "flex", flexDirection: "column-reverse" }}>
-                <div className="leftColumn">
-                    <div>
-                        <CldUploadWidget
-                            uploadPreset="wad2_revogue"
-                            options={{ folder: "product" }}
-                            onUpload={(result) => {
-                                const newImageUrl = result.info.secure_url;
-                                setImageUrls(prevImageUrls => [...prevImageUrls, newImageUrl]);
-                            }}>
-                            {({ open }) => {
-                                function handleOnClick(e) {
-                                    e.preventDefault();
-                                    open();
-                                }
-                                return (
-                                    <button className={uploadProductButton.button} onClick={handleOnClick}>
-                                        Upload Product image
-                                    </button>
-                                );
-                            }}
-                        </CldUploadWidget>
-                    </div>
-                </div>
-
                 <div className="rightColumn">
                     {/* product name */}
                     <InputLabel
@@ -67,8 +106,10 @@ export default function CreatePost1() {
                         Product Name <span style={{ color: 'red' }}>*</span>
                     </InputLabel>
                     <TextField
-                        required
                         id="outlined-required"
+                        name='productname'
+                        value={formData.productname}
+                        onChange={handleChange}
                         inputProps={{
                             style: {
                                 fontSize: 13,
@@ -76,6 +117,7 @@ export default function CreatePost1() {
                                 width: '25vw',
                             }, // Adjust the font size as needed
                         }}
+                        required
                     />
                     <br />
 
@@ -87,9 +129,11 @@ export default function CreatePost1() {
                     >
                         Description <span style={{ color: 'red' }}>*</span>
                     </InputLabel>
-
                     <TextField
                         id="outlined-multiline-static"
+                        name='description'
+                        value={formData.description}
+                        onChange={handleChange}
                         multiline
                         rows={4}
                         inputProps={{
@@ -113,6 +157,9 @@ export default function CreatePost1() {
                         <OutlinedInput
                             type='number'
                             id="outlined-adornment-amount"
+                            name='price'
+                            value={formData.price}
+                            onChange={handleChange}
                             startAdornment={<InputAdornment position="start">$</InputAdornment>}
                             inputProps={{
                                 style: {
@@ -125,24 +172,36 @@ export default function CreatePost1() {
                     </FormControl>
                     <br />
 
-                    {/* size */}
-                    <Dropdown />
+                    {/* Size */}
+                    <Size setFormData={setFormData} />
+                    <br />
 
                     {/* Category */}
-                    <Category />
+                    <Category setFormData={setFormData} />
+
+                    {/* Checkbox */}
+                    <FormControl
+                        required
+                        error={errorMessage}
+                        component="fieldset"
+                        sx={{ m: 3 }}
+                        variant="standard"
+                    >
+                        <FormLabel component="legend">At least one check</FormLabel>
+                        <FormGroup>
+                            <FormControlLabel control={<Checkbox />} checked={formData.formen} name='formen' label="Male" onChange={handleCheckbox} />
+                            <FormControlLabel control={<Checkbox />} checked={formData.forwomen} name='forwomen' label="Female" onChange={handleCheckbox} />
+                        </FormGroup>
+                    </FormControl>
                 </div>
             </div>
 
             <br />
-            <div style={{ display: "flex" }}>
-                {imageUrls.map((imageUrl, index) => (
-                    <div key={index} className="flex">
-                        <img src={imageUrl} width={100} height={100}></img>
-                        <p>{imageUrl}</p>
-                        <button className='border-[1px] rounded-lg p-1 px-2 mt-5' onClick={() => handleDeleteImage(index)}>delete</button>
-                    </div>
-                ))}
-            </div>
+
+            <ProductUpload info={info} updateInfo={updateInfo} imageUrls={imageUrls} setImageUrls={setImageUrls} handleImageChange={handleImageChange} />
+
+
+            <button onClick={createItem} className='text-white mt-10 border-[1px] bg-purple-500 rounded-lg px-5 p-2'>Submit</button>
         </main>
     )
 }

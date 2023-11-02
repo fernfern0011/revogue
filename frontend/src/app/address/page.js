@@ -182,11 +182,13 @@ function AddressPage() {
               <Col className="col-3">
                 <h4 className="title">Additional Address</h4>
               </Col>
-              <Col className="col-6"></Col>
-              <Col className="col-2">
+              <Col className="col-2"></Col>
+              <Col className="col-4">
+              <a href="add-address">
                 <Button variant="text" className="addBtn">
                   Add New +
                 </Button>
+              </a>
               </Col>
               <br />
 

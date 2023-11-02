@@ -9,7 +9,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Table from "react-bootstrap/Table";
-import Navbar from "../components/Navbar";
+import DeleteIcon from '@mui/icons-material/Delete';
 
 //style imports
 import styles from "../page.module.css";
@@ -111,11 +111,9 @@ function AddToCartPage() {
   }
 
   return (
-    <main className={styles.main}>
-      <div className="ps-5 mt-3">
-        <p>
-          Home &nbsp; {">"} &nbsp; <b>Add To Cart</b>
-        </p>
+    <main className="main">
+      <div className="breadcrumb">
+        <p>Home &nbsp; {">"} &nbsp; <b>Add To Cart</b></p>
       </div>
 
       <br></br>
@@ -129,9 +127,9 @@ function AddToCartPage() {
             <thead>
               <tr>
                 <th></th>
-                <th>PRODUCT DETAILS</th>
+                <th className="product-column">PRODUCT DETAILS</th>
                 <th>PRICE</th>
-                <th>SHIPPING</th>
+                <th>QUANTITY</th>
                 <th>SUBTOTAL</th>
                 <th>ACTION</th>
               </tr>
@@ -150,17 +148,18 @@ function AddToCartPage() {
                             alt=""
                             width="150"
                             height="150"
+                            className="image"
                           />
                         </Col>
                         <Col>
                           <p>{data.productname}</p>
-                          <p>Size: {data.size}</p>
+                          <p className="small">Size: {data.size}</p>
                         </Col>
                       </Row>
                     </td>
-                    <td>${data.price}</td>
-                    <td>FREE</td>
-                    <td>${data.price}</td>
+                    <td className="custom-td">${data.price}</td>
+                    <td className="custom-td">1</td>
+                    <td className="custom-td">${data.price}</td>
                     <td>
                       <Button onClick={(e) => deleteCartItem(data.cartitemid)}>
                         Delete
@@ -178,29 +177,27 @@ function AddToCartPage() {
         </div>
 
         <div className="container d-flex justify-content-center align-items-center">
-          <div className="jumbotron text-center" style={{ padding: "20px" }}>
+          <div className="jumbotron" style={{ padding: "20px" }}>
             <Row>
-              <Col xs="6">Sub Total</Col>
-              <Col xs="6">${calculateSubTotal()}</Col>
+              <Col xs="8">Sub Total</Col>
+              <Col xs="4">${calculateSubTotal()}0.00</Col>
             </Row>
 
             <Row>
-              <Col xs="6">Shipping</Col>
-              <Col xs="6">${shippingFee}</Col>
+              <Col xs="8">Shipping</Col>
+              <Col xs="4">${shippingFee}.00</Col>
             </Row>
 
             <br></br>
 
             <Row>
-              <Col xs="6">
+              <Col xs="8">
                 <b>Grand Total</b>
               </Col>
-              <Col xs="6">
+              <Col xs="4">
                 <b>${calculateGrandTotal()}</b>
               </Col>
             </Row>
-
-            <hr></hr>
 
             <Button variant="contained" className="custom-button">
               Proceed To Checkout

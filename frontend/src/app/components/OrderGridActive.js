@@ -1,18 +1,45 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Row } from 'react-bootstrap';
-import Order from './Order';
+import Purchase from './Purchase';
+import '../styles/Order.css'
 
-const OrderGridActive = () => {
-  // Generate an array of 9 elements to render the ProductListing component 9 times
-  const orders = Array.from({ length: 12 }, (_, index) => (
-    <Order key={index} />
+export default function OrderGridActive() {
+  const [purchaseItems, setPurchaseItems] = useState([]);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    fetch('http://localhost:5000/api/mypurchases/get-to-receive-orders?buyerid=9')
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Error fetching product information');
+        }
+        return response.json();
+      })
+      .then((responseData) => {
+        const purchaseItems = responseData.data;
+        if (!Array.isArray(purchaseItems) || purchaseItems.length === 0) {
+          throw new Error('No purchase items found.');
+        }
+        setPurchaseItems(purchaseItems);
+      })
+      .catch((error) => {
+        setError(error);
+      });
+  }, []);
+
+  const items = purchaseItems.map((purchaseItem, index) => (
+    <Purchase key={index} purchaseItem={purchaseItem} />
   ));
 
   return (
-    <Container className='test'>
-      <Row>{orders}</Row>
+    <Container className="test">
+      {error ? (
+        <div className='error-box'>
+          <h1>No Pending Orders</h1>
+        </div>
+      ) : (
+        <Row>{items}</Row>
+      )}
     </Container>
   );
-};
-    
-export default OrderGridActive;
+}
