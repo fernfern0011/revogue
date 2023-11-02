@@ -5,7 +5,7 @@ const cartController = {
     getAllCartItems: async (req, res) => {
         try {
             const { accid } = req.query;
-            const sql = `SELECT productname, price, size, quantity, images FROM product p 
+            const sql = `SELECT cartitemid, productname, price, size, quantity, images FROM product p 
                         INNER JOIN cart c ON p.productid = c.productid AND c.accid = $1 ORDER BY c.created_on DESC;`
 
             const { rows } = await postgre.query(sql, [accid])
