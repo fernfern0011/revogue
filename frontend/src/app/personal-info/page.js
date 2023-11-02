@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar/Sidebar";
 import Button from "@mui/material/Button";
 import SidebarComponent from "../components/SidebarComponent";
@@ -33,45 +33,40 @@ async function getInfoData() {
 }
 
 async function PersonalInfoPage() {
-  const [editableItem1, setEditableItem1] = useState(false);
-  const [editableItem2, setEditableItem2] = useState(false);
+  const [editableItem, setEditableItem] = useState(false); //doesnt give errors
+  // const [editableItem, setEditableItem] = useState(false);
+  console.log(editableItem);
+  const [stateChange, setStateChange] = useState(false);
 
-  //for email button
-  const handleEditClick1 = () => {
-    console.log("test");
-    setEditableItem1(true);
-  };
-  const handleSaveClick1 = () => {
-    setEditableItem1(false);
+  // const handleEditClick = (status) => {
+  //   console.log("test1");
+  //   setEditableItem(true);
+  // };
+  // const handleSaveClick = (status) => {
+  //   console.log("test2");
+  //   setEditableItem(false);
+  // };
+
+  const handleEditClick = () => {
+    alert("change click");
+    console.log("test1");
+    console.log(index);
+    setEditableItem(true);
   };
 
-  //for pw button
-  const handleEditClick2 = () => {
+  const handleSaveClick = () => {
+    alert("save click");
     console.log("test2");
-    setEditableItem2(true);
+    setEditableItem(false);
   };
-  const handleSaveClick2 = () => {
-    setEditableItem2(false);
-  };
+
+  useEffect(() => {
+    setStateChange(true);
+  }, editableItem);
 
   //load data from backend
   const infoData = await getInfoData();
   const info = infoData.data;
-
-  //email form (this is incomplete but does not give error, keep it first for reference)
-  async function onSubmitEmail(event) {
-    event.preventDefault();
-
-    const formData = new FormData(event.target);
-    const response = await fetch(
-      `https://revogue-backend.vercel.app/api/account/update-email/`,
-      {
-        method: "POST",
-        body: formData,
-      }
-    );
-    const data = await response.json();
-  }
 
   //password form (this is incomplete but does not give error, keep it first for reference)
   async function onSubmitPw(event) {
@@ -105,17 +100,17 @@ async function PersonalInfoPage() {
           </Col>
 
           {/* Personal info */}
-          <Col lg="10" className="float-left custom"  style={{ paddingLeft: '50px' }}>
+          <Col lg="10" className="float-left custom">
             {info.map((accountData, index) => (
               <div key={accountData.accid}>
                 {/* username */}
-                <Row className="d-flex align-items-center mt-lg-0 mt-4">
+                <Row className="d-flex align-items-center">
                   <p>
                     <strong>Username</strong>
                   </p>
                   <div className="d-flex align-items-center ml-auto">
                     <Col>
-                      <p className="mr-3" style={{ fontSize: "14px", color: "#505050" }}>{accountData.username}</p>
+                      <p className="mr-3">{accountData.username}</p>
                     </Col>
 
                     <Col></Col>
@@ -126,54 +121,18 @@ async function PersonalInfoPage() {
 
                 {/* email */}
                 <Row className="d-flex align-items-center mt-3">
-                  <form onSubmit={onSubmitEmail}>
-                    <p>
-                      <strong>Email</strong>
-                    </p>
+                  <p>
+                    <strong>Email</strong>
+                  </p>
 
-                    <div className="d-flex align-items-center ml-auto">
-                      <Col>
-                        {editableItem1 === true ? (
-                          <input
-                            type="text"
-                            name="newemail"
-                            defaultValue={accountData.accemail}
-                          />
-                        ) : (
-                          <p className="mr-3">{accountData.accemail}</p>
-                        )}
-                      </Col>
+                  <div className="d-flex align-items-center ml-auto">
+                    <Col>
+                      <p className="mr-3">{accountData.accemail}</p>
+                    </Col>
 
-                      <Col></Col>
-
-                      <Col>
-                        {editableItem1 === true ? (
-                          <Button
-                            variant="outlined"
-                            type="submit"
-                            onClick={() => handleSaveClick1()}
-                          >
-                            Save
-                          </Button>
-                        ) : (
-                          ""
-                        )}
-
-                        {editableItem1 === false ? (
-                          <Button
-                            variant="outlined"
-                            onClick={() => handleEditClick1()}
-                          >
-                            Change
-                          </Button>
-                        ) : (
-                          ""
-                        )}
-                      </Col>
-
-                      <Col className="d-flex align-items-center"></Col>
-                    </div>
-                  </form>
+                    <Col></Col>
+                    <Col className="d-flex align-items-center"></Col>
+                  </div>
                 </Row>
                 <hr />
 
@@ -186,7 +145,31 @@ async function PersonalInfoPage() {
 
                     <div className="d-flex align-items-center ml-auto">
                       <Col>
-                        {editableItem2 === index ? (
+                        {/* {editableItem === index ? (
+                          <input
+                            type="password"
+                            name="newpass"
+                            defaultValue={accountData.accpass}
+                          />
+                        ) : (
+                          <p className="mr-3">********</p>
+                        )} */}
+
+                        {/* {editableItem === false ? (
+                          <Col>
+                            <p className="mr-3">********</p>
+                          </Col>
+                        ) : (
+                          <Col>
+                            <input
+                              type="password"
+                              value={accountData.accpass}
+                              onChange={(e) => {}}
+                            />
+                          </Col>
+                        )} */}
+
+                        {editableItem === index ? (
                           <input
                             type="password"
                             name="newpass"
@@ -200,22 +183,49 @@ async function PersonalInfoPage() {
                       <Col></Col>
 
                       <Col>
-                        {editableItem2 === index ? (
+                        {/* {editableItem === false ? (
                           <Button
                             variant="outlined"
-                            type="submit"
-                            onClick={() => handleSaveClick2(index)}
+                            onClick={() => handleEditClick(true)}
                           >
-                            Save
+                            Change
                           </Button>
                         ) : (
                           <Button
                             variant="outlined"
-                            onClick={() => handleEditClick2(index)}
+                            type="submit"
+                            onClick={() => handleSaveClick(false)}
                           >
-                            Change
+                            Save
                           </Button>
+                        )} */}
+
+                        {stateChange == false ? (
+                          <input type="button"
+                            // variant="text"
+                            className="ml-auto"
+                            value="Change"
+                            onClick={(e) => {
+                              e.preventDefault;
+
+                              handleEditClick();
+                            }}
+                          />
+                          //   Change
+                          // </input>
+                        ) : (
+                          <input type="button"
+                            // variant="text"
+                            className="ml-auto"
+                            value="Save"
+                            onClick={(e) => {
+                              e.preventDefault
+                              handleSaveClick()}}
+                          />
+                            // Save
+                          // </input>
                         )}
+                        
                       </Col>
 
                       <Col className="d-flex align-items-center"></Col>
