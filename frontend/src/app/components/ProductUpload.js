@@ -50,7 +50,7 @@ const ProductUpload = ({ info, updateInfo, imageUrls, setImageUrls, handleImageC
 
     return (
         <div className="mb-10">
-              <CldUploadWidget
+            <CldUploadWidget
                 uploadPreset="wad2_revogue"
                 options={{ folder: "product" }}
                 onUpload={onupload}>
@@ -67,13 +67,13 @@ const ProductUpload = ({ info, updateInfo, imageUrls, setImageUrls, handleImageC
                 }}
             </CldUploadWidget>
             <div className='grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-10'>
-                {imageUrls.map((imageUrl, index) => (
+                {/* {imageUrls.map((imageUrl, index) => (
                     <div key={index} className='flex flex-col justify-center'>
                         <img src={imageUrl} style={{ width: '150px', height: '150px' }} alt={`uploades Image ${index + 1}`} />
                         <p>{imageUrl}</p>
                         <button className='border-[1px] rounded-lg p-1 px-2 mt-5' onClick={() => handleDeleteImage(index)}>delete</button>
                     </div>
-                ))}
+                ))} */}
             </div>
         </div >
     )
