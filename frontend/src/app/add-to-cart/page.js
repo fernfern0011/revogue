@@ -9,7 +9,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Table from "react-bootstrap/Table";
-import Navbar from "../components/Navbar";
+import DeleteIcon from '@mui/icons-material/Delete';
 
 //style imports
 import styles from "../page.module.css";
@@ -18,8 +18,8 @@ import { Padding } from "@mui/icons-material";
 
 const AddToCartComponent = () => {
   return (
-    <main className={styles.main}>
-      <div className="ps-5 mt-3">
+    <main className="main">
+      <div className="breadcrumb">
         <p>Home &nbsp; {">"} &nbsp; <b>Add To Cart</b></p>
       </div>
 
@@ -31,9 +31,9 @@ const AddToCartComponent = () => {
             <thead>
               <tr>
                 <th></th>
-                <th>PRODUCT DETAILS</th>
+                <th className="product-column">PRODUCT DETAILS</th>
                 <th>PRICE</th>
-                <th>SHIPPING</th>
+                <th>QUANTITY</th>
                 <th>SUBTOTAL</th>
                 <th>ACTION</th>
               </tr>
@@ -49,60 +49,62 @@ const AddToCartComponent = () => {
                   <Row>
                     <Col xs="auto">
                       <img
-                        // src=".jpg"
+                        src="/images/image7.png"
                         alt=""
-                        width="50"
-                        height="50"
+                        height="110px"
+                        className="image"
                       />
                     </Col>
                     <Col>
-                      <p>Product Name</p>
-                      <p>Size:</p>
+                      <p>Blue Flower Print Crop Top</p>
+                      <p className="small">Size: M</p>
                     </Col>
                   </Row>
                 </td>
 
                 {/* price */}
-                <td>$52</td>
+                <td className="custom-td">$52.00</td>
+
+                {/* quantity */}
+                <td className="custom-td">1</td>
 
                 {/* shipping */}
-                <td>FREE</td>
+                {/* <td className="custom-td free">FREE</td> */}
 
                 {/* subtotoal */}
-                <td>$33</td>
+                <td className="custom-td">$33.00</td>
 
                 {/* action */}
-                <td>image bin</td>
+                <td className="custom-td"><DeleteIcon style={{ color: '#18b5b5' }} /></td>
               </tr>
+              
             </tbody>
           </Table>
         </div>
 
         {/* not able to use react bootstrap jumbotron, import module error */}
         <div className="container d-flex justify-content-center align-items-center">
-          <div className="jumbotron text-center" style={{ padding: "20px" }}>
+          <div className="jumbotron" style={{ padding: "20px" }}>
             <Row>
-              <Col xs="6">Sub Total</Col>
-              <Col xs="6">$4</Col>
+              <Col xs="8">Sub Total</Col>
+              <Col xs="4">$40.00</Col>
             </Row>
 
             <Row>
-              <Col xs="6">Shipping</Col>
-              <Col xs="6">$4</Col>
+              <Col xs="8">Shipping</Col>
+              <Col xs="4">$4.00</Col>
             </Row>
 
             <br></br>
 
             <Row>
-              <Col xs="6">
+              <Col xs="8">
                 <b>Grand Total</b>
               </Col>
-              <Col xs="6">
-                <b>$100</b>
+              <Col xs="4">
+                <b>$44.00</b>
               </Col>
             </Row>
-
-            <hr></hr>
 
             <Button variant="contained" className="custom-button">
               Proceed To Checkout

@@ -21,13 +21,11 @@
     background-color: #F6F6F6;
     border: none;
     cursor: pointer;
-    font-size: 1.5rem;
     padding: 0.25rem 0.5rem;
   }
   
   .quantity {
     background-color: #F6F6F6;
-    font-size: 1rem;
     margin: 0 0.5rem;
   }
   
@@ -37,5 +35,88 @@
   }
   .custom-button{
     background-color: #17B5B5; 
-  color: white;
+    color: white;
+    text-transform: capitalize;
+    font-size: 13px;
+    margin-top: 50px;
+    margin-left: 10px;
+  }
+
+.breadcrumb {
+  font-size: 14px;
+  margin-top: 10px;
+  margin-bottom: -13px;
+}
+
+.breadcrumb {
+  margin-left: 70px;
+  margin-right: 70px;
+}
+
+/* Media query for medium screens (md) and smaller */
+@media (max-width: 768px) {
+  .breadcrumb {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+}
+
+.image {
+  margin-left: 20px;
+}
+
+@media (max-width: 768px) {
+  .image {
+    margin-left: 0;
+  }
+}
+
+.custom-table td {
+  font-size: 15px;
+}
+
+.small {
+  font-size: 14px;
+  color: #787878;
+}
+
+.custom-table th {
+  font-size: 14px;
+  text-align: center;
+}
+
+body {
+  font-size: 14px;
+}
+
+.custom-td {
+  text-align: center;
+  font-weight: bold;
+}
+
+.custom-table td.custom-td.free {
+  color: #A9A9A9;
+}
+.custom-table .product-column {
+  width: 35%; /* Adjust the width as needed */
+}
+
+/* Add whitespace above and below each <tr> in the table */
+.custom-table tbody tr td {
+  padding-top: 30px; /* Adjust the margin-top as needed */
+  padding-bottom: 30px; /* Adjust the margin-bottom as needed */
+}
+
+/* Define a media query for screens with a maximum width of 768px */
+@media screen and (max-width: 768px) {
+  /* Apply a CSS transform to scale the entire page down */
+  body {
+    transform: scale(0.6); /* Adjust the scale factor as needed */
+    transform-origin: top left;
+  }
+}
+
+/* Prevent horizontal scrolling by hiding the overflow */
+body {
+  overflow-x: hidden;
 }
