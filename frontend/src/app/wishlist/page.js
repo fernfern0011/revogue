@@ -4,7 +4,7 @@ import Wishlist from '../components/WishList'
 
 export default function WishListPage(){
   return (
-    <div> 
+    <div>
         <Wishlist/>
     </div>
   )

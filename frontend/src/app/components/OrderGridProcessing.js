@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row } from 'react-bootstrap';
-import OrderCompleted from './OrderCompleted';
+import Order from './Order'
 
-export default function OrderGridCompleted() {
+export default function OrderGridActive() {
   const [purchaseItems, setPurchaseItems] = useState([]);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/mypurchases/get-completed-orders?buyerid=1')
+    fetch('http://localhost:5000/api/mypurchases/get-tobe-confirmed-orders?buyerid=9')
       .then((response) => {
         if (!response.ok) {
           throw new Error('Error fetching product information');
@@ -27,7 +27,7 @@ export default function OrderGridCompleted() {
   }, []);
 
   const items = purchaseItems.map((purchaseItem, index) => (
-    <OrderCompleted key={index} purchaseItem={purchaseItem} />
+    <Order key={index} purchaseItem={purchaseItem} />
   ));
 
   return (
@@ -35,8 +35,7 @@ export default function OrderGridCompleted() {
       {error ? (
         <div className='error-box'>
           <h1>No Pending Orders</h1>
-        </div>
-      ) : (
+        </div>      ) : (
         <Row>{items}</Row>
       )}
     </Container>

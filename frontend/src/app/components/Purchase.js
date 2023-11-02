@@ -8,7 +8,7 @@ import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
 import '../styles/Order.css'
 
-const OrderProcessing = ({ purchaseItem }) => {
+const Purchase = ({ purchaseItem }) => {
 
     const parsedOrderDetailsArray = purchaseItem.orderdetails.map((orderDetailString) => {
         try {
@@ -47,8 +47,8 @@ const OrderProcessing = ({ purchaseItem }) => {
             </Col>
         </Row>
         <div className="text-center">
-            <Button variant="contained" className="custom-cancel-button mx-auto">
-            Cancel
+            <Button variant="contained" className="custom-button mx-auto">
+            Receive
             </Button>
         </div>
         </Card.Body>
@@ -57,4 +57,4 @@ const OrderProcessing = ({ purchaseItem }) => {
   );
 };
 
-export default OrderProcessing;
+export default Purchase;
