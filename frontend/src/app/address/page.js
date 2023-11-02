@@ -50,7 +50,6 @@ async function getAddressData() {
 }
 
 async function AddressPage() {
-  console.log(process.env.backendUrl);
   //load default data
   const defaultData = await getDefaultAddressData();
   const defaultAddr = defaultData.data;

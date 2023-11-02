@@ -16,16 +16,103 @@ import styles from "../page.module.css";
 import "../styles/AddToCart.css";
 import { Padding } from "@mui/icons-material";
 
-const AddToCartComponent = () => {
+//retrieve default data from backend API
+async function getCartData() {
+  var accid = 1;
+  const getCartRes = await fetch(
+    `http://localhost:5000/api/cart/get-all-cartitems?accid=${accid}`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  const getCartStatus = getCartRes.status;
+  if (getCartStatus == 200) {
+    return getCartRes.json();
+  }
+}
+
+//DELETE request to  backend API to delete the item by cartItemId
+async function deleteCartItem(cartItemId) {
+  var accid = 1;
+  console.log("test delete");
+  console.log(cartItemId);
+  try {
+    const response = await fetch(
+      `http://localhost:5000/api/cart/delete?cartitemid=${cartItemId}&accid=${accid}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ cartitemid: cartItemId, accid: accid }),
+      }
+    );
+
+    if (response.status === 201) {
+      ////method 1 not working
+      // setCart((prevCart) =>
+      //   prevCart.filter((item) => item.cartitemid !== cartItemId)
+      // );
+
+      // //method 2 not working
+      // // Find the item index in the cart array
+      // const itemIndex = cart.findIndex((item) => item.cartitemid === cartItemId);
+
+      // if (itemIndex !== -1) {
+      //   // Remove the item from the cart array
+      //   cart.splice(itemIndex, 1);
+      //   // Force re-render by assigning the modified array back
+      //   cart = [...cart];
+      // }
+
+      //method 3 - refresh cart data again
+      // await getCartData();
+      const cartData = await getCartData();
+      const cart = cartData.data;
+      window.location.reload(true);
+
+      alert("Selected item has been deleted");
+    } else {
+      alert("Failed to delete the item");
+    }
+  } catch (error) {
+    console.error("Error deleting item:", error);
+    alert("Failed to delete the item");
+  }
+}
+
+async function AddToCartPage() {
+  const [cartlist, setCart] = useState([]);
+
+  //load default data
+  const cartData = await getCartData();
+  const cart = cartData.data;
+  // console.log(cart);
+
+  if (cart.length == 0) {
+    return (
+      <div className='relative flex items-center justify-center'>
+        <h1 className='absolute top-[80%] text-2xl text-purple-600'>No products</h1>
+      </div>
+    )
+  }
+
   return (
     <main className={styles.main}>
       <div className="ps-5 mt-3">
-        <p>Home &nbsp; {">"} &nbsp; <b>Add To Cart</b></p>
+        <p>
+          Home &nbsp; {">"} &nbsp; <b>Add To Cart</b>
+        </p>
       </div>
 
       <br></br>
 
-      <Container fluid style={{ backgroundColor: "#F3F3F3", paddingLeft: 0, paddingRight: 0 }}>
+      <Container
+        fluid
+        style={{ backgroundColor: "#F3F3F3", paddingLeft: 0, paddingRight: 0 }}
+      >
         <div className="table-responsive">
           <Table className="custom-table">
             <thead>
@@ -40,40 +127,46 @@ const AddToCartComponent = () => {
             </thead>
 
             <tbody>
-              <tr>
-                {/* filler */}
-                <td></td>
+              {cart.map((data, index) => (
+                <tr key={data.cartitemid}>
+                  {/* filler */}
+                  <td></td>
 
-                {/* product detail */}
-                <td>
-                  <Row>
-                    <Col xs="auto">
-                      <img
-                        // src=".jpg"
-                        alt=""
-                        width="50"
-                        height="50"
-                      />
-                    </Col>
-                    <Col>
-                      <p>Product Name</p>
-                      <p>Size:</p>
-                    </Col>
-                  </Row>
-                </td>
+                  {/* product detail */}
+                  <td>
+                    <Row>
+                      <Col xs="auto">
+                        <img
+                          // src="{data.images}"
+                          alt=""
+                          width="50"
+                          height="50"
+                        />
+                      </Col>
+                      <Col>
+                        <p>{data.productname}</p>
+                        <p>Size: {data.size}</p>
+                      </Col>
+                    </Row>
+                  </td>
 
-                {/* price */}
-                <td>$52</td>
+                  {/* price */}
+                  <td>${data.price}</td>
 
-                {/* shipping */}
-                <td>FREE</td>
+                  {/* shipping */}
+                  <td>FREE</td>
 
-                {/* subtotoal */}
-                <td>$33</td>
+                  {/* subtotoal */}
+                  <td>${data.price}</td>
 
-                {/* action */}
-                <td>image bin</td>
-              </tr>
+                  {/* action */}
+                  <td>
+                    <Button onClick={(e) => deleteCartItem(data.cartitemid)}>
+                      Delete
+                    </Button>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </Table>
         </div>
@@ -112,6 +205,6 @@ const AddToCartComponent = () => {
       </Container>
     </main>
   );
-};
+}
 
-export default AddToCartComponent;
+export default AddToCartPage;
