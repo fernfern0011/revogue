@@ -3,10 +3,12 @@
     margin: auto;
     box-shadow: none ;
     margin-bottom: 200px;
+    margin-left: 10px;
 }
 
 .custom-label {
     font-weight: bold;
+    font-size: 14px;
   }
 
   input,
@@ -30,5 +32,48 @@ span{
 
 .custom-button{
   background-color: #17B5B5; 
-color: white;
+  color: white;
+  text-transform: capitalize;
+  font-size: 14px;
+  border-radius: 5px;
+  padding: 5px 25px;
+  margin-top: 20px;
+}
+
+.breadcrumb {
+  font-size: 14px;
+  margin: -15px 0;
+  margin-top: -32px;
+}
+
+.title {
+  margin-left: 45px;
+}
+
+h4 {
+  font-size: 19px;
+  font-weight: bold;
+}
+
+.custom {
+  font-size: 13px;
+  margin-bottom: 20px;
+  background-color: #F5F5F5;
+  border: none;
+  padding: 10px 20px;
+}
+
+.custom-checkbox {
+  font-size: 14px;
+}
+
+.cancel {
+  background-color: #E8E8E8;
+  text-transform: capitalize;
+  font-size: 14px;
+  border-radius: 5px;
+  padding: 5px 20px;
+  margin-top: 20px;
+  position: absolute;
+  right: 86px;
 }

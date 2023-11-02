@@ -34,3 +34,8 @@
     font-size: 20px;
     font-weight: bold;
 }
+
+.breadcrumb {
+    font-size: 14px;
+    margin-top: 10px;
+  }

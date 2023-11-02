@@ -3,11 +3,6 @@
     color: white;
   }
 
-.custom-button {
-    background-color: #17B5B5; 
-    color: white; 
-}
-
 .card {
   border: none;
   max-width: 250px;
@@ -21,3 +16,7 @@
   width: 100%; /* Ensures the image scales proportionally */
   overflow: hidden; /* Hides any overflowing content */
 }
+
+.card a {
+    text-decoration: none !important;
+  }
