@@ -20,7 +20,7 @@ import { Padding } from "@mui/icons-material";
 async function getCartData() {
   var accid = 1;
   const getCartRes = await fetch(
-    `http://localhost:5000/api/cart/get-all-cartitems?accid=${accid}`,
+    `https://revogue-backend.vercel.app/api/cart/get-all-cartitems?accid=${accid}`,
     {
       headers: {
         "Content-Type": "application/json",
@@ -40,7 +40,7 @@ async function deleteCartItem(cartItemId) {
   console.log(cartItemId);
   try {
     const response = await fetch(
-      `http://localhost:5000/api/cart/delete?cartitemid=${cartItemId}&accid=${accid}`,
+      `https://revogue-backend.vercel.app/api/cart/delete?cartitemid=${cartItemId}&accid=${accid}`,
       {
         method: "DELETE",
         headers: {
@@ -89,7 +89,7 @@ async function AddToCartPage() {
   //load default data
   const cartData = await getCartData();
   const cart = cartData.data;
-  // console.log(cart);
+  console.log(cart);
 
   if (cart.length == 0) {
     return (
