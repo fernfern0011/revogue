@@ -130,12 +130,12 @@ const myPurchasesController = {
     getToReceiveOrders: async (req, res) => {
         try {
 
-            const { buyerid, sellerid } = req.query;
+            const { buyerid } = req.query;
             const sql = `SELECT mp.* FROM mypurchases mp INNER JOIN mysales ms 
                          ON mp.orderid = ms.orderid AND mp.buyerid = ms.buyerid AND mp.sellerid = ms.sellerid
-                         WHERE mp.buyerid = $1 AND mp.sellerid = $2 AND ms.isshipped = $3 AND mp.isreceived = $4;`
+                         WHERE mp.buyerid = $1 AND ms.isshipped = $2 AND mp.isreceived = $3;`
 
-            const { rows } = await postgre.query(sql, [buyerid, sellerid, true, false])
+            const { rows } = await postgre.query(sql, [buyerid, true, false])
 
             if (rows[0]) {
                 return res.status(200).json({ data: rows })
