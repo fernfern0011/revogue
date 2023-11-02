@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 
 //bootstrap imports
@@ -17,21 +17,21 @@ import "../styles/AddToCart.css";
 import { Padding } from "@mui/icons-material";
 
 //retrieve default data from backend API
-async function getCartData() {
-  var accid = 1;
-  const getCartRes = await fetch(
-    `https://revogue-backend.vercel.app/api/cart/get-all-cartitems?accid=${accid}`,
-    {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  );
-  const getCartStatus = getCartRes.status;
-  if (getCartStatus == 200) {
-    return getCartRes.json();
-  }
-}
+// async function getCartData() {
+//   var accid = 1;
+//   const getCartRes = await fetch(
+//     `https://revogue-backend.vercel.app/api/cart/get-all-cartitems?accid=${accid}`,
+//     {
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//     }
+//   );
+//   const getCartStatus = getCartRes.status;
+//   if (getCartStatus == 200) {
+//     return getCartRes.json();
+//   }
+// }
 
 //DELETE request to  backend API to delete the item by cartItemId
 async function deleteCartItem(cartItemId) {
@@ -51,10 +51,11 @@ async function deleteCartItem(cartItemId) {
     );
 
     if (response.status === 201) {
-      ////method 1 not working
-      // setCart((prevCart) =>
-      //   prevCart.filter((item) => item.cartitemid !== cartItemId)
-      // );
+      alert("Selected item has been deleted");
+      //method 1 not working
+      setCart((prevCart) =>
+        prevCart.filter((item) => item.cartitemid !== cartItemId)
+      );
 
       // //method 2 not working
       // // Find the item index in the cart array
@@ -67,12 +68,11 @@ async function deleteCartItem(cartItemId) {
       //   cart = [...cart];
       // }
 
-      //method 3 - refresh cart data again
+      ////method 3 - refresh cart data again
       // await getCartData();
-      const cartData = await getCartData();
-      const cart = cartData.data;
-      alert("Selected item has been deleted");
-      window.location.reload(true);
+      // const cartData = await getCartData();
+      // const cart = cartData.data;
+      // window.location.reload(true);
     } else {
       alert("Failed to delete the item");
     }
@@ -82,43 +82,60 @@ async function deleteCartItem(cartItemId) {
   }
 }
 
-async function AddToCartPage() {
-  const [cartlist, setCart] = useState([]);
+function AddToCartPage() {
+  const [cartlist, setCart] = useState(null);
 
   //load default data
-  const cartData = await getCartData();
-  const cart = cartData.data;
-  console.log(cart);
+  // const cartData = await getCartData();
+  // const cart = cartData.data;
+  // console.log(cart);
 
-  // Load default data
   useEffect(() => {
-    async function fetchCartData() {
-      const cartData = await getCartData();
-      setCart(cartData.data);
-    }
-    fetchCartData();
+    // Fetch cart data using promises
+    const accid = 1;
+    fetch(
+      `https://revogue-backend.vercel.app/api/cart/get-all-cartitems?accid=${accid}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    )
+      .then((response) => {
+        if (response.status === 200) {
+          return response.json();
+        } else {
+          throw new Error("Failed to fetch cart data");
+        }
+      })
+      .then((data) => {
+        console.log(data.data);
+        setCart(data.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching cart data:", error);
+      });
   }, []);
 
-  if (cart.length == 0) {
-    return (
-      <div className='relative flex items-center justify-center'>
-        <h1 className='absolute top-[80%] text-2xl text-purple-600'>No products</h1>
-      </div>
-    )
-  }
+  console.log(cartlist);
+  console.log(typeof(cartlist));
 
   const shippingFee = 0;
-
-  // Calculate the sub total 
+  // Calculate the sub total
   const calculateSubTotal = () => {
+    if (!cartlist) {
+      return 0; 
+    }
+  
     let totalPrice = 0;
-    for (const item of cart) {
+    for (var item of Object.values(cartlist)) {
       totalPrice += parseFloat(item.price);
     }
     return totalPrice;
   };
-
-  // Calculate the grand total 
+  
+  // Calculate the grand total
   const calculateGrandTotal = () => {
     let total = calculateSubTotal() + parseFloat(shippingFee);
     return total;
@@ -152,51 +169,45 @@ async function AddToCartPage() {
             </thead>
 
             <tbody>
-              {cart.map((data, index) => (
-                <tr key={data.cartitemid}>
-                  {/* filler */}
-                  <td></td>
-
-                  {/* product detail */}
-                  <td>
-                    <Row>
-                      <Col xs="auto">
-                        <img
-                          // src="{data.images}"
-                          alt=""
-                          width="50"
-                          height="50"
-                        />
-                      </Col>
-                      <Col>
-                        <p>{data.productname}</p>
-                        <p>Size: {data.size}</p>
-                      </Col>
-                    </Row>
-                  </td>
-
-                  {/* price */}
-                  <td>${data.price}</td>
-
-                  {/* shipping */}
-                  <td>FREE</td>
-
-                  {/* subtotoal */}
-                  <td>${data.price}</td>
-
-                  {/* action */}
-                  <td>
-                    <Button onClick={(e) => deleteCartItem(data.cartitemid)}>
-                      Delete
-                    </Button>
-                  </td>
+              {cartlist ? (
+                cartlist.map((data, index) => (
+                  <tr key={data.cartitemid}>
+                    <td></td>
+                    <td>
+                      <Row>
+                        <Col xs="auto">
+                          <img
+                            src={data.images}
+                            alt=""
+                            width="50"
+                            height="50"
+                          />
+                        </Col>
+                        <Col>
+                          <p>{data.productname}</p>
+                          <p>Size: {data.size}</p>
+                        </Col>
+                      </Row>
+                    </td>
+                    <td>${data.price}</td>
+                    <td>FREE</td>
+                    <td>${data.price}</td>
+                    <td>
+                      <Button onClick={(e) => deleteCartItem(data.cartitemid)}>
+                        Delete
+                      </Button>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="6">Loading...</td>
                 </tr>
-              ))}
+              )}
             </tbody>
           </Table>
         </div>
 
-        {/* not able to use react bootstrap jumbotron, import module error */}
         <div className="container d-flex justify-content-center align-items-center">
           <div className="jumbotron text-center" style={{ padding: "20px" }}>
             <Row>
