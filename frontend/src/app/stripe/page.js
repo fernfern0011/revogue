@@ -16,6 +16,9 @@ export default function PreviewPage() {
     accID = session.id;
     console.log(accID);
   }
+  else{
+    console.log('No session')
+  }
   const createCheckoutSession = async () => {
     try {
       const stripes = await stripePromise;

@@ -10,6 +10,13 @@
     margin-top: 10px;
 }
 
+.custom-cancel-button {
+    background-color: red; 
+    color: white; 
+    text-transform: capitalize;
+    margin-top: 10px;
+}
+
 .cardTop {
     padding-left: 20px;
     padding-top: 4px;
@@ -28,3 +35,18 @@
 .card {
     margin: 8px;
 }
+
+.error-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%; /* Set your preferred width */
+    height: 600px; /* Set your preferred height */
+    border: 1px solid #ccc; /* Light grey border */
+    border-radius: 3px;
+    background-color: #f4f4f4; /* Light grey background color */
+    text-align: center;
+    margin: auto; /* Center the box horizontally within the container */
+    color: #17B5B5;
+  }
+  
