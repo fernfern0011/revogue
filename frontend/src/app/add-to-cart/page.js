@@ -71,9 +71,8 @@ async function deleteCartItem(cartItemId) {
       // await getCartData();
       const cartData = await getCartData();
       const cart = cartData.data;
-      window.location.reload(true);
-
       alert("Selected item has been deleted");
+      window.location.reload(true);
     } else {
       alert("Failed to delete the item");
     }
@@ -91,6 +90,15 @@ async function AddToCartPage() {
   const cart = cartData.data;
   console.log(cart);
 
+  // Load default data
+  useEffect(() => {
+    async function fetchCartData() {
+      const cartData = await getCartData();
+      setCart(cartData.data);
+    }
+    fetchCartData();
+  }, []);
+
   if (cart.length == 0) {
     return (
       <div className='relative flex items-center justify-center'>
@@ -98,6 +106,23 @@ async function AddToCartPage() {
       </div>
     )
   }
+
+  const shippingFee = 0;
+
+  // Calculate the sub total 
+  const calculateSubTotal = () => {
+    let totalPrice = 0;
+    for (const item of cart) {
+      totalPrice += parseFloat(item.price);
+    }
+    return totalPrice;
+  };
+
+  // Calculate the grand total 
+  const calculateGrandTotal = () => {
+    let total = calculateSubTotal() + parseFloat(shippingFee);
+    return total;
+  };
 
   return (
     <main className={styles.main}>
@@ -176,12 +201,12 @@ async function AddToCartPage() {
           <div className="jumbotron text-center" style={{ padding: "20px" }}>
             <Row>
               <Col xs="6">Sub Total</Col>
-              <Col xs="6">$4</Col>
+              <Col xs="6">${calculateSubTotal()}</Col>
             </Row>
 
             <Row>
               <Col xs="6">Shipping</Col>
-              <Col xs="6">$4</Col>
+              <Col xs="6">${shippingFee}</Col>
             </Row>
 
             <br></br>
@@ -191,7 +216,7 @@ async function AddToCartPage() {
                 <b>Grand Total</b>
               </Col>
               <Col xs="6">
-                <b>$100</b>
+                <b>${calculateGrandTotal()}</b>
               </Col>
             </Row>
 
