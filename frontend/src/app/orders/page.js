@@ -38,7 +38,11 @@ export default function LandingPage() {
 
   return (
     <main className={styles.main}>
-      <Navbar />
+      <div>
+          <p>
+            Home &nbsp; {">"} &nbsp; <b>My Orders</b>
+          </p>
+        </div>
       <div>
             <h1 className={styles.orders}>My Orders</h1>
             <div className={styles.tab}>

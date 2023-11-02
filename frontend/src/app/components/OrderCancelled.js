@@ -35,11 +35,6 @@ const Order = () => {
             </Card.Text>
             </Col>
         </Row>
-        <div className="text-center">
-            <Button variant="contained" className="custom-button mx-auto">
-            Order Received
-            </Button>
-        </div>
         </Card.Body>
       </Card>
     </Col>

@@ -1,0 +1,22 @@
+.btn-black{
+    background-color: black; 
+    color: white;
+  }
+
+.card {
+  border: none;
+  max-width: 250px;
+  object-fit: cover;
+  height: 100%;
+}
+
+.custom-img {
+  max-height: 300px; /* Set your desired maximum height */
+  object-fit: cover; /* Hides equal portions from the top and bottom */
+  width: 100%; /* Ensures the image scales proportionally */
+  overflow: hidden; /* Hides any overflowing content */
+}
+
+.card a {
+    text-decoration: none !important;
+  }

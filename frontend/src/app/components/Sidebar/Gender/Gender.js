@@ -1,8 +1,10 @@
+"use client";
 import React, { useState } from "react";
-import "./Gender.css";
+import "../Category.css";
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 function Gender() {
-  const [isDropdownOpen, setDropdownOpen] = useState(true);
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
 
   const toggleDropdown = () => {
     setDropdownOpen(!isDropdownOpen);
@@ -12,9 +14,24 @@ function Gender() {
     console.log("Clicked");
   };
 
+  const iconStyle = {
+    fontSize: 22, // Adjust the font size as needed
+    marginLeft: "120px", // Position the icon 20px to the right
+  };
+
+  const h2Style = {
+    marginBottom: "-5px", // Remove bottom margin
+  };
+
   return (
-    <div>
-      <h2 className="sidebar-title" onClick={toggleDropdown}>Gender     
+    <div className="main">
+      <h2 className="sidebar-title" onClick={toggleDropdown} style={h2Style}>
+        <span style={{ display: 'flex', alignItems: 'center' }}>
+          Gender
+          <span className={`dropdown-arrow ${isDropdownOpen ? "open" : ""}`}>
+            <KeyboardArrowDownIcon style={iconStyle} />
+          </span>
+        </span>
       </h2>
 
       <div className={`category-dropdown ${isDropdownOpen ? "open" : ""}`}>
@@ -27,7 +44,7 @@ function Gender() {
           <span className="checkmark blue-border"></span>Female
         </label>
       </div>
-      <hr/>
+      <hr style={{width: "200px"}}/>
     </div>
   );
 }

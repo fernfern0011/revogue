@@ -3,3 +3,8 @@
   flex-direction: column;
   gap: 10px; /* Adjust the gap as needed */
 }
+
+.select {
+  justify-content: end;
+  padding-right: 20px;
+}
