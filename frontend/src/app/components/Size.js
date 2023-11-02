@@ -1,31 +1,34 @@
 import * as React from 'react';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
-import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-export default function SelectLabels() {
-  const [size, setSize] = React.useState('');
+export default function Size({ setFormData }) {
+  const [selectedSize, setSize] = React.useState('');
 
-  const handleChange = (event) => {
-    setSize(event.target.value);
-  };
+  React.useEffect(() => {
+    setFormData(prevData => ({
+      ...prevData,
+      size: selectedSize
+    }))
+  }, [selectedSize])
 
   return (
     <div>
-        <InputLabel
-            htmlFor="standard-brandName"
-            sx={{ textAlign: 'left', fontSize: 13, color: 'black' }}
-        >
-            Size <span style={{ color: 'red' }}>*</span>
-        </InputLabel>
+      <InputLabel
+        htmlFor="standard-brandName"
+        sx={{ textAlign: 'left', fontSize: 13, color: 'black' }}
+      >
+        Size <span style={{ color: 'red' }}>*</span>
+      </InputLabel>
       <FormControl required >
         <Select
           labelId="demo-simple-select-helper-label"
           id="demo-simple-select-helper"
-          value={size}
-          onChange={handleChange}
+          name='size'
+          value={selectedSize}
+          onChange={(e) => setSize(e.target.value)}
           sx={{
             '& .MuiSelect-select': {
               fontSize: 13, // Adjust the font size as needed
@@ -37,7 +40,7 @@ export default function SelectLabels() {
           <MenuItem value="S">S</MenuItem>
           <MenuItem value="M">M</MenuItem>
           <MenuItem value="L">L</MenuItem>
-          <MenuItem value="FreeSize">Free Size</MenuItem>
+          <MenuItem value="Free Size">Free Size</MenuItem>
         </Select>
       </FormControl>
     </div>

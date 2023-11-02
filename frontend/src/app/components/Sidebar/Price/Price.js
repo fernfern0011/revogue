@@ -1,8 +1,10 @@
+"use client";
 import React, { useState } from "react";
-import "./Price.css";
+import "../Category.css";
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 function Price() {
-  const [isDropdownOpen, setDropdownOpen] = useState(true);
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
 
   const toggleDropdown = () => {
     setDropdownOpen(!isDropdownOpen);
@@ -12,10 +14,25 @@ function Price() {
     console.log("Clicked");
   };
 
+  const iconStyle = {
+    fontSize: 22, // Adjust the font size as needed
+    marginLeft: "138px", // Position the icon 20px to the right
+  };
+
+  const h2Style = {
+    marginBottom: "-5px", // Remove bottom margin
+    marginTop: "-12px",
+  };
+
   return (
-    <div>
-      <h2 className="sidebar-title" onClick={toggleDropdown}>
-        Price 
+    <div className="main">
+      <h2 className="sidebar-title" onClick={toggleDropdown} style={h2Style}>
+        <span style={{ display: 'flex', alignItems: 'center' }}>
+          Price
+          <span className={`dropdown-arrow ${isDropdownOpen ? "open" : ""}`}>
+            <KeyboardArrowDownIcon style={iconStyle} />
+          </span>
+        </span>
       </h2>
 
       <div className={`category-dropdown ${isDropdownOpen ? "open" : ""}`}>
@@ -36,7 +53,7 @@ function Price() {
           <span className="checkmark blue-border"></span>Outerwear
         </label>
       </div>
-      <hr/>
+      <hr style={{width: "200px"}}/>
     </div>
   );
 }

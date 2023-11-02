@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500&family=JetBrains+Mono&display=swap');
+
+.main {
+    margin-left: 75px;
+    margin-right: 75px;
+}
+
+.profilePic {
+    position: relative;
+    display: inline-block;
+}
+.profile {
+    display: inline-block;
+}
+.profileInfo {
+    display: inline-block;
+    padding: 20px 20px 0px 20px;
+}
+.name {
+    display: inline-block;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 0px;
+}
+.handle {
+    font-size: 15px;
+    color: #18b5b5;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+.horizontalLine {
+    background-color: #b8b8b8;
+}
+.centeredContent {
+    display: flex;
+    align-items: center; /* Vertical centering */
+}
+.bio {
+    font-size: 14px;
+}

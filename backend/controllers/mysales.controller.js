@@ -158,10 +158,10 @@ const mySalesController = {
     getInProgressOrders: async (req, res) => {
         try {
 
-            const { buyerid, sellerid, orderid } = req.query;
+            const { buyerid, sellerid } = req.query;
             const sql = `SELECT * FROM mysales ms INNER JOIN mypurchases mp ON 
                         mp.orderid = ms.orderid AND mp.buyerid = ms.buyerid AND mp.sellerid = ms.sellerid
-                        WHERE ms.buyerid = $1 AND ms.sellerid = $2 AND ms.orderid = $3 AND ms.isshipped = $4 AND mp.isreceived = $5;`;
+                        WHERE ms.buyerid = $1 AND ms.sellerid = $2 AND ms.isshipped = $3 AND mp.isreceived = $4;`;
 
             const { rows } = await postgre.query(sql, [buyerid, sellerid, orderid, true, false])
 

@@ -16,6 +16,11 @@
 
 .white-background {
   background-color: white;
+  border-top-right-radius: 10px !important;
+  border-bottom-right-radius: 10px !important;
+  margin-right: 15px;
+  padding-top: 15px !important;
+  padding-bottom: 15px !important;
 }
 
 .gray-background {
@@ -23,9 +28,9 @@
   border-left: 5px solid #18b5b5 !important;
   border-top-right-radius: 10px !important;
   border-bottom-right-radius: 10px !important;
-  margin-right: 20px;
-  padding-top: 10px !important;
-  padding-bottom: 10px !important;
+  margin-right: 15px;
+  padding-top: 15px !important;
+  padding-bottom: 15px !important;
 }
 
 .list-group-item img {
