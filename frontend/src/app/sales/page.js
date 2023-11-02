@@ -6,6 +6,11 @@ import SalesGridCompleted from '../components/SalesGridCompleted.js'
 import SalesGridConfirmation from '../components/SalesGridConfirmation.js'
 import SalesGridDelivery from '../components/SalesGridDelivery.js'
 import SalesGridPending from '../components/SalesGridPending'
+import { useSession } from 'next-auth/react';
+import { Suspense } from 'react';
+
+let accID = null;
+
 
 
 export default function LandingPage() {
@@ -13,6 +18,9 @@ export default function LandingPage() {
   const handleLoginStatusChange = (status) => {
     setIsLoggedIn(status);
   }
+
+  const { data: session } = useSession();
+
 
   useEffect(() => {
     // By default, open the first tab
@@ -64,25 +72,35 @@ export default function LandingPage() {
         <hr className={styles.horizontalLine}/>
 
         <div id="confirmation" className={`${"tabcontent"}`}>
-            <SalesGridConfirmation />
+        <Suspense fallback={<p>Loading...</p>}>
+            {session && <SalesGridConfirmation />}
+          </Suspense>
         </div>
 
         <div id="delivery" className={`${"tabcontent"}`}>
-            <SalesGridDelivery />
+        <Suspense fallback={<p>Loading...</p>}>
+            {session && <SalesGridDelivery />}
+          </Suspense>
         </div>
 
 {/* Cancelled Tab */}
       <div id="pending" className={`${"tabcontent"}`}>
-        <SalesGridPending />
+          <Suspense Suspense fallback={<p>Loading...</p>}>
+            {session && <SalesGridPending />}
+          </Suspense>
       </div>
 
 {/* Completed Tab */}
       <div id="cancelled" className={`${"tabcontent"}`}>
-        <SalesGridCancelled />
+      <Suspense fallback={<p>Loading...</p>}>
+            {session && <SalesGridCancelled />}
+          </Suspense>
       </div>
 
       <div id="completed" className={`${"tabcontent"}`}>
-        <SalesGridCompleted />
+        <Suspense fallback={<p>Loading...</p>}>
+            {session && <SalesGridCompleted />}
+          </Suspense>
       </div>
       </div>
 

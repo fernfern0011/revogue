@@ -1,13 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row } from 'react-bootstrap';
 import OrderCompleted from './OrderCompleted';
+import { useSession } from 'next-auth/react';
+
 
 export default function OrderGridCompleted() {
   const [purchaseItems, setPurchaseItems] = useState([]);
   const [error, setError] = useState(null);
 
+  const {data: session} = useSession();
+  let accID;
+  if (session){
+    console.log(session)
+    accID = session.id;
+    console.log(accID);
+  }
+
   useEffect(() => {
-    fetch('http://localhost:5000/api/mypurchases/get-completed-orders?buyerid=1')
+    fetch(`http://localhost:5000/api/mypurchases/get-completed-orders?buyerid=${accID}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error('Error fetching product information');
