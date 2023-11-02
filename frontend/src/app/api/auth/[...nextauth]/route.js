@@ -1,6 +1,8 @@
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
 
+let userEmail = null;
+
 export const authOption = {
     providers: [
         CredentialsProvider({
@@ -28,6 +30,7 @@ export const authOption = {
                 const user = await res.json();
 
                 if (res.ok && user) {
+                    userEmail = credentials.email;
                     return user;
                 };
 
@@ -52,7 +55,7 @@ export const authOption = {
             session.accessToken = token.accessToken;
 
             if (session?.accessToken) {
-                const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/user-profile?accid=${token.id}`, {
+                const res = await fetch(`${process.env.backendUrl}/api/user-profile?accid=${token.id}`, {
                     headers: { "Content-Type": "application/json" }
                 });
 
@@ -83,5 +86,7 @@ export const authOption = {
 }
 
 const handler = NextAuth(authOption);
+
+export {userEmail} 
 
 export { handler as GET, handler as POST };

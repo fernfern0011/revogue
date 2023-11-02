@@ -18,7 +18,7 @@ export default function SelectLabels() {
             htmlFor="standard-brandName"
             sx={{ textAlign: 'left', fontSize: 13, color: 'black' }}
         >
-            Size <span style={{ color: 'red' }}>*</span>
+            Category <span style={{ color: 'red' }}>*</span>
         </InputLabel>
       <FormControl required >
         <Select
@@ -34,10 +34,10 @@ export default function SelectLabels() {
             },
           }}
         >
-          <MenuItem value="S">S</MenuItem>
-          <MenuItem value="M">M</MenuItem>
-          <MenuItem value="L">L</MenuItem>
-          <MenuItem value="FreeSize">Free Size</MenuItem>
+          <MenuItem value="Top">Top</MenuItem>
+          <MenuItem value="Bottom">Bottom</MenuItem>
+          <MenuItem value="Dresss">Dress</MenuItem>
+          <MenuItem value="OuterWear">Outer Wear</MenuItem>
         </Select>
       </FormControl>
     </div>

@@ -22,14 +22,9 @@ export default function Home() {
         <LandingComponent />
       </Row>
 
-      {/* Why Thrifting Title */}
-      <Row className="mb-4 mx-2">
-        <h1 style={{ textAlign: "center" }}>Why Thrifting?</h1>
-      </Row>
-
       { /* ThriftingComponent */}
       <Row className="mb-4 mx-2 justify-content-center">
-        <ThriftingComponent />
+        <ThriftingComponent text="Why Thrifting?" />
       </Row>
     </Container>
   )
