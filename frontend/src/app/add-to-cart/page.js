@@ -16,82 +16,11 @@ import styles from "../page.module.css";
 import "../styles/AddToCart.css";
 import { Padding } from "@mui/icons-material";
 
-//retrieve default data from backend API
-// async function getCartData() {
-//   var accid = 1;
-//   const getCartRes = await fetch(
-//     `https://revogue-backend.vercel.app/api/cart/get-all-cartitems?accid=${accid}`,
-//     {
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//     }
-//   );
-//   const getCartStatus = getCartRes.status;
-//   if (getCartStatus == 200) {
-//     return getCartRes.json();
-//   }
-// }
-
-//DELETE request to  backend API to delete the item by cartItemId
-async function deleteCartItem(cartItemId) {
-  var accid = 1;
-  console.log("test delete");
-  console.log(cartItemId);
-  try {
-    const response = await fetch(
-      `https://revogue-backend.vercel.app/api/cart/delete?cartitemid=${cartItemId}&accid=${accid}`,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ cartitemid: cartItemId, accid: accid }),
-      }
-    );
-
-    if (response.status === 201) {
-      alert("Selected item has been deleted");
-      //method 1 not working
-      setCart((prevCart) =>
-        prevCart.filter((item) => item.cartitemid !== cartItemId)
-      );
-
-      // //method 2 not working
-      // // Find the item index in the cart array
-      // const itemIndex = cart.findIndex((item) => item.cartitemid === cartItemId);
-
-      // if (itemIndex !== -1) {
-      //   // Remove the item from the cart array
-      //   cart.splice(itemIndex, 1);
-      //   // Force re-render by assigning the modified array back
-      //   cart = [...cart];
-      // }
-
-      ////method 3 - refresh cart data again
-      // await getCartData();
-      // const cartData = await getCartData();
-      // const cart = cartData.data;
-      // window.location.reload(true);
-    } else {
-      alert("Failed to delete the item");
-    }
-  } catch (error) {
-    console.error("Error deleting item:", error);
-    alert("Failed to delete the item");
-  }
-}
-
 function AddToCartPage() {
   const [cartlist, setCart] = useState(null);
 
-  //load default data
-  // const cartData = await getCartData();
-  // const cart = cartData.data;
-  // console.log(cart);
-
+  // Fetch cart data using promises
   useEffect(() => {
-    // Fetch cart data using promises
     const accid = 1;
     fetch(
       `https://revogue-backend.vercel.app/api/cart/get-all-cartitems?accid=${accid}`,
@@ -122,6 +51,7 @@ function AddToCartPage() {
   console.log(typeof(cartlist));
 
   const shippingFee = 0;
+
   // Calculate the sub total
   const calculateSubTotal = () => {
     if (!cartlist) {
@@ -132,14 +62,44 @@ function AddToCartPage() {
     for (var item of Object.values(cartlist)) {
       totalPrice += parseFloat(item.price);
     }
-    return totalPrice;
+    return totalPrice.toFixed(2);
   };
   
   // Calculate the grand total
   const calculateGrandTotal = () => {
-    let total = calculateSubTotal() + parseFloat(shippingFee);
-    return total;
+    let total = parseFloat(calculateSubTotal()) + parseFloat(shippingFee);
+    return total.toFixed(2);
   };
+
+  async function deleteCartItem(cartItemId) {
+    var accid = 1;
+    console.log("test delete");
+    console.log(cartItemId);
+    try {
+      const response = await fetch(
+        `https://revogue-backend.vercel.app/api/cart/delete?cartitemid=${cartItemId}&accid=${accid}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ cartitemid: cartItemId, accid: accid }),
+        }
+      );
+  
+      if (response.status === 201) {
+        alert("Selected item has been deleted");
+        setCart((prevCart) =>
+          prevCart.filter((item) => item.cartitemid !== cartItemId)
+        );
+      } else {
+        alert("Failed to delete the item");
+      }
+    } catch (error) {
+      console.error("Error deleting item:", error);
+      alert(error);
+    }
+  }
 
   return (
     <main className={styles.main}>
@@ -179,8 +139,8 @@ function AddToCartPage() {
                           <img
                             src={data.images}
                             alt=""
-                            width="50"
-                            height="50"
+                            width="150"
+                            height="150"
                           />
                         </Col>
                         <Col>
