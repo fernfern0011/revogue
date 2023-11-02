@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import WishlistItem from './WishListItem'
+import '../styles/Wishlist.css';
+
 const Wishlist = () => {
   const [wishlist, setWishlist] = useState([
     { id: 1, name: 'Product 1', price: 19.99 },
@@ -11,14 +13,18 @@ const Wishlist = () => {
   };
 
   return (
-    <div>
-      <h2>My Wishlist</h2>
-      {wishlist.map((product) => (
-        <WishlistItem
-          key={product.id}
-          product={product}
-          onDelete={handleDelete}
-        />
+    <div className="main">
+      <div className="breadcrumb">
+        <p>
+          Home &nbsp; {">"} &nbsp; <b>Wishlist</b>
+        </p>
+      </div>
+      <h2>Wishlist</h2>
+      {wishlist.map((product, index) => (
+        <React.Fragment key={product.id}>
+          <WishlistItem product={product} onDelete={handleDelete} />
+          {index !== wishlist.length - 1 && <hr />}
+        </React.Fragment>
       ))}
     </div>
   );

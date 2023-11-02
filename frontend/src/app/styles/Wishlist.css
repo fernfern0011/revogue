@@ -1,0 +1,24 @@
+h2 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.breadcrumb {
+    font-size: 14px;
+    margin-top: 10px;
+    margin-bottom: -1px;
+  }
+
+.main {
+    margin-left: 70px;
+    margin-right: 70px;
+}
+  
+  /* Media query for medium screens (md) and smaller */
+@media (max-width: 768px) {
+.main {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+}

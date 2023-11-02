@@ -2,8 +2,6 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import Button from "@mui/material/Button";
-import { BrowserRouter as Router } from "react-router";
-import { NavLink } from "react-router-dom";
 import SidebarComponentAddress from "../components/SidebarComponentAddress";
 
 //bootstrap imports

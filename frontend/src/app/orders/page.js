@@ -38,7 +38,7 @@ export default function LandingPage() {
 
   return (
     <main className={styles.main}>
-      <div>
+      <div className={styles.breadcrumb}>
           <p>
             Home &nbsp; {">"} &nbsp; <b>My Orders</b>
           </p>
