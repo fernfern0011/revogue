@@ -32,7 +32,7 @@ const WishListItem = () => {
             <span style={{ color: '#3C4242', fontSize: 14, fontFamily: 'Lato', fontWeight: '700', letterSpacing: 0.32, wordWrap: 'break-word'}}>
               Quantity:
             </span>
-            <span style={{ color: '#3C4242', fontSize: 14, fontFamily: 'Lato', fontWeight: '700', letterSpacing: 0.32, wordWrap: 'break-word', marginLeft:'2px' }}>
+            <span style={{ color: '#3C4242', fontSize: 14, fontFamily: 'Lato', fontWeight: '500', letterSpacing: 0.32, wordWrap: 'break-word', marginLeft:'2px' }}>
               1
             </span>
           </div>
