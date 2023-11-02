@@ -30,9 +30,9 @@ function AddressPage() {
   //default address
   const [defaultAddress, setDefaultAddress] = useState(null);
   useEffect(() => {
-    const accid = 1;
+    // const accid = 1; //for testing
     fetch(
-      `https://revogue-backend.vercel.app/api/address/get-default-address?accid=${accid}`,
+      `https://revogue-backend.vercel.app/api/address/get-default-address?accid=${accID}`,
       {
         method: "GET",
         headers: {
@@ -62,7 +62,7 @@ function AddressPage() {
   useEffect(() => {
     const accid = 1;
     fetch(
-      `https://revogue-backend.vercel.app/api/address/get-all-addresses?accid=${accid}`,
+      `https://revogue-backend.vercel.app/api/address/get-all-addresses?accid=${accID}`,
       {
         method: "GET",
         headers: {
@@ -78,7 +78,6 @@ function AddressPage() {
         }
       })
       .then((data) => {
-        // console.log(data.data);
         const nonDefaultAddresses = data.data.filter((data) => !data.isdefault);
         setAdditional(nonDefaultAddresses);
       })
@@ -87,6 +86,37 @@ function AddressPage() {
       });
   }, []);
   console.log(additional);
+
+  //delete address
+  async function deleteAddress(addressId) {
+    // var accid = 1; // for testing
+    console.log(addressId);
+
+    try {
+      const response = await fetch(
+        `https://revogue-backend.vercel.app/api/address/delete`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ addressid: addressId, accid: accID }),
+        }
+      );
+  
+      if (response.status === 201) {
+        alert("Selected item has been deleted");
+        setAdditional((prevCart) =>
+          prevCart.filter((item) => item.addressid !== addressId)
+        );
+      } else {
+        alert("Failed to delete the selected address");
+      }
+    } catch (error) {
+      console.error("Error deleting address:", error);
+      alert(error);
+    }
+  }
 
   return (
     <main className={styles.main}>
@@ -183,7 +213,7 @@ function AddressPage() {
                     </Col>
                   </Row>
                   <br />
-                  <Button variant="text">Remove</Button>&nbsp;|&nbsp;
+                  <Button variant="text" onClick={(e) => deleteAddress(data.addressid)}>Remove</Button>&nbsp;|&nbsp;
                   <Button variant="text">Edit</Button>&nbsp;|&nbsp;
                   <Button variant="text">Set as default</Button>
                 </div>

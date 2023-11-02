@@ -83,7 +83,6 @@ function AddToCartPage() {
 
   async function deleteCartItem(cartItemId) {
     var accid = 1;
-    console.log("test delete");
     console.log(cartItemId);
     try {
       const response = await fetch(
