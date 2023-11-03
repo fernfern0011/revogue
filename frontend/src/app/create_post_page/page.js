@@ -273,7 +273,10 @@ function CreatePost() {
 
             {/* <HandleCreateItemPage onDataPassed={handleDataPassed} /> */}
             <button onClick={createItem} className='text-white mt-10 border-[1px] bg-purple-500 rounded-lg px-5 p-2'>Submit</button>
+            </div>
+            </div>
         </main>
+
     )
 }
 

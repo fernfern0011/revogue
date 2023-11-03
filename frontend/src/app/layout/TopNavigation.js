@@ -106,7 +106,7 @@ const TopNavigation = () => {
                                         alt="Black and White Portrait of a Man"
                                         loading="lazy"
                                     />
-                                    <span className="ps-2 pe-2" style={{ marginLeft: '-5px', marginRight: '50px' }}>{accName}</span>
+                                    <span className="ps-2 pe-2" style={{ marginLeft: '-5px', marginRight: '30px' }}>{accName}</span>
                                 </Link>
 
                                 <ul style={{ marginTop: '10px' }}
@@ -141,9 +141,11 @@ const TopNavigation = () => {
                             :
                             <div>
                             <Link className="nav-link" href={"/login"}>
-                                <Button className="button">Login</Button>
+                                <Button className="button"
+                                style={{ backgroundColor: "#18b5b5" }}>Login</Button>
                             </Link>
                             <Button className="button"
+                            style={{ backgroundColor: "#18b5b5" }}
                             onClick={async (e) => {
                                 e.preventDefault();
                                 console.log();
