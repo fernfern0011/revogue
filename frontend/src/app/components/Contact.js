@@ -48,18 +48,18 @@ const Contact = () => {
 
   return (
     <div className="contact-container">
-    <div className='flex-container'>
+    <div className='flex-container flex-md-row flex-column'>
       <div className='picture-display'>
         <Image
           className="img-fluid"
           src="/images/image6.png"
           alt="why"
           width={300}
-          height={600}
+          height={800}
         />
       </div>
       <div>
-        <form onSubmit={handleSubmit} className='emailForm'>
+        <form onSubmit={handleSubmit} className="emailForm  mt-md-0 mt-2">
           <h1>Contact Us</h1>
           <p className='title1'>Need to get in touch with us?</p>
           <p className='title2'>Fill out the form with your inquiry</p>

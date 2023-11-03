@@ -17,7 +17,7 @@ const ThriftingComponent = ({ text }) => {
     <main className={styles.main}>
       <Container fluid>
         <Row className="mb-4 mx-2">
-          <h1 style={{ textAlign: "center" }}>{text}</h1>
+          <h1 style={{ textAlign: "center", fontSize: 40 }}>{text}</h1>
         </Row>
         <Row className="mb-4 mx-2 justify-content-center">
           <Col
