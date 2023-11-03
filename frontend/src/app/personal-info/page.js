@@ -13,75 +13,78 @@ import Col from "react-bootstrap/Col";
 //style imports
 import styles from "../page.module.css";
 import "../styles/PersonalInfoComponent.css";
+import { useSession } from "next-auth/react";
 
 //retrieve data from backend API
-async function getInfoData() {
-  var accid = 1;
-  const getInfoRes = await fetch(
-    `https://revogue-backend.vercel.app/api/account?accid=${accid}`,
-    {
+// async function getInfoData() {
+//   var accid = 1;
+//   const getInfoRes = await fetch(
+//     `https://revogue-backend.vercel.app/api/account?accid=${accid}`,
+//     {
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//     }
+//   );
+
+//   const getInfoStatus = getInfoRes.status;
+//   if (getInfoStatus == 200) {
+//     return getInfoRes.json();
+//   }
+// }
+
+function PersonalInfoPage() {
+  // const {data: session} = useSession();
+  // let accID;
+  // if (session){
+  //   accID = session.id;
+  //   console.log(accID);
+  // }
+  // else{
+  //   console.log('No session')
+  // }
+
+  const [info, setInfo] = useState(null);
+  const [editingPassword, setEditingPassword] = useState(false);
+  const [newPassword, setNewPassword] = useState("");
+  const [originalPassword, setOriginalPassword] = useState("");
+
+  useEffect(() => {
+    const accid = 1; //for testing
+    fetch(`https://revogue-backend.vercel.app/api/account?accid=${accid}`, {
+      method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
-    }
-  );
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          return response.json();
+        } else {
+          throw new Error("Failed to fetch data");
+        }
+      })
+      .then((data) => {
+        setInfo(data.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, []);
+  // console.log(info);
 
-  const getInfoStatus = getInfoRes.status;
-  if (getInfoStatus == 200) {
-    return getInfoRes.json();
-  }
-}
-
-async function PersonalInfoPage() {
-  const [editableItem, setEditableItem] = useState(false); //doesnt give errors
-  // const [editableItem, setEditableItem] = useState(false);
-  console.log(editableItem);
-  const [stateChange, setStateChange] = useState(false);
-
-  // const handleEditClick = (status) => {
-  //   console.log("test1");
-  //   setEditableItem(true);
-  // };
-  // const handleSaveClick = (status) => {
-  //   console.log("test2");
-  //   setEditableItem(false);
-  // };
-
-  const handleEditClick = () => {
-    alert("change click");
-    console.log("test1");
-    console.log(index);
-    setEditableItem(true);
+  const handleEditPasswordClick = () => {
+    setOriginalPassword(info[0].accpass);
+    setNewPassword(info[0].accpass);
+    setEditingPassword(true);
   };
 
-  const handleSaveClick = () => {
-    alert("save click");
-    console.log("test2");
-    setEditableItem(false);
+  const handleSavePasswordClick = () => {
+    // Here, you can send the new password to your server for validation and update.
+    // Add API call to update the password and handle success or error.
+    // After successful password change:
+    setEditingPassword(false);
   };
-
-  useEffect(() => {
-    setStateChange(true);
-  }, editableItem);
-
-  //load data from backend
-  const infoData = await getInfoData();
-  const info = infoData.data;
-
-  //password form (this is incomplete but does not give error, keep it first for reference)
-  async function onSubmitPw(event) {
-    event.preventDefault();
-
-    const formData = new FormData(event.target);
-    const response = await fetch(
-      `https://revogue-backend.vercel.app/api/account/update-password/`,
-      {
-        method: "POST",
-        body: formData,
-      }
-    );
-    const data = await response.json();
-  }
 
   return (
     <main className={styles.main}>
@@ -99,81 +102,54 @@ async function PersonalInfoPage() {
             <SidebarComponent />
           </Col>
 
-          {/* Personal info */}
           <Col lg="10" className="float-left custom">
-            {info.map((accountData, index) => (
-              <div key={accountData.accid}>
-                {/* username */}
-                <Row className="d-flex align-items-center">
-                  <p>
-                    <strong>Username</strong>
-                  </p>
-                  <div className="d-flex align-items-center ml-auto">
-                    <Col>
-                      <p className="mr-3">{accountData.username}</p>
-                    </Col>
+            {info ? (
+              info.map((data, index) => (
+                <div key={data.accid}>
+                  <Row className="d-flex align-items-center">
+                    <p>
+                      <strong>Username</strong>
+                    </p>
+                    <div className="d-flex align-items-center ml-auto">
+                      <Col>
+                        <p className="mr-3">{data.username}</p>
+                      </Col>
 
-                    <Col></Col>
-                    <Col className="d-flex align-items-center"></Col>
-                  </div>
-                </Row>
-                <hr />
+                      <Col></Col>
+                      <Col className="d-flex align-items-center"></Col>
+                    </div>
+                  </Row>
+                  <hr />
 
-                {/* email */}
-                <Row className="d-flex align-items-center mt-3">
-                  <p>
-                    <strong>Email</strong>
-                  </p>
+                  <Row className="d-flex align-items-center mt-3">
+                    <p>
+                      <strong>Email</strong>
+                    </p>
 
-                  <div className="d-flex align-items-center ml-auto">
-                    <Col>
-                      <p className="mr-3">{accountData.accemail}</p>
-                    </Col>
+                    <div className="d-flex align-items-center ml-auto">
+                      <Col>
+                        <p className="mr-3">{data.accemail}</p>
+                      </Col>
 
-                    <Col></Col>
-                    <Col className="d-flex align-items-center"></Col>
-                  </div>
-                </Row>
-                <hr />
+                      <Col></Col>
+                      <Col className="d-flex align-items-center"></Col>
+                    </div>
+                  </Row>
+                  <hr />
 
-                {/* pw */}
-                <Row className="d-flex align-items-center mt-3">
-                  <form onSubmit={onSubmitPw}>
+                  <Row className="d-flex align-items-center mt-3">
                     <p>
                       <strong>Password</strong>
                     </p>
 
                     <div className="d-flex align-items-center ml-auto">
                       <Col>
-                        {/* {editableItem === index ? (
+                        {/* <p className="mr-3">{data.accpass}</p> */}
+                        {editingPassword ? (
                           <input
                             type="password"
-                            name="newpass"
-                            defaultValue={accountData.accpass}
-                          />
-                        ) : (
-                          <p className="mr-3">********</p>
-                        )} */}
-
-                        {/* {editableItem === false ? (
-                          <Col>
-                            <p className="mr-3">********</p>
-                          </Col>
-                        ) : (
-                          <Col>
-                            <input
-                              type="password"
-                              value={accountData.accpass}
-                              onChange={(e) => {}}
-                            />
-                          </Col>
-                        )} */}
-
-                        {editableItem === index ? (
-                          <input
-                            type="password"
-                            name="newpass"
-                            defaultValue={accountData.accpass}
+                            value={newPassword}
+                            onChange={(e) => setNewPassword(e.target.value)}
                           />
                         ) : (
                           <p className="mr-3">********</p>
@@ -183,58 +159,27 @@ async function PersonalInfoPage() {
                       <Col></Col>
 
                       <Col>
-                        {/* {editableItem === false ? (
-                          <Button
-                            variant="outlined"
-                            onClick={() => handleEditClick(true)}
-                          >
-                            Change
-                          </Button>
-                        ) : (
-                          <Button
-                            variant="outlined"
-                            type="submit"
-                            onClick={() => handleSaveClick(false)}
-                          >
+                        {/* <Button >Change</Button> */}
+                        {editingPassword ? (
+                          <Button onClick={handleSavePasswordClick}>
                             Save
                           </Button>
-                        )} */}
-
-                        {stateChange == false ? (
-                          <input type="button"
-                            // variant="text"
-                            className="ml-auto"
-                            value="Change"
-                            onClick={(e) => {
-                              e.preventDefault;
-
-                              handleEditClick();
-                            }}
-                          />
-                          //   Change
-                          // </input>
                         ) : (
-                          <input type="button"
-                            // variant="text"
-                            className="ml-auto"
-                            value="Save"
-                            onClick={(e) => {
-                              e.preventDefault
-                              handleSaveClick()}}
-                          />
-                            // Save
-                          // </input>
+                          <Button onClick={handleEditPasswordClick}>
+                            Change
+                          </Button>
                         )}
-                        
                       </Col>
 
                       <Col className="d-flex align-items-center"></Col>
                     </div>
-                  </form>
-                </Row>
-                <hr />
-              </div>
-            ))}
+                  </Row>
+                  <hr />
+                </div>
+              ))
+            ) : (
+              <p>Loading data...</p>
+            )}
           </Col>
         </Row>
       </Container>

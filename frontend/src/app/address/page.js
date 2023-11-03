@@ -30,7 +30,7 @@ function AddressPage() {
   //default address
   const [defaultAddress, setDefaultAddress] = useState(null);
   useEffect(() => {
-    // const accid = 1; //for testing
+    const accid = 1; //for testing
     fetch(
       `https://revogue-backend.vercel.app/api/address/get-default-address?accid=${accID}`,
       {
@@ -44,7 +44,7 @@ function AddressPage() {
         if (response.status === 200) {
           return response.json();
         } else {
-          throw new Error("Failed to fetch cart data");
+          throw new Error("Failed to fetch data");
         }
       })
       .then((data) => {
@@ -52,7 +52,7 @@ function AddressPage() {
         setDefaultAddress(data.data);
       })
       .catch((error) => {
-        console.error("Error fetching cart data:", error);
+        console.error("Error fetching data:", error);
       });
   }, []);
   console.log(defaultAddress);
@@ -82,7 +82,7 @@ function AddressPage() {
         setAdditional(nonDefaultAddresses);
       })
       .catch((error) => {
-        console.error("Error fetching cart data:", error);
+        console.error("Error fetching data:", error);
       });
   }, []);
   console.log(additional);
@@ -105,7 +105,7 @@ function AddressPage() {
       );
   
       if (response.status === 201) {
-        alert("Selected item has been deleted");
+        alert("Selected address has been deleted");
         setAdditional((prevCart) =>
           prevCart.filter((item) => item.addressid !== addressId)
         );

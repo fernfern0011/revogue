@@ -3,6 +3,7 @@ import Image from "next/image";
 import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import SidebarComponentAddress from "../components/SidebarComponentAddress";
+import { useSession } from "next-auth/react";
 
 //bootstrap imports
 import "bootstrap/dist/css/bootstrap.css";
@@ -11,28 +12,95 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import FormGroup from "react-bootstrap/FormGroup";
-// import Button from 'react-bootstrap/Button';
 
 //style imports
 import styles from "../page.module.css";
 import "../styles/AddAddressComponent.css";
 
-const AddAddressComponent = () => {
-  const [validated, setValidated] = useState(false);
+function AddAddressPage() {
+  const { data: session } = useSession();
+  let accID;
+  if (session) {
+    accID = session.id;
+    console.log(accID);
+  } else {
+    console.log("No session");
+  }
 
-  const handleSubmit = (event) => {
+  const accid = 1; // for testing
+  const [validated, setValidated] = useState(false);
+  const [formData, setFormData] = useState({
+    fname: "",
+    lname: "",
+    street: "",
+    unit: "",
+    phone: "",
+    postal_code: "",
+    delivery_instruction: "",
+    isDefault: false,
+    isBusiness: false,
+  });
+  
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setFormData({
+      ...formData,
+      accid: accID,
+      [name]: type === "checkbox" ? checked : value,
+    });
+  };
+
+  const handleSubmit = async (event) => {
+    console.log("test submit");
     event.preventDefault();
     const form = event.currentTarget;
-
-    if (form.checkValidity() === false) {
-      event.stopPropagation();
-    }
     setValidated(true);
+  
+    if (form.checkValidity() === false) {
+      return;
+    }
+  
+    // Combine the form data with the account ID
+    const addressData = {
+      ...formData,
+      accid: accID,
+    };
+    console.log(addressData);
+  
+    try {
+      const response = await fetch(`https://revogue-backend.vercel.app/api/address/add-new-address`, {
+      // const response = await fetch(`http://localhost:5000/api/address/add-new-address`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(addressData),
+      });
+  
+      if (response.ok) {
+        alert("Address added successfully");
+        setFormData({
+          fname: "",
+          lname: "",
+          street: "",
+          unit: "",
+          phone: "",
+          postal_code: "",
+          delivery_instruction: "",
+          isDefault: false,
+          isBusiness: false,
+        });
+      } else {
+        // Response status is not in the success range.
+        alert("Failed to add an address");
+      }
+    } catch (error) {
+      alert(error);
+    }
   };
 
   return (
     <main className={styles.main}>
-
       <Container fluid className="px-5 mt-5">
         <div className="breadcrumb">
           <p>
@@ -66,8 +134,11 @@ const AddAddressComponent = () => {
                       <Form.Control
                         className="custom"
                         type="text"
+                        name="fname"
                         placeholder="First Name"
+                        value={formData.fname}
                         required
+                        onChange={handleChange}
                       />
                       <Form.Control.Feedback type="invalid">
                         First name is required.
@@ -83,7 +154,10 @@ const AddAddressComponent = () => {
                       <Form.Control
                         className="custom"
                         type="text"
+                        name="lname"
                         placeholder="Last Name"
+                        value={formData.lname}
+                        onChange={handleChange}
                         required
                       />
                       <Form.Control.Feedback type="invalid">
@@ -102,7 +176,10 @@ const AddAddressComponent = () => {
                       <Form.Control
                         className="custom"
                         type="text"
+                        name="street"
                         placeholder="Street Address"
+                        value={formData.street}
+                        onChange={handleChange}
                         required
                       />
                       <Form.Control.Feedback type="invalid">
@@ -114,7 +191,14 @@ const AddAddressComponent = () => {
                   <Col lg={6}>
                     <Form.Group>
                       <Form.Label className="custom-label">Unit No</Form.Label>
-                      <Form.Control className="custom" type="text" placeholder="Unit No" />
+                      <Form.Control
+                        className="custom"
+                        type="text"
+                        name="unit"
+                        placeholder="Unit No"
+                        value={formData.unit}
+                        onChange={handleChange}
+                      />
                     </Form.Group>
                   </Col>
                 </Row>
@@ -127,8 +211,11 @@ const AddAddressComponent = () => {
                       </Form.Label>
                       <Form.Control
                         className="custom"
-                        type="text"
+                        type="number"
+                        name="phone"
                         placeholder="Phone Number"
+                        value={formData.phone}
+                        onChange={handleChange}
                         required
                       />
                       <Form.Control.Feedback type="invalid">
@@ -144,8 +231,11 @@ const AddAddressComponent = () => {
                       </Form.Label>
                       <Form.Control
                         className="custom"
-                        type="text"
+                        type="number"
+                        name="postal_code"
                         placeholder="Postal Code"
+                        value={formData.postal_code}
+                        onChange={handleChange}
                         required
                       />
                       <Form.Control.Feedback type="invalid">
@@ -165,7 +255,10 @@ const AddAddressComponent = () => {
                         className="custom"
                         as="textarea"
                         rows={5}
+                        name="delivery_instruction"
                         placeholder="Delivery Instruction"
+                        value={formData.delivery_instruction}
+                        onChange={handleChange}
                       />
                     </Form.Group>
                   </Col>
@@ -177,7 +270,10 @@ const AddAddressComponent = () => {
                       <Form.Check
                         className="custom-checkbox"
                         type="checkbox"
-                        label="Set as Default Shipping Address"
+                        label="Set as Default Address"
+                        name="isDefault"
+                        checked={formData.isDefault}
+                        onChange={handleChange}
                       />
                     </FormGroup>
                   </Col>
@@ -189,7 +285,10 @@ const AddAddressComponent = () => {
                       <Form.Check
                         className="custom-checkbox"
                         type="checkbox"
-                        label="Set as Default Billing Address"
+                        label="Set as Business Address"
+                        name="isBusiness"
+                        checked={formData.isBusiness}
+                        onChange={handleChange}
                       />
                     </FormGroup>
                   </Col>
@@ -216,6 +315,6 @@ const AddAddressComponent = () => {
       </Container>
     </main>
   );
-};
+}
 
-export default AddAddressComponent;
+export default AddAddressPage;
