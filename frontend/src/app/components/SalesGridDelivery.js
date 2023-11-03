@@ -2,13 +2,23 @@ import React, { useState, useEffect } from 'react';
 import { Container, Row } from 'react-bootstrap';
 import SalesDelivery from './SalesDelivery';
 import '../styles/Order.css'
+import { useSession } from 'next-auth/react';
+
 
 export default function OrderGridActive() {
   const [saleItems, setsaleItems] = useState([]);
   const [error, setError] = useState(null);
 
+  const {data: session} = useSession();
+  let accID;
+  if (session){
+    console.log(session)
+    accID = session.id;
+    console.log(accID);
+  }
+
   useEffect(() => {
-    fetch('http://localhost:5000/api/mysales/get-to-ship-orders?sellerid=1')
+    fetch(`http://localhost:5000/api/mysales/get-to-ship-orders?sellerid=${accID}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error('Error fetching product information');

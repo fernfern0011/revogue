@@ -14,34 +14,27 @@ import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import StarIcon from '@mui/icons-material/Star';
 import ThriftingComponent from './ThriftingComponent';
+import { useRouter } from 'next/navigation';
 
+const ItemPage = ({ itemDetails }) => {
+  const router = useRouter();
+  console.log(itemDetails);
 
-function ItemPage({ id, itemDetails }) {
-  var itemId = id;
-  var itemValue = JSON.parse(itemDetails.value);
-
-  var productname, price, description, size, quantity, images;
-  if (itemValue.data[0]) {
-    var item = itemValue.data[0]
-
+  var productid, productname, price, description, size, quantity, images;
+  if (itemDetails) {
+    var item = itemDetails;
+    productid = item.productid;
     productname = item.productname;
     price = item.price;
     description = item.description;
     size = item.size;
+    quantity = item.quantity;
 
-    // if (item.images != "") {
-    //   images = JSON.parse(item.images);
-    // }
+    if (item.images) {
+      const itemImages = item.images.split(',');
+      images = itemImages;
+    }
   }
-
-  // var itemImages = [];
-
-  // for (var image in images) {
-  //   console.log(images[image]);
-  //   if (!itemImages.includes(images[image])) {
-  //     itemImages.push(images[image]);
-  //   }
-  // }
 
   const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -57,14 +50,11 @@ function ItemPage({ id, itemDetails }) {
 
   };
 
-  // https://res.cloudinary.com/wad2-revogue/image/upload/v1697313304/profile/yzuznznyaikgrbdjqcma.png
-
   const thumbnails = [
-    '../images/Raccoon.jpg',
-    '../images/raccoon0.webp',
-    '../images/raccoonStands.jfif'
+    '../images/image7.png',
+    '../images/image5.png',
+    '../images/image6.png',
   ]; // Replace with actual image paths
-
 
   function CustomPrevArrow(props) {
     return (
@@ -82,12 +72,78 @@ function ItemPage({ id, itemDetails }) {
     );
   }
 
+  const AddToCart = async () => {
+    const addToCartRes = await fetch(`http://localhost:5000/api/cart/create`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        accid: 9,
+        productid: productid
+      })
+    }).catch(error => { console.log(error); });
+
+    const status = addToCartRes.status;
+
+    switch (status) {
+      case 200:
+        alert('Item is added to Cart')
+        router.push('/add-to-cart');
+        break;
+      default:
+        // setError(true);
+        alert('Failed to add item to cart')
+        // setSnackbar({ children: 'Teacher cannot be added', severity: 'error' });
+        break;
+    };
+
+  }
+
+  const AddToWishlist = async () => {
+    const addToWishlistRes = await fetch(`http://localhost:5000/api/wishlist/create`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        accid: 9,
+        productid: productid
+      })
+    }).catch(error => { console.log(error); });
+
+    const status = addToWishlistRes.status;
+
+    switch (status) {
+      case 200:
+        alert('Item is added to wishlist')
+        router.push('/wishlist');
+        break;
+      default:
+        // setError(true);
+        alert('Failed to add item to wishlist')
+        // setSnackbar({ children: 'Teacher cannot be added', severity: 'error' });
+        break;
+    };
+  }
+
   return (
-    <>
+    <div className="main">
+      <div>
+        <p className="breadcrumb">
+          Home &nbsp; {">"} &nbsp; Shop &nbsp; {">"} &nbsp;{" "}
+          <b>Item 1</b>
+        </p>
+      </div>
+      
       <div className="container">
         <div className="vertical-carousel-container">
           <div className="thumbnail-container">
-            {thumbnails.map((thumbnail, index) => (
+            {/* if images valid, output real images else placeholder */}
+            {images ? images.map((thumbnail, index) => (
+              <div
+                key={index}
+                className={`thumbnail ${index === currentSlide ? 'active' : ''}`}
+              >
+                <img className="thumbnail" src={thumbnail} alt={`Thumbnail ${index + 1}`} />
+              </div>
+            )) : thumbnails.map((thumbnail, index) => (
               <div
                 key={index}
                 className={`thumbnail ${index === currentSlide ? 'active' : ''}`}
@@ -100,8 +156,12 @@ function ItemPage({ id, itemDetails }) {
           <div className="carousel-left">
             <div className="carousel">
               <Slider {...settings}>
-                {thumbnails.map((thumbnail, index) => (
-
+                {/* if images valid, output real images else placeholder */}
+                {images ? images.map((thumbnail, index) => (
+                  <div key={index}>
+                    <img className="slide" src={thumbnail} alt={`Slide ${index + 1}`} />
+                  </div>
+                )) : thumbnails.map((thumbnail, index) => (
                   <div key={index}>
                     <img className="slide" src={thumbnail} alt={`Slide ${index + 1}`} />
                   </div>
@@ -109,29 +169,47 @@ function ItemPage({ id, itemDetails }) {
               </Slider>
             </div>
           </div>
-
         </div>
 
         <div className="other-content">
           {/* RIGHT SIDE */}
-          <h1>{productname}</h1>
+          <h1 className="product">{productname}</h1>
 
           <h1 className="price">{price}</h1>
 
-          <p>{description}</p>
+          <p className="desc">{description}</p>
 
           <p className="size">Size: <span>{size}</span></p>
-          <p className="quantity">Quantity: <span>{quantity}</span></p>
+          <p className="size">Quantity: <span>1</span></p>
 
           <div className="buttons-container">
-            <div className="cart-button">
-              <Button className="button">
-                <ShoppingCartOutlinedIcon style={{ marginRight: "5px" }} />
+            <div className="cart-button col-sm-12 col-md-6">
+              <Button className="button" onClick={() => AddToCart()}
+              style={{
+                backgroundColor: "#18b5b5",
+                color: "white",
+                textTransform: "capitalize",
+                fontSize: "14px",
+                paddingRight: "20px", 
+                paddingLeft: "20px",
+                marginTop: "30px"
+              }}>
+                <ShoppingCartOutlinedIcon style={{ fontSize: "16px", marginRight: "5px"}} />
                 Add to Cart
               </Button>
+
             </div>
-            <div className="wishlist-button">
-              <Button className="wishlist">
+            <div className="wishlist-button col-sm-12 col-md-6">
+              <Button className="wishlist" onClick={() => AddToWishlist()}
+              style={{
+                whiteSpace: "nowrap",
+                color: "gray",
+                textTransform: "capitalize",
+                fontSize: "14px",
+                paddingRight: "15px", 
+                paddingLeft: "15px",
+                marginTop: "30px"
+              }}>
                 <FavoriteBorderIcon style={{ marginRight: "5px" }} />
                 Add to Wishlist
               </Button>
@@ -140,7 +218,7 @@ function ItemPage({ id, itemDetails }) {
         </div>
       </div >
       <ThriftingComponent text="Sustainability Impact" />
-    </>
+    </div>
   );
 };
 

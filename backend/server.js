@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const app = express();
 require('dotenv').config();
 
+
 app.use(bodyParser.json());
 app.use(express.json())
 app.use(cors({ credentials: true, origin: true }));
@@ -22,6 +23,10 @@ app.use("/api/cart", require("./routes/cart.route"))
 app.use("/api/mypurchases", require("./routes/mypurchases.route"))
 app.use("/api/mysales", require("./routes/mysales.route"))
 
+// Blogs
+
+app.use("/api/blog", require('./routes/blog.route'))
+
 // Imports for Services
 const fileServices = require('./services/cloudinaryFileService');
 
@@ -38,6 +43,10 @@ app.delete('/services/cloudinary/delete-image', (req, res) => {
     };
   });
 });
+
+
+app.use(bodyParser.json());
+
 
 app.listen(process.env.PORT, () => {
   console.log(`Server started on port ${process.env.PORT}`);
