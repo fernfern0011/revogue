@@ -1,7 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
-import SidebarComponentAddress from "../components/SidebarComponentAddress";
 
 //bootstrap imports
 import "bootstrap/dist/css/bootstrap.css";
@@ -13,49 +12,43 @@ import styles from "../page.module.css";
 import "../styles/AddressComponent.css";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import SidebarComponent from "../components/SidebarComponent";
 
 function AddressPage() {
   const { data: session } = useSession();
-  let accID;
+  console.log(session);
   const router = useRouter();
+  let accID;
 
-  if (session) {
-    accID = session.id;
-  }
-  else {
+  if (!session) {
     router.push('/error/403');
     return null;
+
+  } else {
+    accID = session.id;
   }
 
   //default address
-  const [defaultAddress, setDefaultAddress] = useState(null);
+  const [defaultAddress, setDefaultAddress] = useState([]);
   useEffect(() => {
-    fetch(
-      `https://revogue-backend.vercel.app/api/address/get-default-address?accid=${accID}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
+    fetch(`https://revogue-backend.vercel.app/api/address/get-default-address?accid=${accID}`, {
+      headers: { "Content-Type": "application/json" }
+    }).then((response) => {
+      if (response.status === 200) {
+        return response.json();
+      } else {
+        throw new Error("Failed to fetch data");
       }
-    )
-      .then((response) => {
-        if (response.status === 200) {
-          return response.json();
-        } else {
-          throw new Error("Failed to fetch data");
-        }
-      })
-      .then((data) => {
-        setDefaultAddress(data.data);
-      })
+    }).then((data) => {
+      setDefaultAddress(data.data);
+    })
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
   }, []);
 
   //additional address
-  const [additional, setAdditional] = useState(null);
+  const [additional, setAdditional] = useState('');
   useEffect(() => {
     fetch(
       `https://revogue-backend.vercel.app/api/address/get-all-addresses?accid=${accID}`,
@@ -124,7 +117,7 @@ function AddressPage() {
         <br></br>
         <Row className="d-flex">
           <Col lg="2">
-            <SidebarComponentAddress />
+            <SidebarComponent />
           </Col>
 
           <Col lg="10" className="float-left">
@@ -177,11 +170,9 @@ function AddressPage() {
               </Col>
               <Col className="col-2"></Col>
               <Col className="col-4">
-                <a href="add-address">
-                  <Button variant="text" className="addBtn">
-                    Add New +
-                  </Button>
-                </a>
+                <Button variant="text" className="addBtn" onClick={() => router.push('/add-address')}>
+                  Add New +
+                </Button>
               </Col>
               <br />
 

@@ -96,10 +96,7 @@ const TopNavigation = () => {
                                     className={`dropdown-menu dropdown-menu-end ${isDropdownOpen ? 'show' : ''}`}
                                 >
                                     <li>
-                                        <Link className="dropdown-item" href="/personal-info" style={{ fontSize: "15px" }}>My profile</Link>
-                                    </li>
-                                    <li>
-                                        <Link className="dropdown-item" href="/personal-info" style={{ margin: '-10px 0', fontSize: "15px" }}>Account Settings</Link>
+                                        <Link className="dropdown-item" href="/personal-info" style={{ margin: '10px 0', fontSize: "15px" }}>Account Settings</Link>
                                     </li>
                                     <li>
                                         <Link className="dropdown-item" href="/wishlist" style={{ margin: '-10px 0', fontSize: "15px" }}>Wishlist</Link>

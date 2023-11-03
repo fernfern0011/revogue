@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import SidebarComponentPersonalInfo from "../components/SidebarComponentPersonalInfo";
+import SidebarComponent from "../components/SidebarComponent";
 import bcrypt from "bcryptjs";
 
 //bootstrap imports
@@ -8,7 +8,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { Form, Button } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 
 //style imports
 import styles from "../page.module.css";
@@ -18,8 +18,10 @@ import { useRouter } from "next/navigation";
 
 function PersonalInfoPage() {
   const { data: session } = useSession();
+  console.log(session);
+
   const router = useRouter();
-  let accID
+  let accID;
 
   if (!session) {
     router.push('/error/403');
@@ -27,7 +29,6 @@ function PersonalInfoPage() {
   } else {
     accID = session.id;
   }
-
 
   const [info, setInfo] = useState(null);
   const [editingPassword, setEditingPassword] = useState(false);
@@ -123,7 +124,7 @@ function PersonalInfoPage() {
         <br></br>
         <Row className="d-flex">
           <Col lg="2">
-            <SidebarComponentPersonalInfo />
+            <SidebarComponent />
           </Col>
 
           <Col lg="10" className="float-left custom">

@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Button from "@mui/material/Button";
-import SidebarComponent from "../components/SidebarComponent";
+import SidebarComponent from "../layout/SidebarComponent";
 
 //bootstrap imports
 import "bootstrap/dist/css/bootstrap.css";
