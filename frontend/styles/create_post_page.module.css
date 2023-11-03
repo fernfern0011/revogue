@@ -2,8 +2,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 80vh;
-    width: 100%;
+    
   }
 
 /* Upload Image */
@@ -13,7 +12,6 @@
     align-items: center;
     min-height: 20vw;
     width: 30vw;
-    border: 2px dashed #A39D9D;
     margin-right: 20px;
 }
 .uploadImage {
@@ -38,47 +36,7 @@
     max-height: 30vw;
 }
 
-.buttonNext {
-    position: absolute;
-    bottom: 10%;
+  .label {
+    font-weight: bold;
     font-size: 14px;
-    padding: 10px 20px; /* Adjust padding values as needed */
-    min-width: auto; /* Remove minimum width to allow the button to adjust to the content */
-    background-color: #18b5b5; /* Button background color */
-    color: #fff; /* Text color */
-    border-radius: 5px; /* Add rounded corners if desired */
-    cursor: pointer; /* Add a cursor on hover */
-    text-transform: capitalize;
-    height: 15px;
-    text-decoration: none;
-    margin-right: -10%;
-}
-
-.buttonCancel {
-    position: absolute;
-    bottom: 10%;
-    font-size: 14px;
-    padding: 10px 20px; /* Adjust padding values as needed */
-    min-width: auto; /* Remove minimum width to allow the button to adjust to the content */
-    background-color: #18b5b5; /* Button background color */
-    color: #fff; /* Text color */
-    border-radius: 5px; /* Add rounded corners if desired */
-    cursor: pointer; /* Add a cursor on hover */
-    text-transform: capitalize;
-    height: 15px;
-    text-decoration: none;
-    margin-left: -10%;
-}
-
-.leftColumn {
-    flex: 1;
-    display: flex;
-    align-items: center;
-  }
-  
-  .rightColumn {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    margin-left: 20px; 
   }

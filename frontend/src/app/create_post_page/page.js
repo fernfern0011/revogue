@@ -97,16 +97,17 @@ export default function CreatePost1() {
             {/* container for image upload */}
             <div style={{ display: "flex", flexDirection: "column-reverse" }}>
                 <div className="rightColumn">
+
+                    <h1 style={{display: "flex", justifyContent:"center", fontSize:"25px", fontWeight:"bold", paddingTop:"30px", paddingBottom:"20px"}}>Upload New Item</h1>
+
                     {/* product name */}
                     <InputLabel
-                        className="label"
                         htmlFor="standard-brandName"
-                        sx={{ textAlign: 'left', fontSize: 13, color: 'black' }}
+                        sx={{ textAlign: 'left', fontSize: 14, color: 'black', fontWeight: 'bold' }}
                     >
                         Product Name <span style={{ color: 'red' }}>*</span>
                     </InputLabel>
                     <TextField
-                        id="outlined-required"
                         name='productname'
                         value={formData.productname}
                         onChange={handleChange}
@@ -115,7 +116,8 @@ export default function CreatePost1() {
                                 fontSize: 13,
                                 height: '1px',
                                 width: '25vw',
-                            }, // Adjust the font size as needed
+                                backgroundColor: '#F5F5F5',
+                            },
                         }}
                         required
                     />
@@ -123,7 +125,6 @@ export default function CreatePost1() {
 
                     {/* description */}
                     <InputLabel
-                        className="label"
                         htmlFor="standard-brandName"
                         sx={{ textAlign: 'left', fontSize: 13, color: 'black' }}
                     >
@@ -147,7 +148,6 @@ export default function CreatePost1() {
 
                     {/* Price */}
                     <InputLabel
-                        className="label"
                         htmlFor="standard-brandName"
                         sx={{ textAlign: 'left', fontSize: 13, color: 'black' }}
                     >
@@ -160,6 +160,7 @@ export default function CreatePost1() {
                             name='price'
                             value={formData.price}
                             onChange={handleChange}
+                            className={styles.label}
                             startAdornment={<InputAdornment position="start">$</InputAdornment>}
                             inputProps={{
                                 style: {
@@ -193,15 +194,15 @@ export default function CreatePost1() {
                             <FormControlLabel control={<Checkbox />} checked={formData.forwomen} name='forwomen' label="Female" onChange={handleCheckbox} />
                         </FormGroup>
                     </FormControl>
+
+                    <ProductUpload info={info} updateInfo={updateInfo} imageUrls={imageUrls} setImageUrls={setImageUrls} handleImageChange={handleImageChange} />
+
+
+                    <button onClick={createItem} className='text-white mt-10 border-[1px] bg-purple-500 rounded-lg px-5 p-2'>Submit</button>
                 </div>
+                
             </div>
-
-            <br />
-
-            <ProductUpload info={info} updateInfo={updateInfo} imageUrls={imageUrls} setImageUrls={setImageUrls} handleImageChange={handleImageChange} />
-
-
-            <button onClick={createItem} className='text-white mt-10 border-[1px] bg-purple-500 rounded-lg px-5 p-2'>Submit</button>
+            
         </main>
     )
 }
