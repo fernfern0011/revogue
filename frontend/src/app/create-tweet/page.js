@@ -72,7 +72,7 @@ const CreateBlogComponent = () => {
     <main className={styles.main}>
       <Container fluid>
         <div className="m-5">
-          <h1 className="pgTitle fw-bold">Create A Blog</h1>
+          <h1 className="pgTitle fw-bold">Write your tweet</h1>
           <Form
             noValidate
             validated={validated}
@@ -83,7 +83,7 @@ const CreateBlogComponent = () => {
               <Form.Group as={Col} md="12" controlId="validationCustom01">
                 <Form.Control
                   type="text"
-                  placeholder="Title of your blog"
+                  placeholder="Title of your tweet"
                   required
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}

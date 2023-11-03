@@ -60,7 +60,7 @@ const TopNavigation = () => {
                             <Link className="nav-link" href="/shop">Shop</Link>
                         </li>
                         <li className="nav-item pe-3 ps-3">
-                            <Link className="nav-link" href="/blog">Blog</Link>
+                            <Link className="nav-link" href="/tweet">Tweet</Link>
                         </li>
                         <li className="nav-item pe-3 ps-3">
                             <Link className="nav-link" href="/contact-us">Contact Us</Link>
@@ -108,7 +108,7 @@ const TopNavigation = () => {
                                         <Link className="dropdown-item" href="/sales" style={{ margin: '-10px 0', fontSize: "15px" }}>My Sales</Link>
                                     </li>
                                     <li>
-                                        <Link className="dropdown-item" href="/create-blog" style={{ margin: '-10px 0', fontSize: "15px" }}>Create My Blog</Link>
+                                        <Link className="dropdown-item" href="/create-tweet" style={{ margin: '-10px 0', fontSize: "15px" }}>Write a tweet</Link>
                                     </li>
                                     <li>
                                         <Link className="dropdown-item" href="/maps" style={{ margin: '-10px 0', fontSize: "15px" }}>Maps</Link>
