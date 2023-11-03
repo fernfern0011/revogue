@@ -23,7 +23,7 @@ import "../styles/AddToCart.css";
 import { Padding } from "@mui/icons-material";
 import { useSession } from 'next-auth/react';
 import CartComponent from "../components/CartComponent";
-
+import { useRouter } from "next/navigation";
 
 function AddToCartPage() {
   const [cartlist, setCart] = useState(null);
@@ -32,18 +32,19 @@ function AddToCartPage() {
   const [newsession, setnewSession] = useState(null);
 
   const { data: session } = useSession();
-  let accid;
-  if (session) {
-    console.log(session)
-    accid = session.id;
-    console.log(accid);
+  const router = useRouter();
+
+  if (!session) {
+    router.push('/error/403');
+    return null;
   }
+
+  let accid = session.id;
 
   const createCheckoutSession = async () => {
     try {
       const stripes = await stripePromise;
-      console.log(stripes)
-
+      console.log(stripes);
 
       if (!stripe) {
         console.error('Stripe is not available.')
@@ -139,7 +140,6 @@ function AddToCartPage() {
           }
         })
         .then((data) => {
-          console.log(data.data);
           setCart(data.data);
           setIsLoading(false); // Set isLoading to false when data is loaded
         })
@@ -150,10 +150,7 @@ function AddToCartPage() {
     }
   }, [accid]);
 
-  console.log(cartlist);
-
   const shippingFee = 0;
-
   // Calculate the sub total
   const calculateSubTotal = () => {
     if (!cartlist) {
@@ -175,8 +172,6 @@ function AddToCartPage() {
 
   async function deleteCartItem(cartItemId) {
     var accid = 1;
-    console.log("test delete");
-    console.log(cartItemId);
     try {
       const response = await fetch(
         `https://revogue-backend.vercel.app/api/cart/delete?cartitemid=${cartItemId}&accid=${accid}`,
@@ -233,36 +228,7 @@ function AddToCartPage() {
               <Suspense fallback={<tr><td colSpan="6">Loading...</td></tr>}>
                 {session && !isLoading ? (
                   cartlist.map((data, index) => (
-
-                    <CartComponent data={data} />
-                    // <tr key={data.cartitemid}>
-                    //   <td></td>
-                    //   <td>
-                    //     <Row>
-                    //       <Col xs="auto">
-                    //         <img
-                    //           src={thumbnail}
-                    //           alt=""
-                    //           width="150"
-                    //           height="150"
-                    //           className="image"
-                    //         />
-                    //       </Col>
-                    //       <Col>
-                    //         <p>{data.productname}</p>
-                    //         <p className="small">Size: {data.size}</p>
-                    //       </Col>
-                    //     </Row>
-                    //   </td>
-                    //   <td className="custom-td">${data.price}</td>
-                    //   <td className="custom-td">1</td>
-                    //   <td className="custom-td">${data.price}</td>
-                    //   <td>
-                    //     <Button onClick={(e) => deleteCartItem(data.cartitemid)}>
-                    //       Delete
-                    //     </Button>
-                    //   </td>
-                    // </tr>
+                    <CartComponent key={index} data={data} />
                   ))
                 ) : (
                   <tr><td colSpan="6">Loading...</td></tr>
