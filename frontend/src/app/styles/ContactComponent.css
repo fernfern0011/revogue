@@ -1,14 +1,15 @@
-body{
+body {
   margin: 0;
   min-height: 100vh;
   background-color: white;
 }
 
-*{
+* {
   box-sizing: border-box;
 }
 
-form input, textarea{
+form input,
+textarea {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -31,25 +32,26 @@ h1 {
   font-weight: bold;
 }
 
-.title1{
+.title1 {
   font-size: 14px;
   margin: 0;
 }
 
-.title2{
+.title2 {
   font-size: 14px;
   margin: 0;
 }
 
-button {
+.button1 {
   text-align: center;
-  background-color: #17B5B5;
-  border: #17B5B5;
+  background-color: #17b5b5;
+  border: #17b5b5;
   color: white;
   height: 32px;
   width: 80px;
   border-radius: 5px;
   font-size: 14px;
+  margin-top: 5px;
 }
 
 .flex-container {
@@ -90,7 +92,7 @@ button {
   text-align: center;
 }
 
-form{
+form {
   display: black;
   background-color: white;
   margin: 40px auto;

@@ -2,7 +2,6 @@
 import axios from 'axios';
 import React, { useState } from 'react'
 import '../styles/ContactComponent.css'
-// import displayImg from '../../../public/background.jpg'
 import Image from "next/image";
 
 const Contact = () => {
@@ -93,7 +92,7 @@ const Contact = () => {
             onChange={(e) => setMessage(e.target.value)}
           >
           </textarea>
-          <button type="submit">SUBMIT</button>
+          <button className="button1" type="submit">SUBMIT</button>
         </form>
       </div>
     </div>

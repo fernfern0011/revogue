@@ -3,7 +3,8 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "@mui/material/Button";
 
-export default function CartComponent({ data }) {
+export default function CartComponent({ data, accid }) {
+
     const [thumbnail, setThumbnail] = useState('');
 
     useEffect(() => {
@@ -15,6 +16,32 @@ export default function CartComponent({ data }) {
         }
     }, [data.images]);
 
+
+    async function deleteCartItem(cartItemId) {
+        try {
+            const response = await fetch(
+                `${process.env.backendUrl}/api/cart/delete?cartitemid=${data.cartItemId}&accid=${accid}`,
+                {
+                    method: "DELETE",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ cartitemid: cartItemId, accid: accid }),
+                }
+            );
+
+            if (response.status === 201) {
+                alert("Selected item has been deleted");
+             
+            } else {
+                alert("Failed to delete the item");
+            }
+        } catch (error) {
+            console.error("Error deleting item:", error);
+            alert(error);
+        }
+    }
+
     return (
         <tr key={data.cartitemid}>
             <td></td>
@@ -22,7 +49,7 @@ export default function CartComponent({ data }) {
                 <Row>
                     <Col xs="auto">
                         <img
-                           src={thumbnail ? thumbnail : '/images/image5.png'}
+                            src={thumbnail ? thumbnail : '/images/image5.png'}
                             alt=""
                             width="150"
                             height="150"

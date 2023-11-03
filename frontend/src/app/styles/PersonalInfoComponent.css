@@ -1,12 +1,13 @@
-main{
-  min-height: 83vh; 
+main {
+  min-height: 83vh;
   position: relative;
 }
 
-.custom{
-    padding-right: 50px;
+.custom {
+  padding-right: 50px;
+  padding-left: 50px;
 }
-.btn-custom{
+.btn-custom {
   background-color: #18b5b5;
 }
 
@@ -21,6 +22,6 @@ hr {
   margin-top: 0; /* Adjust the value as needed */
 }
 
-h5{
+h5 {
   color: grey;
 }

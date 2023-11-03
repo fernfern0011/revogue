@@ -5,12 +5,11 @@ import { Container, Row } from 'react-bootstrap';
 
 function ProductPage(context) {
     const { id } = context.params;
-    // var itemData;
     const [error, setError] = useState(null);
     const [itemData, setItemData] = useState([]);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/api/product?productid=${id}`, {
+        fetch(`${process.env.backendUrl}/api/product?productid=${id}`, {
             headers: { "Content-Type": "application/json" }
         }).then((response) => {
             if (!response.ok) {

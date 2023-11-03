@@ -3,22 +3,25 @@ import { Container, Row } from 'react-bootstrap';
 import Purchase from './Purchase';
 import '../styles/Order.css'
 import { useSession } from 'next-auth/react';
-
+import { useRouter } from 'next/navigation';
 
 export default function OrderGridActive() {
   const [purchaseItems, setPurchaseItems] = useState([]);
   const [error, setError] = useState(null);
 
-  const {data: session} = useSession();
+  const { data: session } = useSession();
   let accID;
-  if (session){
-    console.log(session)
+  const router = useRouter();
+
+  if (session) {
     accID = session.id;
-    console.log(accID);
+  } else {
+    router.push('/error/403');
+    return null;
   }
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/mypurchases/get-to-receive-orders?buyerid=${accID}`)
+    fetch(`${process.env.backendUrl}/api/mypurchases/get-to-receive-orders?buyerid=${accID}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error('Error fetching product information');

@@ -2,22 +2,25 @@ import React, { useState, useEffect } from 'react';
 import { Container, Row } from 'react-bootstrap';
 import OrderCancelled from './OrderCancelled';
 import { useSession } from 'next-auth/react';
-
+import { useRouter } from 'next/navigation';
 
 export default function OrderGridCancelled() {
   const [purchaseItems, setPurchaseItems] = useState([]);
   const [error, setError] = useState(null);
 
-  const {data: session} = useSession();
+  const { data: session } = useSession();
   let accID;
-  if (session){
-    console.log(session)
+  const router = useRouter();
+
+  if (session) {
     accID = session.id;
-    console.log(accID);
+  } else {
+    router.push('/error/403');
+    return null;
   }
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/mypurchases/get-cancelled-orders?buyerid=${accID}`)
+    fetch(`${process.env.backendUrl}/api/mypurchases/get-cancelled-orders?buyerid=${accID}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error('Error fetching product information');
@@ -45,7 +48,7 @@ export default function OrderGridCancelled() {
       {error ? (
         <div className='error-box'>
           <h1>No Pending Orders</h1>
-        </div>      ) : (
+        </div>) : (
         <Row>{items}</Row>
       )}
     </Container>

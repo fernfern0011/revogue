@@ -16,18 +16,20 @@ import FormGroup from "react-bootstrap/FormGroup";
 //style imports
 import styles from "../page.module.css";
 import "../styles/AddAddressComponent.css";
+import { useRouter } from "next/navigation";
 
 function AddAddressPage() {
   const { data: session } = useSession();
   let accID;
+  const router = useRouter();
+
   if (session) {
     accID = session.id;
-    console.log(accID);
   } else {
-    console.log("No session");
+    router.push('/error/403');
+    return null;
   }
 
-  const accid = 1; // for testing
   const [validated, setValidated] = useState(false);
   const [formData, setFormData] = useState({
     fname: "",
@@ -40,7 +42,7 @@ function AddAddressPage() {
     isDefault: false,
     isBusiness: false,
   });
-  
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData({
@@ -51,32 +53,31 @@ function AddAddressPage() {
   };
 
   const handleSubmit = async (event) => {
-    console.log("test submit");
     event.preventDefault();
+
     const form = event.currentTarget;
     setValidated(true);
-  
+
     if (form.checkValidity() === false) {
       return;
     }
-  
+
     // Combine the form data with the account ID
     const addressData = {
       ...formData,
       accid: accID,
     };
-    console.log(addressData);
-  
+
+
     try {
-      const response = await fetch(`https://revogue-backend.vercel.app/api/address/add-new-address`, {
-      // const response = await fetch(`http://localhost:5000/api/address/add-new-address`, {
+      const response = await fetch(`${process.env.backendUrl}/api/address/add-new-address`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(addressData),
       });
-  
+
       if (response.ok) {
         alert("Address added successfully");
         setFormData({

@@ -25,8 +25,6 @@ async function getAllProducts() {
 import Gender from "../components/Sidebar/Gender/Gender";
 import Size from "../components/Sidebar/Size/Size";
 import Category from "../components/Sidebar/Category/Category";
-import Price from "../components/Sidebar/Price/Price";
-// import "../components/Sidebar/Sidebar.css";
 
 async function ShopPage() {
   const productData = await getAllProducts();
@@ -44,28 +42,27 @@ async function ShopPage() {
     <div>
 
       <div className="d-flex col-lg-12 mt-2 mb-1 select">
-        <SelectSmall/>
+        <SelectSmall />
       </div>
 
       <div className='d-flex mx-auto py-3 flex-column flex-sm-row'>
-        
+
         <div className="vertical-stack col-xs-2">
           <Gender />
           <Size />
           <Category />
-          <Price />
         </div>
 
         <Col lg="10" className="float-left">
-        <Container fluid>
-          <div className='d-flex flex-wrap col-xs-10 col-lg-10 mt-sm-0 mt-4'>
-            <Suspense fallback={<p>Loading products...</p>}>
-              {productList.map((product) => (
-                <ShopListing key={product.productid} productid={product.productid} productname={product.productname} price={product.price} images={product.images} />
-              ))}
-            </Suspense>
-          </div>
-        </Container>
+          <Container fluid>
+            <div className='d-flex flex-wrap col-xs-10 col-lg-10 mt-sm-0 mt-4'>
+              <Suspense fallback={<p>Loading products...</p>}>
+                {productList.map((product) => (
+                  <ShopListing key={product.productid} productid={product.productid} productname={product.productname} price={product.price} images={product.images} />
+                ))}
+              </Suspense>
+            </div>
+          </Container>
         </Col>
       </div>
     </div>

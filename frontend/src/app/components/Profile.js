@@ -33,13 +33,13 @@ function Profile() {
 
   const [isCreateItemOverlayOpen, setCreateItemOverlayOpen] = useState(false);
 
-    const openCreateItemOverlay = () => {
-        setCreateItemOverlayOpen(true);
-    };
+  const openCreateItemOverlay = () => {
+    setCreateItemOverlayOpen(true);
+  };
 
-    const closeCreateItemOverlay = () => {
-        setCreateItemOverlayOpen(false);
-    };
+  const closeCreateItemOverlay = () => {
+    setCreateItemOverlayOpen(false);
+  };
 
 
   return (
@@ -52,11 +52,11 @@ function Profile() {
         onClick={handleClick}
         onMouseOver={handleClick}
       >
-        <img src="../images/Raccoon.jpg" className="profile-image" /> 
+        <img src="../images/Raccoon.jpg" className="profile-image" />
         Some Name
         <ExpandMoreIcon />
       </Button>
-      
+
       {/* popup menu */}
       <Menu
         id="simple-menu"
@@ -65,12 +65,12 @@ function Profile() {
         onClose={handleClose}
         MenuListProps={{ onMouseLeave: handleClose }}
         anchorOrigin={{
-            vertical: 'bottom', // Pop up from the bottom
-            horizontal: 'right', // Pop up from the right
+          vertical: 'bottom', // Pop up from the bottom
+          horizontal: 'right', // Pop up from the right
         }}
-          transformOrigin={{
-            vertical: 'top', // Position the menu's top at the anchor's bottom
-            horizontal: 'right', // Position the menu's right at the anchor's right
+        transformOrigin={{
+          vertical: 'top', // Position the menu's top at the anchor's bottom
+          horizontal: 'right', // Position the menu's right at the anchor's right
         }}
       >
 
@@ -142,12 +142,12 @@ function Profile() {
         </MenuItem>
 
         <MenuItem onClick={handleClose}>
-            <div className="menu-icons1" style={{ color: 'red' }}>
-                <LogoutSharpIcon />
-            </div>
-            <div className="menu-icons" style={{ color: 'red' }}>
-                Logout
-            </div>
+          <div className="menu-icons1" style={{ color: 'red' }}>
+            <LogoutSharpIcon />
+          </div>
+          <div className="menu-icons" style={{ color: 'red' }}>
+            Logout
+          </div>
         </MenuItem>
 
       </Menu>

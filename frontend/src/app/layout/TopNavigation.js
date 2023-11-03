@@ -3,7 +3,6 @@ import Link from "next/link";
 import React from "react";
 import Image from 'next/image'
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined';
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import { Button } from "react-bootstrap";
 import { signOut, useSession } from "next-auth/react";
@@ -61,7 +60,7 @@ const TopNavigation = () => {
                             <Link className="nav-link" href="/shop">Shop</Link>
                         </li>
                         <li className="nav-item pe-3 ps-3">
-                            <Link className="nav-link" href="#">Blog</Link>
+                            <Link className="nav-link" href="/blog">Blog</Link>
                         </li>
                         <li className="nav-item pe-3 ps-3">
                             <Link className="nav-link" href="/contact-us">Contact Us</Link>
@@ -106,36 +105,29 @@ const TopNavigation = () => {
                                         <Link className="dropdown-item" href="/wishlist" style={{ margin: '-10px 0', fontSize: "15px" }}>Wishlist</Link>
                                     </li>
                                     <li>
-                                        <Link className="dropdown-item" href="#" style={{ margin: '-10px 0', fontSize: "15px" }}>My Listings</Link>
-                                    </li>
-                                    <li>
                                         <Link className="dropdown-item" href="/purchases" style={{ margin: '-10px 0', fontSize: "15px" }}>My Purchases</Link>
                                     </li>
                                     <li>
                                         <Link className="dropdown-item" href="/sales" style={{ margin: '-10px 0', fontSize: "15px" }}>My Sales</Link>
                                     </li>
                                     <li>
-                                        <Link className="dropdown-item" href="#" style={{ margin: '-10px 0', fontSize: "15px" }}>My Blogs</Link>
+                                        <Link className="dropdown-item" href="/create-blog" style={{ margin: '-10px 0', fontSize: "15px" }}>Create My Blog</Link>
                                     </li>
                                     <li>
                                         <Link className="dropdown-item" href="/maps" style={{ margin: '-10px 0', fontSize: "15px" }}>Maps</Link>
                                     </li>
                                     <li>
-                                        <Link className="dropdown-item" style={{ margin: '-10px 0 -10px 0', fontSize: "15px" }}>
-                                            <Button className="button"
-                                                style={{ backgroundColor: "#18b5b5" }}
-                                                onClick={async (e) => {
-                                                    e.preventDefault();
-                                                    console.log();
-                                                    signOut({ redirect: true, callbackUrl: "/" })
-                                                }}>Logout</Button>
-                                        </Link>
+                                        <a className="dropdown-item" style={{ margin: '-10px 0 -10px 0', fontSize: "15px" }}
+                                            onClick={async (e) => {
+                                                e.preventDefault();
+                                                signOut({ redirect: true, callbackUrl: "/" })
+                                            }}>Logout</a>
                                     </li>
                                 </ul>
                             </div>
                             :
                             <div>
-                                <Link className="nav-link" href={"/login"}>
+                                <Link className="nav-link" href="/login">
                                     <Button className="button"
                                         style={{ backgroundColor: "#18b5b5" }}>Login</Button>
                                 </Link>

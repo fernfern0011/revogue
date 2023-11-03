@@ -8,7 +8,6 @@ export default function ContactUsPage() {
       <div style={{
         backgroundImage: `url(${process.env.PUBLIC_URL + '/images/image6.png'})`
       }}></div>
-      <h2>Contact Us</h2>
       <div className='contact'>
         <Contact />
       </div>

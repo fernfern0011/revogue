@@ -1,30 +1,21 @@
 "use client";
-import Image from "next/image";
 import React, { useState } from "react";
 import Button from "@mui/material/Button";
-import { BrowserRouter as Router } from "react-router";
-import { NavLink } from "react-router-dom";
 import SidebarComponent from "../components/SidebarComponent";
-// import Footer from "../components/Footer";
-// import Navbar from "../components/Navbar";
 
 //bootstrap imports
 import "bootstrap/dist/css/bootstrap.css";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Table from "react-bootstrap/Table";
-// import Sidebar from './sidebar';
 
 //style imports
 import styles from "../page.module.css";
 import "../styles/PersonalInfoComponent.css";
-import { Padding } from "@mui/icons-material";
 
 const PersonalInfoComponent = () => {
 
   const [editableItem, setEditableItem] = useState(null);
-  console.log(editableItem);
 
   const items = [
     { label: "Username", value: "test" },
@@ -35,15 +26,12 @@ const PersonalInfoComponent = () => {
   ];
 
   const handleEditClick = (index) => {
-    console.log("test1");
-    console.log(index);
     setEditableItem(index);
   };
-  
+
   const handleSaveClick = (index) => {
     // Handle the saving logic here, e.g., update the value in your data
     // For simplicity, let's just cancel editing
-    console.log("test2");
     setEditableItem(null);
   };
 
@@ -65,8 +53,8 @@ const PersonalInfoComponent = () => {
             <SidebarComponent />
           </Col>
 
-         {/* info */}
-         <Col lg="10" className="float-left custom">
+          {/* info */}
+          <Col lg="10" className="float-left custom">
             {items.map((item, index) => (
               <div key={index}>
                 <Row className="d-flex align-items-center">
@@ -84,7 +72,7 @@ const PersonalInfoComponent = () => {
                         <input
                           type="text"
                           value={item.value}
-                          onChange={(e) => {}}
+                          onChange={(e) => { }}
                         />
                       </Col>
                     )}

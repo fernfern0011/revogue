@@ -71,11 +71,6 @@ function CreatePost() {
     }
 
     useEffect(() => {
-        console.log(formData.images)
-        console.log(formData)
-    }, [formData])
-
-    useEffect(() => {
         setFormData((prevFormData) => ({
             ...prevFormData,
             images: imageUrls.toString(),
@@ -106,7 +101,7 @@ function CreatePost() {
         if (!errorMessage) {
             const itemData = formData;
 
-            const createItemRes = await fetch(`http://localhost:5000/api/product/create`, {
+            const createItemRes = await fetch(`${process.env.backendUrl}/api/product/create`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({

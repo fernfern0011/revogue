@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 
 const Purchase = ({ purchaseItem }) => {
 
-    const router = useRouter
+    const router = useRouter()
     const [isCompleted, setIsCompleted] = useState(false)
     const parsedOrderDetailsArray = purchaseItem.orderdetails.map((orderDetailString) => {
         try {
@@ -25,7 +25,7 @@ const Purchase = ({ purchaseItem }) => {
 
     const handleComplete = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/mypurchases/receive', {
+        const response = await fetch(`${process.env.backendUrl}/api/mypurchases/receive`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',

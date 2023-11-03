@@ -3,22 +3,25 @@ import { Container, Row } from 'react-bootstrap';
 import SalesDelivery from './SalesDelivery';
 import '../styles/Order.css'
 import { useSession } from 'next-auth/react';
-
+import { useRouter } from 'next/navigation';
 
 export default function OrderGridActive() {
   const [saleItems, setsaleItems] = useState([]);
   const [error, setError] = useState(null);
 
-  const {data: session} = useSession();
+  const { data: session } = useSession();
   let accID;
-  if (session){
-    console.log(session)
+  const router = useRouter();
+
+  if (session) {
     accID = session.id;
-    console.log(accID);
+  } else {
+    router.push('/error/403');
+    return null;
   }
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/mysales/get-to-ship-orders?sellerid=${accID}`)
+    fetch(`${process.env.backendUrl}/api/mysales/get-to-ship-orders?sellerid=${accID}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error('Error fetching product information');

@@ -1,6 +1,21 @@
 import React from 'react';
+import { useState, useEffect } from 'react';
 
 const WishListItem = ({ product, onDelete }) => {
+
+  const [thumbnail, setThumbnail] = useState('');
+
+  useEffect(() => {
+    if (product.images) {
+      const firstImage = product.images.split(',');
+
+      if (firstImage[0]) {
+        setThumbnail(firstImage[0]);
+      }
+    }
+  }, [product.images]);
+
+
   return (
     <div
       style={{
@@ -22,13 +37,12 @@ const WishListItem = ({ product, onDelete }) => {
           color: '#807D7E',
           marginRight: '20px',
         }}
-        onClick={onDelete}
       >
         ✖
       </div>
       <img
         style={{ width: 110, height: 120, borderRadius: 4 }}
-        src={product.images}
+        src={thumbnail}
         alt={product.productname}
       />
       <div
@@ -119,7 +133,6 @@ const WishListItem = ({ product, onDelete }) => {
               fontFamily: 'Lato',
               wordWrap: 'break-word',
             }}
-            onClick={onDelete}
           >
             Add to cart
           </div>

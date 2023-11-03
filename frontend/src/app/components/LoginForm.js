@@ -33,7 +33,7 @@ export default function LoginForm() {
 
     return (
         <div className="grid place-items-center h-screen">
-            
+
             <div className="p-5">
                 <h1 className="login my-4">Login</h1>
 
@@ -49,31 +49,31 @@ export default function LoginForm() {
                     <div className="custom-container">
                         <label className="custom-label">Password</label>
                         <input
-                        onChange={(e) => setPassword(e.target.value)}
-                        type="password"
-                        className="custom"
+                            onChange={(e) => setPassword(e.target.value)}
+                            type="password"
+                            className="custom"
                         />
                     </div>
                     <div className="custom-container">
                         <button className="login-button px-6 py-2">
-                        Login
+                            Login
                         </button>
                     </div>
                     {error && (
                         <div className="bg-red-500 w-fit text-sm py-1 px-3 rounded-md mt-2">
-                        {error}
+                            {error}
                         </div>
                     )}
                     <div className="custom-container-register">
                         <p className="dont-have-account">Don't have an account? </p>
                         <Link className="text-sm mt-3 text-right" href="/register">
-                        <span className="register">Register</span>
+                            <span className="register">Register</span>
                         </Link>
                     </div>
-                    </form>
+                </form>
             </div>
         </div>
 
-        
+
     );
 }

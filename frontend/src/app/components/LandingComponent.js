@@ -10,8 +10,11 @@ import Col from "react-bootstrap/Col";
 
 //style imports
 import styles from "../styles/LandingPage.css";
+import { useRouter } from "next/navigation";
 
 const LandingComponent = () => {
+  const router = useRouter();
+
   return (
     <main className={styles.main}>
       <Container fluid>
@@ -23,9 +26,9 @@ const LandingComponent = () => {
             <p style={{ fontSize: 30 }}>Your Sustainable</p>
             <h1 style={{ fontSize: "40px" }} className="coloring">Shopping</h1>
             <h1 style={{ fontSize: "40px" }} className="coloring">Destination</h1>
-            <p style={{ marginTop:"20px", marginBottom:"10px"}}>"Discover Sustainability. Embrace Greenify.</p>
+            <p style={{ marginTop: "20px", marginBottom: "10px" }}>"Discover Sustainability. Embrace Greenify.</p>
             <p>Your Eco-Friendly Haven for Conscious Shopping."</p>
-            <Button variant="contained" className="custom-button">
+            <Button variant="contained" className="custom-button" onClick={() => router.push('/shop')}>
               SHOP NOW
             </Button>
           </Col>

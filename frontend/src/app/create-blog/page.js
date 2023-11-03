@@ -20,20 +20,23 @@ const CreateBlogComponent = () => {
   const [content, setContent] = useState("");
 
   const { data: session } = useSession();
-  let accid;
+  let accid
+  const router = useRouter();
+
   if (session) {
     accid = session.id;
+  } else {
+    router.push('/error/403');
+    return null;
   }
 
   const handleContentChange = (newContent) => {
     setContent(newContent)
   }
 
-  const router = useRouter();
-
   const createBlogPost = async () => {
     try {
-      const response = await axios.post('http://localhost:5000/api/blog/create-blog', {
+      const response = await axios.post(`${process.env.backendUrl}/api/blog/create-blog`, {
         accid: accid,
         title: title,
         content: content,
@@ -58,12 +61,10 @@ const CreateBlogComponent = () => {
 
     const exportedTitle = title;
     const exportedContent = content;
-    console.log(title);
-    console.log(content);
 
     if (form.checkValidity() === false || !content) {
       event.stopPropagation();
-    } 
+    }
     setValidated(true);
   };
 
@@ -80,7 +81,7 @@ const CreateBlogComponent = () => {
           >
             <Row className="mb-4">
               <Form.Group as={Col} md="12" controlId="validationCustom01">
-              <Form.Control
+                <Form.Control
                   type="text"
                   placeholder="Title of your blog"
                   required

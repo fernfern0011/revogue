@@ -7,7 +7,6 @@ import Row from "react-bootstrap/Row";
 import '../styles/Order.css';
 import { useState } from "react";
 import { useRouter } from "next/navigation"; // Use next/router, not next/navigation
-import { useEffect } from "react";
 
 const OrderProcessing = ({ purchaseItem }) => {
   const router = useRouter();
@@ -24,7 +23,7 @@ const OrderProcessing = ({ purchaseItem }) => {
 
   const handleCancel = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/mypurchases/cancel', {
+      const response = await fetch(`${process.env.backendUrl}/api/mypurchases/cancel`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

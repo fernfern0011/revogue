@@ -11,14 +11,14 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import StarBorderIcon from '@mui/icons-material/StarBorder';
-import StarIcon from '@mui/icons-material/Star';
 import ThriftingComponent from './ThriftingComponent';
 import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 
 const ItemPage = ({ itemDetails }) => {
+
+  const { data: session } = useSession();
   const router = useRouter();
-  console.log(itemDetails);
 
   var productid, productname, price, description, size, quantity, images;
   if (itemDetails) {
@@ -73,7 +73,13 @@ const ItemPage = ({ itemDetails }) => {
   }
 
   const AddToCart = async () => {
-    const addToCartRes = await fetch(`http://localhost:5000/api/cart/create`, {
+
+    if (!session) {
+      router.push('/error/403');
+      return null;
+    }
+
+    const addToCartRes = await fetch(`${process.env.backendUrl}/api/cart/create`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -99,7 +105,13 @@ const ItemPage = ({ itemDetails }) => {
   }
 
   const AddToWishlist = async () => {
-    const addToWishlistRes = await fetch(`http://localhost:5000/api/wishlist/create`, {
+
+    if (!session) {
+      router.push('/error/403');
+      return null;
+    }
+
+    const addToWishlistRes = await fetch(`${process.env.backendUrl}/api/wishlist/create`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

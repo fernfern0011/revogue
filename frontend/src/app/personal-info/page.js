@@ -1,7 +1,5 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Sidebar from "../components/Sidebar/Sidebar";
-// import Button from "@mui/material/Button";
 import SidebarComponentPersonalInfo from "../components/SidebarComponentPersonalInfo";
 import bcrypt from "bcryptjs";
 
@@ -16,26 +14,28 @@ import { Form, Button } from "react-bootstrap";
 import styles from "../page.module.css";
 import "../styles/PersonalInfoComponent.css";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 function PersonalInfoPage() {
-  const {data: session} = useSession();
-  let accID;
-  if (session){
+  const { data: session } = useSession();
+  const router = useRouter();
+  let accID
+
+  if (!session) {
+    router.push('/error/403');
+    return null;
+  } else {
     accID = session.id;
-    console.log(accID);
   }
-  else{
-    console.log('No session')
-  }
+
 
   const [info, setInfo] = useState(null);
   const [editingPassword, setEditingPassword] = useState(false);
   const [newPassword, setNewPassword] = useState("");
   const [originalPassword, setOriginalPassword] = useState("");
 
-  const accid = 10; //for testing
   useEffect(() => {
-    fetch(`https://revogue-backend.vercel.app/api/account?accid=${accID}`, {
+    fetch(`${process.env.backendUrl}/api/account?accid=${accID}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -72,10 +72,10 @@ function PersonalInfoPage() {
       setEditingPassword(false);
       return;
     }
-    console.log("test client");
+
     const hashedNewPassword = bcrypt.hashSync(newPassword, 10);
 
-    fetch(`https://revogue-backend.vercel.app/api/account/update-password`, {
+    fetch(`${process.env.backendUrl}/api/account/update-password`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -185,7 +185,7 @@ function PersonalInfoPage() {
                       <Col className="d-flex align-items-center">
                         {editingPassword ? (
                           <div
-                          className="btn-group"
+                            className="btn-group"
                             role="group"
                             aria-label="Basic example"
                           >

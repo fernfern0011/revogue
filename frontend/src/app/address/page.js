@@ -1,8 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
-import { BrowserRouter as Router } from "react-router";
-import { NavLink } from "react-router-dom";
 import SidebarComponentAddress from "../components/SidebarComponentAddress";
 
 //bootstrap imports
@@ -11,28 +9,29 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-import SidebarComponent from "../components/SidebarComponent";
 import styles from "../page.module.css";
 import "../styles/AddressComponent.css";
-import {useSession} from "next-auth/react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 function AddressPage() {
-  const {data: session} = useSession();
+  const { data: session } = useSession();
   let accID;
-  if (session){
+  const router = useRouter();
+
+  if (session) {
     accID = session.id;
-    console.log(accID);
   }
-  else{
-    console.log('No session')
+  else {
+    router.push('/error/403');
+    return null;
   }
 
   //default address
   const [defaultAddress, setDefaultAddress] = useState(null);
   useEffect(() => {
-    const accid = 1; //for testing
     fetch(
-      `https://revogue-backend.vercel.app/api/address/get-default-address?accid=${accID}`,
+      `${process.env.backendUrl}/api/address/get-default-address?accid=${accID}`,
       {
         method: "GET",
         headers: {
@@ -48,21 +47,18 @@ function AddressPage() {
         }
       })
       .then((data) => {
-        console.log(data.data);
         setDefaultAddress(data.data);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
   }, []);
-  console.log(defaultAddress);
 
   //additional address
   const [additional, setAdditional] = useState(null);
   useEffect(() => {
-    const accid = 1;
     fetch(
-      `https://revogue-backend.vercel.app/api/address/get-all-addresses?accid=${accID}`,
+      `${process.env.backendUrl}/api/address/get-all-addresses?accid=${accID}`,
       {
         method: "GET",
         headers: {
@@ -85,16 +81,13 @@ function AddressPage() {
         console.error("Error fetching data:", error);
       });
   }, []);
-  console.log(additional);
 
   //delete address
   async function deleteAddress(addressId) {
     // var accid = 1; // for testing
-    console.log(addressId);
-
     try {
       const response = await fetch(
-        `https://revogue-backend.vercel.app/api/address/delete`,
+        `${process.env.backendUrl}/api/address/delete`,
         {
           method: "DELETE",
           headers: {
@@ -103,7 +96,7 @@ function AddressPage() {
           body: JSON.stringify({ addressid: addressId, accid: accID }),
         }
       );
-  
+
       if (response.status === 201) {
         alert("Selected address has been deleted");
         setAdditional((prevCart) =>
@@ -184,45 +177,45 @@ function AddressPage() {
               </Col>
               <Col className="col-2"></Col>
               <Col className="col-4">
-              <a href="add-address">
-                <Button variant="text" className="addBtn">
-                  Add New +
-                </Button>
-              </a>
+                <a href="add-address">
+                  <Button variant="text" className="addBtn">
+                    Add New +
+                  </Button>
+                </a>
               </Col>
               <br />
 
               {additional ? (
                 additional.map((data) => (
-                <div className="jumbotron jumbotron-fluid custom-jumbotron mb-3">
-                  <div key={data.addressid}>
-                    <h4>
-                      {data.fname} {data.lname}
-                    </h4>
-                    <br/>
-                    {/* <p>{data.addressid}</p> */}
-                    <p>{data.phone}</p>
-                    <p>{data.street}</p>
-                    <p>{data.postal_code}</p>
-                  </div>
-                  <Row fluid>
-                    <Col>
+                  <div className="jumbotron jumbotron-fluid custom-jumbotron mb-3">
+                    <div key={data.addressid}>
                       <h4>
-                        <span className="badge bg-secondary">
-                          {data.isbusiness ? "Business" : "Additional"}
-                        </span>
+                        {data.fname} {data.lname}
                       </h4>
-                    </Col>
-                  </Row>
-                  <br />
-                  <Button variant="text" onClick={(e) => deleteAddress(data.addressid)}>Remove</Button>&nbsp;|&nbsp;
-                  <Button variant="text">Edit</Button>&nbsp;|&nbsp;
-                  <Button variant="text">Set as default</Button>
-                </div>
-               ))
-               ) : (
+                      <br />
+                      {/* <p>{data.addressid}</p> */}
+                      <p>{data.phone}</p>
+                      <p>{data.street}</p>
+                      <p>{data.postal_code}</p>
+                    </div>
+                    <Row fluid>
+                      <Col>
+                        <h4>
+                          <span className="badge bg-secondary">
+                            {data.isbusiness ? "Business" : "Additional"}
+                          </span>
+                        </h4>
+                      </Col>
+                    </Row>
+                    <br />
+                    <Button variant="text" onClick={(e) => deleteAddress(data.addressid)}>Remove</Button>&nbsp;|&nbsp;
+                    <Button variant="text">Edit</Button>&nbsp;|&nbsp;
+                    <Button variant="text">Set as default</Button>
+                  </div>
+                ))
+              ) : (
                 <p>Loading data...</p>
-               )}
+              )}
             </Row>
           </Col>
         </Row>

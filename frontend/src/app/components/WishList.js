@@ -12,10 +12,9 @@ const Wishlist = () => {
   useEffect(() => {
     if (status === "authenticated") { // Check if the session is authenticated
       const accID = session.id;
-      console.log(accID);
 
       const fetchData = () => {
-        fetch(`http://localhost:5000/api/wishlist/get-all-wishlists?accid=${accID}`)
+        fetch(`${process.env.backendUrl}/api/wishlist/get-all-wishlists?accid=${accID}`)
           .then((response) => {
             if (!response.ok) {
               throw new Error('Error fetching wishlist data');

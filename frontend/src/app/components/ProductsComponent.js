@@ -17,7 +17,7 @@ function ProductsComponent() {
   const [productList, setProductList] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/product/recent-products')
+    fetch(`${process.env.backendUrl}/api/product/recent-products`)
       .then((response) => {
         if (!response.ok) {
           throw new Error('Error fetching product information');

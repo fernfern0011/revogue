@@ -32,13 +32,16 @@ function AddToCartPage() {
 
   const { data: session } = useSession();
   const router = useRouter();
+  let accid;
 
   if (!session) {
     router.push('/error/403');
     return null;
+  } else {
+    accid = session.id;
   }
 
-  let accid = session.id;
+
 
   const createCheckoutSession = async () => {
     try {
@@ -50,13 +53,12 @@ function AddToCartPage() {
         return;
       }
 
-      const response = await fetch(`http://localhost:5000/api/cart/get-all-cartitems?accid=${accid}`);
+      const response = await fetch(`${process.env.backendUrl}/api/cart/get-all-cartitems?accid=${accid}`);
       if (!response.ok) {
         throw new Error('Error fetching product information');
       }
       const responseData = await response.json();
       const cartItems = responseData.data;
-      console.log(cartItems)
 
       if (!Array.isArray(cartItems) || cartItems.length === 0) {
         throw new Error('No cart items found.');
@@ -123,7 +125,7 @@ function AddToCartPage() {
   useEffect(() => {
     if (accid) {
       fetch(
-        `https://revogue-backend.vercel.app/api/cart/get-all-cartitems?accid=${accid}`,
+        `${process.env.backendUrl}/api/cart/get-all-cartitems?accid=${accid}`,
         {
           method: "GET",
           headers: {
@@ -169,34 +171,6 @@ function AddToCartPage() {
     return total.toFixed(2);
   };
 
-  async function deleteCartItem(cartItemId) {
-    var accid = 1;
-    try {
-      const response = await fetch(
-        `https://revogue-backend.vercel.app/api/cart/delete?cartitemid=${cartItemId}&accid=${accid}`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ cartitemid: cartItemId, accid: accid }),
-        }
-      );
-
-      if (response.status === 201) {
-        alert("Selected item has been deleted");
-        setCart((prevCart) =>
-          prevCart.filter((item) => item.cartitemid !== cartItemId)
-        );
-      } else {
-        alert("Failed to delete the item");
-      }
-    } catch (error) {
-      console.error("Error deleting item:", error);
-      alert(error);
-    }
-  }
-
   return (
     <main className="main">
       <div className="breadcrumb">
@@ -227,7 +201,7 @@ function AddToCartPage() {
               <Suspense fallback={<tr><td colSpan="6">Loading...</td></tr>}>
                 {session && !isLoading ? (
                   cartlist.map((data, index) => (
-                    <CartComponent key={index} data={data} />
+                    <CartComponent key={index} data={data} accid={accid} />
                   ))
                 ) : (
                   <tr><td colSpan="6">Loading...</td></tr>

@@ -1,20 +1,12 @@
 "use client";
-import Image from "next/image";
-import React, { useState } from "react";
-// import Button from "@mui/material/Button";
-import { BrowserRouter as Router } from "react-router";
-import { NavLink } from 'react-bootstrap';
-
+import React from "react";
 //bootstrap imports
 import "bootstrap/dist/css/bootstrap.css";
-import { Button, Container, Navbar, Nav, NavDropdown } from "react-bootstrap";
+import { Nav } from "react-bootstrap";
 
 //style imports
-import styles from "../page.module.css";
 import "../styles/SidebarComponent.css";
 
-//image imports
-import accountPic from "../../../public/images/icon/account.png";
 
 const SidebarComponent = () => {
   return (
