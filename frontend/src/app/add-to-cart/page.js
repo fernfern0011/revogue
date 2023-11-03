@@ -5,7 +5,6 @@ import Button from "@mui/material/Button";
 import { loadStripe } from '@stripe/stripe-js';
 import { Suspense } from "react";
 
-
 const stripe = require('stripe')('sk_test_51O2p9QFD3c4VDISeYPMwEIN9FUSwgdfeqZpcGhhQ6l7af7xrQAXIJ6mb3bbcRNfJFA2zuOojGGtLukbwuEdmgyqt00MRd5fHHK');
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
 
@@ -122,21 +121,14 @@ function AddToCartPage() {
 
   // Fetch cart data using promises
   useEffect(() => {
-    const accid = 1;
-    fetch(
-      `https://revogue-backend.vercel.app/api/cart/get-all-cartitems?accid=${accid}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    )
-      .then((response) => {
-        if (response.status === 200) {
-          return response.json();
-        } else {
-          throw new Error("Failed to fetch cart data");
+    if (accid) {
+      fetch(
+        `https://revogue-backend.vercel.app/api/cart/get-all-cartitems?accid=${accid}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
       )
         .then((response) => {
@@ -178,7 +170,7 @@ function AddToCartPage() {
   };
 
   async function deleteCartItem(cartItemId) {
-
+    var accid = 1;
     try {
       const response = await fetch(
         `https://revogue-backend.vercel.app/api/cart/delete?cartitemid=${cartItemId}&accid=${accid}`,
