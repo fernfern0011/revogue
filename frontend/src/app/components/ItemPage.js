@@ -60,9 +60,9 @@ function ItemPage({ id, itemDetails }) {
   // https://res.cloudinary.com/wad2-revogue/image/upload/v1697313304/profile/yzuznznyaikgrbdjqcma.png
 
   const thumbnails = [
-    '../images/Raccoon.jpg',
-    '../images/raccoon0.webp',
-    '../images/raccoonStands.jfif'
+    '../images/image7.png',
+    '../images/image5.png',
+    '../images/image6.png',
   ]; // Replace with actual image paths
 
 
@@ -83,7 +83,14 @@ function ItemPage({ id, itemDetails }) {
   }
 
   return (
-    <>
+    <div className="main">
+      <div>
+        <p className="breadcrumb">
+          Home &nbsp; {">"} &nbsp; Shop &nbsp; {">"} &nbsp;{" "}
+          <b>Item 1</b>
+        </p>
+      </div>
+      
       <div className="container">
         <div className="vertical-carousel-container">
           <div className="thumbnail-container">
@@ -114,24 +121,42 @@ function ItemPage({ id, itemDetails }) {
 
         <div className="other-content">
           {/* RIGHT SIDE */}
-          <h1>{productname}</h1>
+          <h1 className="product">{productname}</h1>
 
           <h1 className="price">{price}</h1>
 
-          <p>{description}</p>
+          <p className="desc">{description}</p>
 
           <p className="size">Size: <span>{size}</span></p>
-          <p className="quantity">Quantity: <span>{quantity}</span></p>
+          <p className="size">Quantity: <span>1</span></p>
 
           <div className="buttons-container">
-            <div className="cart-button">
-              <Button className="button">
-                <ShoppingCartOutlinedIcon style={{ marginRight: "5px" }} />
+            <div className="cart-button col-sm-12 col-md-6">
+              <Button className="button"
+              style={{
+                backgroundColor: "#18b5b5",
+                color: "white",
+                textTransform: "capitalize",
+                fontSize: "14px",
+                paddingRight: "20px", 
+                paddingLeft: "20px",
+                marginTop: "30px"
+              }}>
+                <ShoppingCartOutlinedIcon style={{ fontSize: "16px", marginRight: "5px"}} />
                 Add to Cart
               </Button>
             </div>
-            <div className="wishlist-button">
-              <Button className="wishlist">
+            <div className="wishlist-button col-sm-12 col-md-6">
+              <Button className="wishlist"
+              style={{
+                whiteSpace: "nowrap",
+                color: "gray",
+                textTransform: "capitalize",
+                fontSize: "14px",
+                paddingRight: "15px", 
+                paddingLeft: "15px",
+                marginTop: "30px"
+              }}>
                 <FavoriteBorderIcon style={{ marginRight: "5px" }} />
                 Add to Wishlist
               </Button>
@@ -140,7 +165,7 @@ function ItemPage({ id, itemDetails }) {
         </div>
       </div >
       <ThriftingComponent text="Sustainability Impact" />
-    </>
+    </div>
   );
 };
 

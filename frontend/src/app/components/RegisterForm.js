@@ -4,6 +4,7 @@ import validator from 'validator';
 import React, { useState } from 'react';
 import { useRouter } from "next/navigation";
 import { Button } from 'react-bootstrap';
+import "../styles/RegisterForm.css";
 
 export default function RegisterForm() {
     const router = useRouter();
@@ -86,43 +87,60 @@ export default function RegisterForm() {
 
 
     return (
-        <form className="flex flex-col gap-2 mx-auto max-w-md mt-10" method='POST' onSubmit={handleSubmit}>
-            <label htmlFor='username'>Username</label>
-            <input
-                onChange={e => setUsername(e.target.value)}
-                name="username" type="text" id="username" required
-            />
-            {(error.username && <p>Username cannot be empty/have a number</p>)}
-            <br />
-            <label htmlFor='email'>Email</label>
-            <input
-                onChange={e => setEmail(e.target.value)}
-                name="email" type="text" id="email" required
-            />
-            {(error.email && <p>Please key in a valid email</p>)}
-            <br />
-            <label htmlFor='password'>Password</label>
-            <input
-                onChange={e => setPassword(e.target.value)}
-                type="password" id="password" required
-            />
-            {(error.password &&
+        <div className="centered-container">
+            <form className="flex flex-col gap-2 mx-auto max-w-md mt-10" method="POST" onSubmit={handleSubmit}>
+                <h1 className="login my-4">Register</h1>
+                <label className="custom-label" htmlFor="username">Username</label>
+                <input
+                onChange={(e) => setUsername(e.target.value)}
+                name="username"
+                type="text"
+                id="username"
+                className="custom-container"
+                required
+                />
+                {error.username && <p>Username cannot be empty/have a number</p>}
+                <label className="custom-label" htmlFor="email">Email</label>
+                <input
+                onChange={(e) => setEmail(e.target.value)}
+                name="email"
+                type="text"
+                id="email"
+                className="custom-container"
+                required
+                />
+                {error.email && <p>Please key in a valid email</p>}
+                <label className="custom-label" htmlFor="password">Password</label>
+                <input
+                onChange={(e) => setPassword(e.target.value)}
+                type="password"
+                id="password"
+                className="custom-container"
+                required
+                />
+                {error.password && (
                 <div>
                     <span>Password needs to have:</span>
                     <ul>
-                        <li>Use uppercase &amp; lowercase letter,</li>
-                        <li>1 number,</li>
-                        <li>1 special character,</li>
-                        <li>at least 8 characters</li>
+                    <li>Use uppercase & lowercase letter,</li>
+                    <li>1 number,</li>
+                    <li>1 special character,</li>
+                    <li>at least 8 characters</li>
                     </ul>
-                </div>)
-            }
-            <br />
+                </div>
+                )}
 
-            <Button className="button" type='submit'>Register</Button>
-            <div>
-                Already have an account? <Link href="/login">Login here</Link>
-            </div>
-        </form>
+                <Button className="register-button custom-container" type="submit">
+                Register
+                </Button>
+                <div className="custom-container-register">
+                <p className="dont-have-account">Already have an account? </p>
+                <Link className="text-sm mt-3 text-right" href="/login">
+                    <span className="register">Login here</span>
+                </Link>
+                </div>
+            </form>
+        </div>
+
     );
 }
