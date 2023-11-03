@@ -1,13 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row } from 'react-bootstrap';
 import Order from './Order'
+import { useSession } from 'next-auth/react';
 
 export default function OrderGridActive() {
   const [purchaseItems, setPurchaseItems] = useState([]);
   const [error, setError] = useState(null);
 
+  const {data: session} = useSession();
+  let accID;
+  if (session){
+    console.log(session)
+    accID = session.id;
+    console.log(accID);
+  }
+
   useEffect(() => {
-    fetch('http://localhost:5000/api/mypurchases/get-tobe-confirmed-orders?buyerid=9')
+    fetch(`http://localhost:5000/api/mypurchases/get-tobe-confirmed-orders?buyerid=${accID}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error('Error fetching product information');
@@ -41,3 +50,6 @@ export default function OrderGridActive() {
     </Container>
   );
 }
+
+
+

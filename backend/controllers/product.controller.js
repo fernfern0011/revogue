@@ -14,6 +14,18 @@ const productController = {
             res.status(404).json({ msg: error.msg })
         }
     },
+    getRecentProducts: async (req, res) => {
+        try {
+            var sql = 'SELECT * from product ORDER BY created_on DESC limit 6;'
+
+            const { rows } = await postgre.query(sql)
+
+            res.status(200).json({ data: rows })
+
+        } catch (error) {
+            res.status(404).json({ msg: error.msg })
+        }
+    },
     getProductById: async (req, res) => {
         try {
             var { productid } = req.query;
@@ -50,7 +62,7 @@ const productController = {
     },
     create: async (req, res) => {
         try {
-            const { accid, productname, description, price, size, quantity, category, forwomen, formen, images } = req.body
+            const { accid, productname, description, price, size, category, forwomen, formen, images } = req.body
             const sql = `INSERT INTO product(productid, accid, productname, description, price, size, quantity, category, forwomen, formen, images)
                          VALUES(nextval('product_id_seq'), $1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *`
 
