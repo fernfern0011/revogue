@@ -34,6 +34,8 @@ function AddToCartPage() {
   const router = useRouter();
   let accid;
 
+  console.log(session);
+
   if (!session) {
     router.push('/error/403');
     return null;

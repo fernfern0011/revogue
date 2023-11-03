@@ -2,11 +2,10 @@
 import React from "react";
 //bootstrap imports
 import "bootstrap/dist/css/bootstrap.css";
-import { Nav } from "react-bootstrap";
 
 //style imports
 import "../styles/SidebarComponent.css";
-
+import Link from "next/link";
 
 const SidebarComponent = () => {
   return (
@@ -14,9 +13,7 @@ const SidebarComponent = () => {
       {/* Sidebar */}
       <div className="border-0 bg-white" id="sidebar-wrapper">
         <div className="list-group list-group-flush bg-white">
-          <Nav.Link
-            as="a"
-            href="personal-info"
+          <Link href="/personal-info"
             className="list-group-item list-group-item-action list-group-item-light py-3 border-0 bold-text"
             active
           >
@@ -28,11 +25,10 @@ const SidebarComponent = () => {
               className="imgPad"
             />
             Personal Info
-          </Nav.Link>
+          </Link>
 
-          <Nav.Link
-            as="a"
-            href="address"
+          <Link
+            href="/address"
             className="list-group-item list-group-item-action list-group-item-light py-3 border-0 bold-text"
           >
             <img
@@ -43,37 +39,7 @@ const SidebarComponent = () => {
               className="imgPad"
             />
             Address
-          </Nav.Link>
-
-          <Nav.Link
-            // as="a"
-            to="./PersonalInfoComponent"
-            className="list-group-item list-group-item-action list-group-item-light py-3 border-0 bold-text"
-          >
-            <img
-              src="images/icon/icons8-wallet-24.png"
-              alt=""
-              width="20"
-              height="20"
-              className="imgPad"
-            />
-            Wallet
-          </Nav.Link>
-
-          <Nav.Link
-            // as="a"
-            to="./PersonalInfoComponent"
-            className="list-group-item list-group-item-action list-group-item-light py-3 border-0 bold-text"
-          >
-            <img
-              src="/images/icon/icons8-image-24.png"
-              alt=""
-              width="20"
-              height="20"
-              className="imgPad"
-            />
-            Change Profile
-          </Nav.Link>
+          </Link>
         </div>
       </div>
     </div>

@@ -8,6 +8,7 @@ import OrderGridProcessing from '../components/OrderGridProcessing.js';
 import { useSession } from 'next-auth/react';
 import { Suspense } from 'react';
 
+
 let accID = null;
 
 export default function LandingPage() {
@@ -46,7 +47,7 @@ export default function LandingPage() {
   return (
     <main className={styles.main}>
       <div>
-        <h1 className={styles.orders}>My Orders</h1>
+        <h1 className={styles.orders}>My Purchases</h1>
         <div className={styles.tab} style={{textAlign:"center"}}>
           <button className={styles.tablinks} 
           onClick={(evt) => openTab(evt, 'processing')}>

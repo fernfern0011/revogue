@@ -1,8 +1,7 @@
 "use client";
-import Image from "next/image";
 import React, { useState } from "react";
 import Button from "@mui/material/Button";
-import SidebarComponentAddress from "../components/SidebarComponentAddress";
+import SidebarComponent from "../components/SidebarComponent";
 import { useSession } from "next-auth/react";
 
 //bootstrap imports
@@ -68,7 +67,6 @@ function AddAddressPage() {
       accid: accID,
     };
 
-
     try {
       const response = await fetch(`https://revogue-backend.vercel.app/api/address/add-new-address`, {
         method: "POST",
@@ -113,7 +111,7 @@ function AddAddressPage() {
         <br></br>
         <Row>
           <Col lg="2">
-            <SidebarComponentAddress />
+            <SidebarComponent />
           </Col>
 
           <Col lg="10" className="float-left mt-lg-0 mt-4">
@@ -306,7 +304,7 @@ function AddAddressPage() {
                     </Button>
                   </Col>
                   <Col>
-                    <Button className="cancel">Cancel</Button>
+                    <Button className="cancel" onClick={() => router.push('/address')}>Cancel</Button>
                   </Col>
                 </Row>
               </Form>
