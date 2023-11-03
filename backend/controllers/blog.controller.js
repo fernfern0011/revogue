@@ -3,24 +3,25 @@ require('dotenv').config()
 const postgre = require('../config/database')
 
 
+
 const blogController = {
 
   createBlog : async (req, res) => {
     try {
-      const { authorId, title, content } = req.body;
+      const { accid, title, content } = req.body;
   
       // Your SQL query to insert the blog post
-      const query = 'INSERT INTO blog_posts (author_id, title, content, created_at) VALUES ($1, $2, $3, NOW()) RETURNING id';
+      const query = "INSERT INTO blog(blogid, accid, title, content) VALUES(nextval('blog_id_seq'), $1, $2, $3) RETURNING blogid";
   
       // You should have a PostgreSQL pool or client instance set up earlier
-      const result = await pool.query(query, [authorId, title, content]);
-  
-      if (result.rows.length > 0) {
-        const newBlogId = result.rows[0].id;
-        return res.status(201).json({ msg: 'Blog post created', blogId: newBlogId });
-      } else {
-        return res.status(500).json({ msg: 'Failed to create a blog post' });
+      const {rows} = await postgre.query(query, [accid, title, content]);
+
+      if (rows[0]) {
+        const newBlogId = rows[0].blogid;
+        return res.status(201).json({msg: 'Blog post created', blogId: newBlogId })
       }
+
+      return res.status(500).json({ msg: 'Failed to create a blog post' });
     } catch (error) {
       return res.status(500).json({ msg: error.message });
     }
@@ -65,8 +66,7 @@ const blogController = {
       } catch (error) {
         return res.status(500).json({ msg: error.message });
       }
-    }
-    
+    },    
     
 }
 
