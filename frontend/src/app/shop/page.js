@@ -61,7 +61,7 @@ async function ShopPage() {
           <div className='d-flex flex-wrap col-xs-10 col-lg-10 mt-sm-0 mt-4'>
             <Suspense fallback={<p>Loading products...</p>}>
               {productList.map((product) => (
-                <ShopListing key={product.productid} productid={product.productid} productname={product.productname} price={product.price} image={product.images} />
+                <ShopListing key={product.productid} productid={product.productid} productname={product.productname} price={product.price} images={product.images} />
               ))}
             </Suspense>
           </div>

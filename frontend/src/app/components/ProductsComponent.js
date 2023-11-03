@@ -36,8 +36,6 @@ function ProductsComponent() {
       });
   }, []);
 
-  console.log(productList);
-
   return (
     <main className={styles.main}>
       <Row className="mb-4 mx-2">

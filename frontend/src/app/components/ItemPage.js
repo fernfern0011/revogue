@@ -15,15 +15,11 @@ import StarBorderIcon from '@mui/icons-material/StarBorder';
 import StarIcon from '@mui/icons-material/Star';
 import ThriftingComponent from './ThriftingComponent';
 
-
-function ItemPage({ id, itemDetails }) {
-
-  var itemId = id;
-  var itemValue = JSON.parse(itemDetails.value);
+const ItemPage = ({ itemDetails }) => {
 
   var productname, price, description, size, quantity, images;
-  if (itemValue.data[0]) {
-    var item = itemValue.data[0]
+  if (itemDetails) {
+    var item = itemDetails;
 
     productname = item.productname;
     price = item.price;
