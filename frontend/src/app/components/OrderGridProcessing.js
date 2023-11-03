@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Container, Row } from 'react-bootstrap';
 import Order from './Order'
 import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation.js';
+import {useRouter} from 'next/navigation'
 
 export default function OrderGridActive() {
   const [purchaseItems, setPurchaseItems] = useState([]);
