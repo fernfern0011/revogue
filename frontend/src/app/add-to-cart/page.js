@@ -23,20 +23,102 @@ import "../styles/AddToCart.css";
 import { Padding } from "@mui/icons-material";
 import { useSession } from 'next-auth/react';
 import CartComponent from "../components/CartComponent";
-
+import { useRouter } from "next/navigation";
 
 function AddToCartPage() {
-  const {data: session} = useSession();
-  let accID;
-  if (session){
-    accID = session.id;
-    console.log(accID);
-  }
-  else{
-    console.log('No session')
-  }
-  
   const [cartlist, setCart] = useState(null);
+  const [isLoading, setIsLoading] = useState(true); // Add isLoading state
+  const [productData, setProductData] = useState(null);
+  const [newsession, setnewSession] = useState(null);
+
+  const { data: session } = useSession();
+  const router = useRouter();
+
+  if (!session) {
+    router.push('/error/403');
+    return null;
+  }
+
+  let accid = session.id;
+
+  const createCheckoutSession = async () => {
+    try {
+      const stripes = await stripePromise;
+      console.log(stripes);
+
+      if (!stripe) {
+        console.error('Stripe is not available.')
+        return;
+      }
+
+      const response = await fetch(`http://localhost:5000/api/cart/get-all-cartitems?accid=${accid}`);
+      if (!response.ok) {
+        throw new Error('Error fetching product information');
+      }
+      const responseData = await response.json();
+      const cartItems = responseData.data;
+      console.log(cartItems)
+
+      if (!Array.isArray(cartItems) || cartItems.length === 0) {
+        throw new Error('No cart items found.');
+      }
+
+      const productData = [];
+
+      for (const cartItem of cartItems) {
+        const productName = cartItem.productname;
+        const productPrice = parseFloat(cartItem.price);
+
+        const product = await stripe.products.create({
+          name: productName,
+        });
+
+        const priceInCents = Math.round(productPrice * 100);
+
+        const price = await stripe.prices.create({
+          product: product.id,
+          unit_amount: priceInCents,
+          currency: 'sgd',
+        });
+
+        productData.push({ product, price });
+      }
+
+      const lineItems = productData.map((item) => ({
+        price: item.price.id,
+        quantity: 1,
+      }));
+
+      const session = await stripe.checkout.sessions.create({
+        line_items: lineItems,
+        mode: 'payment',
+        success_url: `${window.location.origin}/?success=true`,
+        cancel_url: `${window.location.origin}/?canceled=true`,
+        automatic_tax: { enabled: true },
+      });
+
+      setProductData(productData);
+      setnewSession(newsession);
+
+
+      // Redirect to the Stripe Checkout page
+      window.location.href = session.url;
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    const query = new URLSearchParams(window.location.search);
+
+    if (query.get('success')) {
+      console.log('Order placed! You will receive an email confirmation.');
+    }
+
+    if (query.get('canceled')) {
+      console.log('Order canceled -- continue to shop around and checkout when you’re ready.');
+    }
+  }, []);
 
   // Fetch cart data using promises
   useEffect(() => {
@@ -56,20 +138,26 @@ function AddToCartPage() {
         } else {
           throw new Error("Failed to fetch cart data");
         }
-      })
-      .then((data) => {
-        console.log(data.data);
-        setCart(data.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching cart data:", error);
-      });
-  }, []);
-
-  console.log(cartlist);
+      )
+        .then((response) => {
+          if (response.status === 200) {
+            return response.json();
+          } else {
+            throw new Error("Failed to fetch cart data");
+          }
+        })
+        .then((data) => {
+          setCart(data.data);
+          setIsLoading(false); // Set isLoading to false when data is loaded
+        })
+        .catch((error) => {
+          console.error("Error fetching cart data:", error);
+          setIsLoading(false); // Set isLoading to false on error
+        });
+    }
+  }, [accid]);
 
   const shippingFee = 0;
-
   // Calculate the sub total
   const calculateSubTotal = () => {
     if (!cartlist) {
@@ -90,8 +178,7 @@ function AddToCartPage() {
   };
 
   async function deleteCartItem(cartItemId) {
-    var accid = 1;
-    console.log(cartItemId);
+
     try {
       const response = await fetch(
         `https://revogue-backend.vercel.app/api/cart/delete?cartitemid=${cartItemId}&accid=${accid}`,
@@ -148,36 +235,7 @@ function AddToCartPage() {
               <Suspense fallback={<tr><td colSpan="6">Loading...</td></tr>}>
                 {session && !isLoading ? (
                   cartlist.map((data, index) => (
-
-                    <CartComponent data={data} />
-                    // <tr key={data.cartitemid}>
-                    //   <td></td>
-                    //   <td>
-                    //     <Row>
-                    //       <Col xs="auto">
-                    //         <img
-                    //           src={thumbnail}
-                    //           alt=""
-                    //           width="150"
-                    //           height="150"
-                    //           className="image"
-                    //         />
-                    //       </Col>
-                    //       <Col>
-                    //         <p>{data.productname}</p>
-                    //         <p className="small">Size: {data.size}</p>
-                    //       </Col>
-                    //     </Row>
-                    //   </td>
-                    //   <td className="custom-td">${data.price}</td>
-                    //   <td className="custom-td">1</td>
-                    //   <td className="custom-td">${data.price}</td>
-                    //   <td>
-                    //     <Button onClick={(e) => deleteCartItem(data.cartitemid)}>
-                    //       Delete
-                    //     </Button>
-                    //   </td>
-                    // </tr>
+                    <CartComponent key={index} data={data} />
                   ))
                 ) : (
                   <tr><td colSpan="6">Loading...</td></tr>
