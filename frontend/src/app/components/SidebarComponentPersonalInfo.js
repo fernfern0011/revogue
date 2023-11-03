@@ -19,11 +19,11 @@ const SidebarComponentAddress = () => {
       {/* Sidebar */}
       <div className="border-0 bg-white" id="sidebar-wrapper">
         <div className="list-group list-group-flush bg-white">
-          <Nav.Link
+        <Nav.Link
             as="a"
             href="personal-info"
-            className="list-group-item list-group-item-action list-group-item-light py-3 border-0 bold-text white-background"
-            activeclassname="active" // Apply the 'active' class when the link is active
+            className="list-group-item list-group-item-action list-group-item-light py-3 border-0 bold-text gray-background"
+            activeclassname="active"
             style={{ fontSize: "14px" }} // Add this line
           >
             <img
@@ -39,8 +39,8 @@ const SidebarComponentAddress = () => {
           <Nav.Link
             as="a"
             href="address"
-            className="list-group-item list-group-item-action list-group-item-light py-3 border-0 bold-text gray-background"
-            activeclassname="active"
+            className="list-group-item list-group-item-action list-group-item-light py-3 border-0 bold-text white-background"
+            activeclassname="active" // Apply the 'active' class when the link is active
             style={{ fontSize: "14px" }} // Add this line
           >
             <img

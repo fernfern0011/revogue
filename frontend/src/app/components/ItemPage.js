@@ -131,7 +131,7 @@ const ItemPage = ({ itemDetails }) => {
           <b>Item 1</b>
         </p>
       </div>
-      
+
       <div className="container">
         <div className="vertical-carousel-container">
           <div className="thumbnail-container">
@@ -185,31 +185,31 @@ const ItemPage = ({ itemDetails }) => {
           <div className="buttons-container">
             <div className="cart-button col-sm-12 col-md-6">
               <Button className="button" onClick={() => AddToCart()}
-              style={{
-                backgroundColor: "#18b5b5",
-                color: "white",
-                textTransform: "capitalize",
-                fontSize: "14px",
-                paddingRight: "20px", 
-                paddingLeft: "20px",
-                marginTop: "30px"
-              }}>
-                <ShoppingCartOutlinedIcon style={{ fontSize: "16px", marginRight: "5px"}} />
+                style={{
+                  backgroundColor: "#18b5b5",
+                  color: "white",
+                  textTransform: "capitalize",
+                  fontSize: "14px",
+                  paddingRight: "20px",
+                  paddingLeft: "20px",
+                  marginTop: "30px"
+                }}>
+                <ShoppingCartOutlinedIcon style={{ fontSize: "16px", marginRight: "5px" }} />
                 Add to Cart
               </Button>
 
             </div>
             <div className="wishlist-button col-sm-12 col-md-6">
               <Button className="wishlist" onClick={() => AddToWishlist()}
-              style={{
-                whiteSpace: "nowrap",
-                color: "gray",
-                textTransform: "capitalize",
-                fontSize: "14px",
-                paddingRight: "15px", 
-                paddingLeft: "15px",
-                marginTop: "30px"
-              }}>
+                style={{
+                  whiteSpace: "nowrap",
+                  color: "gray",
+                  textTransform: "capitalize",
+                  fontSize: "14px",
+                  paddingRight: "15px",
+                  paddingLeft: "15px",
+                  marginTop: "30px"
+                }}>
                 <FavoriteBorderIcon style={{ marginRight: "5px" }} />
                 Add to Wishlist
               </Button>

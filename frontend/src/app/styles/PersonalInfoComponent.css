@@ -1,5 +1,13 @@
+main{
+  min-height: 83vh; 
+  position: relative;
+}
+
 .custom{
     padding-right: 50px;
+}
+.btn-custom{
+  background-color: #18b5b5;
 }
 
 .ml-auto button {
@@ -9,15 +17,10 @@
   right: 90px;
 }
 
-p strong {
-  font-size: 15px;
-}
-
 hr {
   margin-top: 0; /* Adjust the value as needed */
 }
 
-.breadcrumb {
-  font-size: 14px;
-  margin-bottom: -15px;
+h5{
+  color: grey;
 }

@@ -31,7 +31,7 @@ const blogController = {
     getAll: async (req, res) => {
       try {
         // Query to fetch all blog posts
-        const query = 'SELECT * FROM blog_posts';
+        const query = 'SELECT * FROM blog';
     
         // You should have a PostgreSQL pool or client instance set up earlier
         postgre.query(query, (error, result) => {
@@ -49,13 +49,13 @@ const blogController = {
 
     getBlogsByUserId: async (req, res) => {
       try {
-        const userId = req.params.userId; // Assuming you pass the user ID as a parameter
+        const {accid} = req.query; // Assuming you pass the user ID as a parameter
     
         // Query to fetch all blog posts by user ID
-        const query = 'SELECT * FROM blog_posts WHERE author_id = $1';
+        const query = 'SELECT * FROM blog WHERE accid = $1';
     
         // You should have a PostgreSQL pool or client instance set up earlier
-        postgre.query(query, [userId], (error, result) => {
+        postgre.query(query, [accid], (error, result) => {
           if (error) {
             return res.status(500).json({ msg: error.message });
           }

@@ -17,7 +17,7 @@ const TopNavigation = () => {
     if (session) {
         accName = session.user.name;
     }
-    
+
     const [isNavbarOpen, setIsNavbarOpen] = useState(false);
 
     const toggleNavbar = () => {
@@ -33,7 +33,7 @@ const TopNavigation = () => {
     return (
         <nav className="navbar navbar-expand-lg navbar-light">
             <div className="container-fluid">
-                
+
                 <Link className="navbar-brand mt-2 mt-lg-0" href="/">
                     <Image
                         src="/images/revogue-logo.png"
@@ -70,25 +70,9 @@ const TopNavigation = () => {
 
                     <div className="d-flex align-items-center justify-content-start ms-3 justify-content-lg-end">
                         {/* Shopping Cart */}
-                        <Link className="text-reset me-3" href="#">
+                        <Link className="text-reset me-3" href="/add-to-cart">
                             <ShoppingCartOutlinedIcon fontSize="medium" />
                         </Link>
-
-                        {/* Notification */}
-                        <div className="dropdown">
-                            <Link
-                                //  dropdown-toggle
-                                className="text-reset me-3 hidden-arrow"
-                                href="#"
-                                id="navbarDropdownMenuLink"
-                                role="button"
-                                // data-mdb-toggle="dropdown"
-                                aria-expanded="false"
-                            >
-                                <NotificationsOutlinedIcon fontSize="medium" />
-                                {/* <span className="badge rounded-pill badge-notification bg-danger">1</span> */}
-                            </Link>
-                        </div>
 
                         {/* Profile */}
                         {status === 'authenticated' ?
@@ -113,48 +97,50 @@ const TopNavigation = () => {
                                     className={`dropdown-menu dropdown-menu-end ${isDropdownOpen ? 'show' : ''}`}
                                 >
                                     <li>
-                                        <Link className="dropdown-item" href="personal-info" style={{ fontSize:"15px" }}>My profile</Link>
+                                        <Link className="dropdown-item" href="/personal-info" style={{ fontSize: "15px" }}>My profile</Link>
                                     </li>
                                     <li>
-                                        <Link className="dropdown-item" href="#" style={{ margin: '-10px 0', fontSize:"15px" }}>Account Settings</Link>
+                                        <Link className="dropdown-item" href="/personal-info" style={{ margin: '-10px 0', fontSize: "15px" }}>Account Settings</Link>
                                     </li>
                                     <li>
-                                        <Link className="dropdown-item" href="wishlist" style={{ margin: '-10px 0', fontSize:"15px" }}>Wishlist</Link>
+                                        <Link className="dropdown-item" href="/wishlist" style={{ margin: '-10px 0', fontSize: "15px" }}>Wishlist</Link>
                                     </li>
                                     <li>
-                                        <Link className="dropdown-item" href="#" style={{ margin: '-10px 0', fontSize:"15px" }}>My Listings</Link>
+                                        <Link className="dropdown-item" href="#" style={{ margin: '-10px 0', fontSize: "15px" }}>My Listings</Link>
                                     </li>
                                     <li>
-                                        <Link className="dropdown-item" href="purchases" style={{ margin: '-10px 0', fontSize:"15px" }}>My Purchases</Link>
+                                        <Link className="dropdown-item" href="/purchases" style={{ margin: '-10px 0', fontSize: "15px" }}>My Purchases</Link>
                                     </li>
                                     <li>
-                                        <Link className="dropdown-item" href="#" style={{ margin: '-10px 0', fontSize:"15px" }}>My Sales</Link>
+                                        <Link className="dropdown-item" href="/sales" style={{ margin: '-10px 0', fontSize: "15px" }}>My Sales</Link>
                                     </li>
                                     <li>
-                                        <Link className="dropdown-item" href="#" style={{ margin: '-10px 0', fontSize:"15px" }}>My Blogs</Link>
+                                        <Link className="dropdown-item" href="#" style={{ margin: '-10px 0', fontSize: "15px" }}>My Blogs</Link>
                                     </li>
                                     <li>
-                                        <Link className="dropdown-item" href="#" style={{ margin: '-10px 0 -10px 0', fontSize:"15px" }}>Logout</Link>
+                                        <Link className="dropdown-item" href="/maps" style={{ margin: '-10px 0', fontSize: "15px" }}>Maps</Link>
+                                    </li>
+                                    <li>
+                                        <Link className="dropdown-item" style={{ margin: '-10px 0 -10px 0', fontSize: "15px" }}>
+                                            <Button className="button"
+                                                style={{ backgroundColor: "#18b5b5" }}
+                                                onClick={async (e) => {
+                                                    e.preventDefault();
+                                                    console.log();
+                                                    signOut({ redirect: true, callbackUrl: "/" })
+                                                }}>Logout</Button>
+                                        </Link>
                                     </li>
                                 </ul>
                             </div>
                             :
                             <div>
-                            <Link className="nav-link" href={"/login"}>
-                                <Button className="button"
-                                style={{ backgroundColor: "#18b5b5" }}>Login</Button>
-                            </Link>
-                            <Button className="button"
-                            style={{ backgroundColor: "#18b5b5" }}
-                            onClick={async (e) => {
-                                e.preventDefault();
-                                console.log();
-                                signOut({ redirect: true, callbackUrl: "/" })
-                            }}>Logout</Button>
+                                <Link className="nav-link" href={"/login"}>
+                                    <Button className="button"
+                                        style={{ backgroundColor: "#18b5b5" }}>Login</Button>
+                                </Link>
                             </div>
                         }
-
-                        
                     </div>
                 </div>
             </div>

@@ -1,0 +1,33 @@
+/* CSS Module Code to handle all buttons designs */
+.btn {
+  padding: 8px 20px !important;
+  margin: 0 5px !important;
+  font-family: Poppins, sans-serif !important;
+}
+.btnOnLoad {
+  background-color: gray !important;
+}
+.btnMarginTop {
+  margin-top: 1rem !important;
+}
+.btnPaddingHorizontal {
+  padding: 8px 3rem;
+  margin: 1rem 2rem;
+  font-family: Poppins, sans-serif !important;
+}
+.btnNoPaddingMargin {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+.boldText {
+  font-weight: 700 !important;
+}
+.noBackground {
+  color: #000 !important;
+}
+.noBackground:hover {
+  background: 0 0 !important;
+}
+.icon {
+  font-size: 16px !important;
+}
