@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar/Sidebar";
 import Button from "@mui/material/Button";
 import SidebarComponent from "../components/SidebarComponent";
+import bcrypt from 'bcryptjs';
 
 //bootstrap imports
 import "bootstrap/dist/css/bootstrap.css";
@@ -14,24 +15,6 @@ import Col from "react-bootstrap/Col";
 import styles from "../page.module.css";
 import "../styles/PersonalInfoComponent.css";
 import { useSession } from "next-auth/react";
-
-//retrieve data from backend API
-// async function getInfoData() {
-//   var accid = 1;
-//   const getInfoRes = await fetch(
-//     `https://revogue-backend.vercel.app/api/account?accid=${accid}`,
-//     {
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//     }
-//   );
-
-//   const getInfoStatus = getInfoRes.status;
-//   if (getInfoStatus == 200) {
-//     return getInfoRes.json();
-//   }
-// }
 
 function PersonalInfoPage() {
   // const {data: session} = useSession();
@@ -49,8 +32,8 @@ function PersonalInfoPage() {
   const [newPassword, setNewPassword] = useState("");
   const [originalPassword, setOriginalPassword] = useState("");
 
+  const accid = 10; //for testing
   useEffect(() => {
-    const accid = 1; //for testing
     fetch(`https://revogue-backend.vercel.app/api/account?accid=${accid}`, {
       method: "GET",
       headers: {
@@ -71,7 +54,6 @@ function PersonalInfoPage() {
         console.error("Error fetching data:", error);
       });
   }, []);
-  // console.log(info);
 
   const handleEditPasswordClick = () => {
     setOriginalPassword(info[0].accpass);
@@ -79,11 +61,52 @@ function PersonalInfoPage() {
     setEditingPassword(true);
   };
 
-  const handleSavePasswordClick = () => {
-    // Here, you can send the new password to your server for validation and update.
-    // Add API call to update the password and handle success or error.
-    // After successful password change:
+  const handleCancelPasswordEdit = () => {
     setEditingPassword(false);
+    setNewPassword("");
+  };
+
+  const handleSavePasswordClick = () => {
+    if (newPassword === originalPassword) {
+      setEditingPassword(false);
+      return;
+    }
+    console.log("test client");
+    const hashedNewPassword = bcrypt.hashSync(newPassword, 10);
+    
+    fetch(`https://revogue-backend.vercel.app/api/account/update-password`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        accid: accid,
+        accpass: originalPassword, // Current password
+        newpass: hashedNewPassword, // New password
+      }),
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          return response.json(); 
+        } else {
+          throw new Error("Failed to update password");
+        }
+      })
+      .then((data) => {
+        console.log("Server Response Data:", data);
+
+        if (data.msg === "Password is updated") {
+          alert("Password updated successfully");
+          setEditingPassword(false);
+          setOriginalPassword(newPassword);
+        } else {
+          throw new Error("Failed to update password");
+        }
+      })
+      .catch((error) => {
+        console.error("Error updating password:", error);
+        alert("Failed to update password");
+      });
   };
 
   return (
@@ -159,11 +182,13 @@ function PersonalInfoPage() {
                       <Col></Col>
 
                       <Col>
-                        {/* <Button >Change</Button> */}
                         {editingPassword ? (
-                          <Button onClick={handleSavePasswordClick}>
-                            Save
-                          </Button>
+                          <div className="d-flex justify-content-between">
+                            <Button onClick={handleSavePasswordClick}>
+                              Save
+                            </Button>
+                            {/* <Button onClick={handleCancelPasswordEdit}>Cancel</Button> */}
+                          </div>
                         ) : (
                           <Button onClick={handleEditPasswordClick}>
                             Change
