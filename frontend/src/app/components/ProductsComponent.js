@@ -39,7 +39,7 @@ function ProductsComponent() {
   return (
     <main className={styles.main}>
       <Row className="mb-4 mx-2">
-        <h1 style={{ textAlign: "center" }}>Products</h1>
+        <h1 style={{ textAlign: "center", fontSize: 40 }}>Products</h1>
       </Row>
       <Container fluid>
         <Row className="mb-4 mx-2 justify-content-center">
