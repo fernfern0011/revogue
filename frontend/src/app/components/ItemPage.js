@@ -17,6 +17,7 @@ import ThriftingComponent from './ThriftingComponent';
 
 
 function ItemPage({ id, itemDetails }) {
+
   var itemId = id;
   var itemValue = JSON.parse(itemDetails.value);
 
@@ -29,19 +30,11 @@ function ItemPage({ id, itemDetails }) {
     description = item.description;
     size = item.size;
 
-    // if (item.images != "") {
-    //   images = JSON.parse(item.images);
-    // }
+    if (item.images) {
+      const itemImages = item.images.split(',');
+      images = itemImages;
+    }
   }
-
-  // var itemImages = [];
-
-  // for (var image in images) {
-  //   console.log(images[image]);
-  //   if (!itemImages.includes(images[image])) {
-  //     itemImages.push(images[image]);
-  //   }
-  // }
 
   const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -57,14 +50,11 @@ function ItemPage({ id, itemDetails }) {
 
   };
 
-  // https://res.cloudinary.com/wad2-revogue/image/upload/v1697313304/profile/yzuznznyaikgrbdjqcma.png
-
   const thumbnails = [
     '../images/Raccoon.jpg',
     '../images/raccoon0.webp',
     '../images/raccoonStands.jfif'
   ]; // Replace with actual image paths
-
 
   function CustomPrevArrow(props) {
     return (
@@ -87,7 +77,15 @@ function ItemPage({ id, itemDetails }) {
       <div className="container">
         <div className="vertical-carousel-container">
           <div className="thumbnail-container">
-            {thumbnails.map((thumbnail, index) => (
+            {/* if images valid, output real images else placeholder */}
+            {images ? images.map((thumbnail, index) => (
+              <div
+                key={index}
+                className={`thumbnail ${index === currentSlide ? 'active' : ''}`}
+              >
+                <img className="thumbnail" src={thumbnail} alt={`Thumbnail ${index + 1}`} />
+              </div>
+            )) : thumbnails.map((thumbnail, index) => (
               <div
                 key={index}
                 className={`thumbnail ${index === currentSlide ? 'active' : ''}`}
@@ -100,8 +98,12 @@ function ItemPage({ id, itemDetails }) {
           <div className="carousel-left">
             <div className="carousel">
               <Slider {...settings}>
-                {thumbnails.map((thumbnail, index) => (
-
+                {/* if images valid, output real images else placeholder */}
+                {images ? images.map((thumbnail, index) => (
+                  <div key={index}>
+                    <img className="slide" src={thumbnail} alt={`Slide ${index + 1}`} />
+                  </div>
+                )) : thumbnails.map((thumbnail, index) => (
                   <div key={index}>
                     <img className="slide" src={thumbnail} alt={`Slide ${index + 1}`} />
                   </div>
@@ -109,7 +111,6 @@ function ItemPage({ id, itemDetails }) {
               </Slider>
             </div>
           </div>
-
         </div>
 
         <div className="other-content">
