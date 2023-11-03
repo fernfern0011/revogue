@@ -7,6 +7,7 @@ import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import { Button } from "react-bootstrap";
 import { signOut, useSession } from "next-auth/react";
+import { useState } from "react";
 
 const TopNavigation = () => {
     const { data: session, status } = useSession();
@@ -14,6 +15,12 @@ const TopNavigation = () => {
 
     if (session) {
         accName = session.user.name;
+    }
+    
+    const [isNavbarOpen, setIsNavbarOpen] = useState(false);
+
+    const toggleNavbar = () => {
+        setIsNavbarOpen(!isNavbarOpen);
     }
 
     return (
@@ -30,7 +37,15 @@ const TopNavigation = () => {
                     />
                 </Link>
 
-                <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                <button
+                    className="navbar-toggler ms-3"
+                    type="button"
+                    onClick={toggleNavbar} // Toggle the navigation bar
+                >
+                    <MenuOutlinedIcon fontSize="medium" />
+                </button>
+
+                <div className={`collapse navbar-collapse ${isNavbarOpen ? 'show' : ''}`} id="navbarSupportedContent">
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0 fw-medium">
                         <li className="nav-item pe-3 ps-3">
                             <Link className="nav-link" href="/">Home</Link>
@@ -46,7 +61,7 @@ const TopNavigation = () => {
                         </li>
                     </ul>
 
-                    <div className="d-flex align-items-center justify-content-end">
+                    <div className="d-flex align-items-center justify-content-start ms-3 justify-content-lg-end">
                         {/* Shopping Cart */}
                         <Link className="text-reset me-3" href="#">
                             <ShoppingCartOutlinedIcon fontSize="medium" />
@@ -133,18 +148,6 @@ const TopNavigation = () => {
                             }}>Logout</Button>
                     </div>
                 </div>
-
-                <button
-                    className="navbar-toggler ms-3"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation"
-                >
-                    <MenuOutlinedIcon fontSize="medium" />
-                </button>
             </div>
         </nav >
     )

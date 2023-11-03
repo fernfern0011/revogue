@@ -1,0 +1,73 @@
+.custom-label {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.custom {
+    font-size: 13px;
+    margin-bottom: 20px;
+    background-color: #F5F5F5;
+    border: none;
+    padding: 10px 40px;
+}
+
+.grid {
+    margin-left: 75px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 75px;
+    height: 90vh;
+}
+
+.login {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+h1 {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 25px;
+}
+
+.custom-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .custom-label {
+    font-size: 14px;
+    margin-bottom: 6px; /* Adjust this margin as needed */
+  }
+
+.login-button {
+    border-radius: 20px;
+    border: none;
+    margin-top: 20px;
+    background-color: #18b5b5;
+    color: white;
+    font-weight: bold;
+}
+
+.dont-have-account {
+    margin-right: 8px; /* Adjust the margin as needed */
+  }
+
+.custom-container-register {
+    display: flex;
+    flex-direction: center;
+    margin-top: 20px;
+    font-size: 14px;
+    justify-content: center;
+}
+
+.custom-container-register {
+    display: flex;
+    align-items: baseline; /* Adjust to 'flex-start' for top alignment */
+  }
+  
+  .register {
+    margin-left: -2px; 
+    color: #18b5b5; 
+  }
