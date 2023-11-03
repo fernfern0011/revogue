@@ -1,8 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar/Sidebar";
-import Button from "@mui/material/Button";
-import SidebarComponent from "../components/SidebarComponent";
+// import Button from "@mui/material/Button";
 import SidebarComponentPersonalInfo from "../components/SidebarComponentPersonalInfo";
 import bcrypt from "bcryptjs";
 
@@ -11,6 +10,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import { Form, Button } from "react-bootstrap";
 
 //style imports
 import styles from "../page.module.css";
@@ -130,76 +130,89 @@ function PersonalInfoPage() {
             {info ? (
               info.map((data, index) => (
                 <div key={data.accid}>
-                  <Row className="d-flex align-items-center">
-                    <p>
+                  <Row className="d-flex align-items-center pb-3">
+                    <h4>
                       <strong>Username</strong>
-                    </p>
-                    <div className="d-flex align-items-center ml-auto">
+                    </h4>
+                    <div className="d-flex align-items-center ml-auto mt-3">
                       <Col>
-                        <p className="mr-3">{data.username}</p>
+                        <h5 className="mr-3">
+                          <strong>{data.username}</strong>
+                        </h5>
                       </Col>
                     </div>
                   </Row>
                   <hr />
 
-                  <Row className="d-flex align-items-center mt-3">
-                    <p>
+                  <Row className="d-flex align-items-center mt-3 pb-3">
+                    <h4>
                       <strong>Email</strong>
-                    </p>
+                    </h4>
 
-                    <div className="d-flex align-items-center ml-auto">
+                    <div className="d-flex align-items-center ml-auto mt-3">
                       <Col>
-                        <p className="mr-3">{data.accemail}</p>
+                        <h5 className="mr-3">
+                          <strong>{data.accemail}</strong>
+                        </h5>
                       </Col>
                     </div>
                   </Row>
                   <hr />
 
-                  <Row className="d-flex align-items-center mt-3">
-                    <p>
+                  <Row className="d-flex align-items-center mt-3 pb-3">
+                    <h4>
                       <strong>Password</strong>
-                    </p>
+                    </h4>
 
-                    <div className="d-flex align-items-center ml-auto">
-                      <Col>
+                    <div className="d-flex align-items-center ml-auto mt-3">
+                      <Col className="d-flex align-items-center">
                         {editingPassword ? (
-                          <input
-                            type="password"
-                            value={newPassword}
-                            onChange={(e) => setNewPassword(e.target.value)}
-                          />
+                          <Form noValidate>
+                            <Form.Control
+                              type="password"
+                              placeholder="Your new password here"
+                              required
+                              onChange={(e) => setNewPassword(e.target.value)}
+                            />
+                          </Form>
                         ) : (
-                          <p className="mr-3">********</p>
+                          <h5 className="mr-3">
+                            <strong>********</strong>
+                          </h5>
                         )}
                       </Col>
 
-
                       <Col className="d-flex align-items-center">
                         {editingPassword ? (
-                          <div style={{ display: "flex", justifyContent: "space-between" }}>
-                            <Button
-                              variant="outlined"
-                              className="ml-auto"
+                          <div
+                          className="btn-group"
+                            role="group"
+                            aria-label="Basic example"
+                          >
+                            <button
+                              type="button"
+                              className="btn btn-success text-light"
                               onClick={handleSavePasswordClick}
+                              disabled={!newPassword.trim()}
                             >
                               Save
-                            </Button>
-                            <Button
-                              variant="outlined"
-                              className="ml-2"
+                            </button>
+                            <button
+                              type="button"
+                              className="btn btn-danger text-light"
                               onClick={handleCancelPasswordEdit}
                             >
                               Cancel
-                            </Button>
+                            </button>
                           </div>
                         ) : (
-                          <Button
-                            variant="outlined"
-                            className="ml-auto"
+                          <button
+                            type="button"
+                            className="btn btn-custom text-light"
                             onClick={handleEditPasswordClick}
                           >
                             Change
-                          </Button>
+                          </button>
                         )}
                       </Col>
                     </div>

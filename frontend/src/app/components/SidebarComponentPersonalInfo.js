@@ -23,7 +23,7 @@ const SidebarComponentAddress = () => {
             as="a"
             href="personal-info"
             className="list-group-item list-group-item-action list-group-item-light py-3 border-0 bold-text gray-background"
-            activeClassName="active"
+            activeclassname="active"
             style={{ fontSize: "14px" }} // Add this line
           >
             <img
@@ -40,7 +40,7 @@ const SidebarComponentAddress = () => {
             as="a"
             href="address"
             className="list-group-item list-group-item-action list-group-item-light py-3 border-0 bold-text white-background"
-            activeClassName="active" // Apply the 'active' class when the link is active
+            activeclassname="active" // Apply the 'active' class when the link is active
             style={{ fontSize: "14px" }} // Add this line
           >
             <img
@@ -57,7 +57,7 @@ const SidebarComponentAddress = () => {
             // as="a"
             to="./PersonalInfoComponent"
             className="list-group-item list-group-item-action list-group-item-light py-3 border-0 bold-text white-background"
-            activeClassName="active"
+            activeclassname="active"
             style={{ fontSize: "14px" }} // Add this line
           >
             <img
@@ -74,7 +74,7 @@ const SidebarComponentAddress = () => {
             // as="a"
             to="./PersonalInfoComponent"
             className="list-group-item list-group-item-action list-group-item-light py-3 border-0 bold-text white-background"
-            activeClassName="active"
+            activeclassname="active"
             style={{ fontSize: "14px" }} // Add this line
           >
             <img
