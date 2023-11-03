@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import styles from '/styles/create_post_page.module.css';
 import Size from '../components/Size';
 import Category from '../components/Category';
-import ProductUpload from '../components/ProductUpload';
+import { CldUploadWidget } from 'next-cloudinary';
 
 // MUI imports
 import OutlinedInput from '@mui/material/OutlinedInput';
@@ -15,8 +15,15 @@ import FormLabel from '@mui/material/FormLabel';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
+import { useRouter } from 'next/navigation';
 
-export default function CreatePost1() {
+function CreatePost() {
+    const router = useRouter();
+
+    const refreshData = () => {
+        router.refresh();
+    };
+
     const [formData, setFormData] = useState({
         productname: '',
         description: '',
@@ -51,12 +58,10 @@ export default function CreatePost1() {
     const { formen, forwomen } = formData;
     const errorMessage = [formen, forwomen].filter((v) => v).length < 1;
 
-    const [info, updateInfo] = useState();
+    // const [info, updateInfo] = useState()
     const [imageUrls, setImageUrls] = useState([])
     const handleImageChange = () => {
         const stringimages = JSON.stringify(imageUrls)
-        console.log(stringimages);
-
         setFormData({
             ...formData,
             images: stringimages
@@ -75,20 +80,60 @@ export default function CreatePost1() {
         }))
     }, [imageUrls])
 
+    const onupload = (result) => {
+        // updateInfo(result.info.secure_url);
+        const newImageUrl = result.info.secure_url
+        const newImagePublicId = result.info.public_id;
+        setImageUrls(preImageUrls => [...preImageUrls, newImageUrl])
+        // setPublicId(prevImagePublicId => [...prevImagePublicId, newImagePublicId])
+        handleImageChange(result)
+    }
+
+    const handleDeleteImage = async (index) => {
+        var updateImage = imageUrls;
+        updateImage.splice(index, 1)
+        setImageUrls(updateImage);
+
+        // refresh page to show updated imagelist
+        refreshData()
+    }
+
     const createItem = async () => {
         handleImageChange()
 
         if (!errorMessage) {
-            console.log(formData);
-        }
+            const itemData = formData;
 
-        // try {
-        //     const response = await axios.post('/api/addproduct', formData)
-        //     router.push('/')
-        //     console.log(response)
-        // } catch (error) {
-        //     console.log(error)
-        // }
+            const createItemRes = await fetch(`http://localhost:5000/api/product/create`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    accid: 9,
+                    productname: itemData.productname,
+                    description: itemData.description,
+                    price: itemData.price,
+                    size: itemData.size,
+                    category: itemData.category,
+                    forwomen: itemData.forwomen,
+                    formen: itemData.formen,
+                    images: itemData.images
+                })
+            }).catch(error => { console.log(error); });
+
+            const status = createItemRes.status;
+
+            switch (status) {
+                case 201:
+                    alert('Item is created')
+                    router.push('/shop');
+                    break;
+                default:
+                    // setError(true);
+                    alert('Failed to create an item')
+                    // setSnackbar({ children: 'Teacher cannot be added', severity: 'error' });
+                    break;
+            };
+        }
     }
 
     return (
@@ -198,10 +243,41 @@ export default function CreatePost1() {
 
             <br />
 
-            <ProductUpload info={info} updateInfo={updateInfo} imageUrls={imageUrls} setImageUrls={setImageUrls} handleImageChange={handleImageChange} />
+            <div>
+                <div className="mb-10">
+                    <CldUploadWidget
+                        uploadPreset="wad2_revogue"
+                        options={{ folder: "product", maxFiles: 3 }}
+                        onUpload={onupload}>
+                        {({ open }) => {
+                            function handleOnClick(e) {
+                                e.preventDefault();
+                                open();
+                            }
+                            return (
+                                <button className={styles.button} onClick={handleOnClick}>
+                                    Upload Product image
+                                </button>
+                            );
+                        }}
+                    </CldUploadWidget>
+                </div>
 
+                <div className='grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-10'>
+                    {imageUrls.map((imageUrl, index) => (
+                        <div key={index} className='flex flex-col justify-center'>
+                            <img src={imageUrl} style={{ width: '150px', height: '150px' }} alt={`uploades Image ${index + 1}`} />
+                            <p>{imageUrl}</p>
+                            <button className='border-[1px] rounded-lg p-1 px-2 mt-5' onClick={() => handleDeleteImage(index)}>delete</button>
+                        </div>
+                    ))}
+                </div>
+            </div >
 
+            {/* <HandleCreateItemPage onDataPassed={handleDataPassed} /> */}
             <button onClick={createItem} className='text-white mt-10 border-[1px] bg-purple-500 rounded-lg px-5 p-2'>Submit</button>
         </main>
     )
 }
+
+export default CreatePost;
