@@ -38,7 +38,7 @@ export default function LoginForm() {
                 <h1 className="login my-4">Login</h1>
 
                 <form onSubmit={handleSubmit} className="flex flex-col gap-3 items-center">
-                    <div className="custom-container">
+                    <div className="custom-container-login">
                         <label className="custom-label">Email</label>
                         <input
                             onChange={(e) => setEmail(e.target.value)}
@@ -46,7 +46,7 @@ export default function LoginForm() {
                             className="custom"
                         />
                     </div>
-                    <div className="custom-container">
+                    <div className="custom-container-login">
                         <label className="custom-label">Password</label>
                         <input
                             onChange={(e) => setPassword(e.target.value)}
@@ -54,7 +54,7 @@ export default function LoginForm() {
                             className="custom"
                         />
                     </div>
-                    <div className="custom-container">
+                    <div className="custom-container-login">
                         <button className="login-button px-6 py-2">
                             Login
                         </button>
