@@ -14,17 +14,21 @@ import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import StarIcon from '@mui/icons-material/Star';
 import ThriftingComponent from './ThriftingComponent';
+import { useRouter } from 'next/navigation';
 
 const ItemPage = ({ itemDetails }) => {
+  const router = useRouter();
+  console.log(itemDetails);
 
-  var productname, price, description, size, quantity, images;
+  var productid, productname, price, description, size, quantity, images;
   if (itemDetails) {
     var item = itemDetails;
-
+    productid = item.productid;
     productname = item.productname;
     price = item.price;
     description = item.description;
     size = item.size;
+    quantity = item.quantity;
 
     if (item.images) {
       const itemImages = item.images.split(',');
@@ -66,6 +70,57 @@ const ItemPage = ({ itemDetails }) => {
         <KeyboardArrowDownIcon />
       </div>
     );
+  }
+
+  const AddToCart = async () => {
+    const addToCartRes = await fetch(`http://localhost:5000/api/cart/create`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        accid: 9,
+        productid: productid
+      })
+    }).catch(error => { console.log(error); });
+
+    const status = addToCartRes.status;
+
+    switch (status) {
+      case 200:
+        alert('Item is added to Cart')
+        router.push('/add-to-cart');
+        break;
+      default:
+        // setError(true);
+        alert('Failed to add item to cart')
+        // setSnackbar({ children: 'Teacher cannot be added', severity: 'error' });
+        break;
+    };
+
+  }
+
+  const AddToWishlist = async () => {
+    const addToWishlistRes = await fetch(`http://localhost:5000/api/wishlist/create`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        accid: 9,
+        productid: productid
+      })
+    }).catch(error => { console.log(error); });
+
+    const status = addToWishlistRes.status;
+
+    switch (status) {
+      case 200:
+        alert('Item is added to wishlist')
+        router.push('/wishlist');
+        break;
+      default:
+        // setError(true);
+        alert('Failed to add item to wishlist')
+        // setSnackbar({ children: 'Teacher cannot be added', severity: 'error' });
+        break;
+    };
   }
 
   return (
@@ -122,16 +177,20 @@ const ItemPage = ({ itemDetails }) => {
 
           <div className="buttons-container">
             <div className="cart-button">
-              <Button className="button">
+              {/* <Link href={'/add-to-cart'}> */}
+              <Button className="button" onClick={() => AddToCart()}>
                 <ShoppingCartOutlinedIcon style={{ marginRight: "5px" }} />
                 Add to Cart
               </Button>
+              {/* </Link> */}
             </div>
             <div className="wishlist-button">
-              <Button className="wishlist">
+              {/* <Link href={'/wishlist'}> */}
+              <Button className="wishlist" onClick={() => AddToWishlist()}>
                 <FavoriteBorderIcon style={{ marginRight: "5px" }} />
                 Add to Wishlist
               </Button>
+              {/* </Link> */}
             </div>
           </div>
         </div>

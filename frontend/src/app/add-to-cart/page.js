@@ -5,6 +5,7 @@ import Button from "@mui/material/Button";
 import { loadStripe } from '@stripe/stripe-js';
 import { Suspense } from "react";
 
+
 const stripe = require('stripe')('sk_test_51O2p9QFD3c4VDISeYPMwEIN9FUSwgdfeqZpcGhhQ6l7af7xrQAXIJ6mb3bbcRNfJFA2zuOojGGtLukbwuEdmgyqt00MRd5fHHK');
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
 
@@ -21,6 +22,7 @@ import styles from "../page.module.css";
 import "../styles/AddToCart.css";
 import { Padding } from "@mui/icons-material";
 import { useSession } from 'next-auth/react';
+import CartComponent from "../components/CartComponent";
 
 
 function AddToCartPage() {
@@ -29,10 +31,9 @@ function AddToCartPage() {
   const [productData, setProductData] = useState(null);
   const [newsession, setnewSession] = useState(null);
 
-
-  const {data: session} = useSession();
+  const { data: session } = useSession();
   let accid;
-  if (session){
+  if (session) {
     console.log(session)
     accid = session.id;
     console.log(accid);
@@ -44,7 +45,7 @@ function AddToCartPage() {
       console.log(stripes)
 
 
-      if(!stripe){
+      if (!stripe) {
         console.error('Stripe is not available.')
         return;
       }
@@ -150,23 +151,22 @@ function AddToCartPage() {
   }, [accid]);
 
   console.log(cartlist);
-  console.log(typeof(cartlist));
 
   const shippingFee = 0;
 
   // Calculate the sub total
   const calculateSubTotal = () => {
     if (!cartlist) {
-      return 0; 
+      return 0;
     }
-  
+
     let totalPrice = 0;
     for (var item of Object.values(cartlist)) {
       totalPrice += parseFloat(item.price);
     }
     return totalPrice.toFixed(2);
   };
-  
+
   // Calculate the grand total
   const calculateGrandTotal = () => {
     let total = parseFloat(calculateSubTotal()) + parseFloat(shippingFee);
@@ -188,7 +188,7 @@ function AddToCartPage() {
           body: JSON.stringify({ cartitemid: cartItemId, accid: accid }),
         }
       );
-  
+
       if (response.status === 201) {
         alert("Selected item has been deleted");
         setCart((prevCart) =>
@@ -233,34 +233,36 @@ function AddToCartPage() {
               <Suspense fallback={<tr><td colSpan="6">Loading...</td></tr>}>
                 {session && !isLoading ? (
                   cartlist.map((data, index) => (
-                    <tr key={data.cartitemid}>
-                      <td></td>
-                      <td>
-                        <Row>
-                          <Col xs="auto">
-                            <img
-                              src={data.images}
-                              alt=""
-                              width="150"
-                              height="150"
-                              className="image"
-                            />
-                          </Col>
-                          <Col>
-                            <p>{data.productname}</p>
-                            <p className="small">Size: {data.size}</p>
-                          </Col>
-                        </Row>
-                      </td>
-                      <td className="custom-td">${data.price}</td>
-                      <td className="custom-td">1</td>
-                      <td className="custom-td">${data.price}</td>
-                      <td>
-                        <Button onClick={(e) => deleteCartItem(data.cartitemid)}>
-                          Delete
-                        </Button>
-                      </td>
-                    </tr>
+
+                    <CartComponent data={data} />
+                    // <tr key={data.cartitemid}>
+                    //   <td></td>
+                    //   <td>
+                    //     <Row>
+                    //       <Col xs="auto">
+                    //         <img
+                    //           src={thumbnail}
+                    //           alt=""
+                    //           width="150"
+                    //           height="150"
+                    //           className="image"
+                    //         />
+                    //       </Col>
+                    //       <Col>
+                    //         <p>{data.productname}</p>
+                    //         <p className="small">Size: {data.size}</p>
+                    //       </Col>
+                    //     </Row>
+                    //   </td>
+                    //   <td className="custom-td">${data.price}</td>
+                    //   <td className="custom-td">1</td>
+                    //   <td className="custom-td">${data.price}</td>
+                    //   <td>
+                    //     <Button onClick={(e) => deleteCartItem(data.cartitemid)}>
+                    //       Delete
+                    //     </Button>
+                    //   </td>
+                    // </tr>
                   ))
                 ) : (
                   <tr><td colSpan="6">Loading...</td></tr>
