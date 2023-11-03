@@ -18,15 +18,15 @@ import "../styles/PersonalInfoComponent.css";
 import { useSession } from "next-auth/react";
 
 function PersonalInfoPage() {
-  // const {data: session} = useSession();
-  // let accID;
-  // if (session){
-  //   accID = session.id;
-  //   console.log(accID);
-  // }
-  // else{
-  //   console.log('No session')
-  // }
+  const {data: session} = useSession();
+  let accID;
+  if (session){
+    accID = session.id;
+    console.log(accID);
+  }
+  else{
+    console.log('No session')
+  }
 
   const [info, setInfo] = useState(null);
   const [editingPassword, setEditingPassword] = useState(false);
@@ -35,7 +35,7 @@ function PersonalInfoPage() {
 
   const accid = 10; //for testing
   useEffect(() => {
-    fetch(`https://revogue-backend.vercel.app/api/account?accid=${accid}`, {
+    fetch(`https://revogue-backend.vercel.app/api/account?accid=${accID}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -81,7 +81,7 @@ function PersonalInfoPage() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        accid: accid,
+        accid: accID,
         accpass: originalPassword, // Current password
         newpass: hashedNewPassword, // New password
       }),
