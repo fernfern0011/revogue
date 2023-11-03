@@ -3,7 +3,8 @@ import React, { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar/Sidebar";
 import Button from "@mui/material/Button";
 import SidebarComponent from "../components/SidebarComponent";
-import bcrypt from 'bcryptjs';
+import SidebarComponentPersonalInfo from "../components/SidebarComponentPersonalInfo";
+import bcrypt from "bcryptjs";
 
 //bootstrap imports
 import "bootstrap/dist/css/bootstrap.css";
@@ -73,7 +74,7 @@ function PersonalInfoPage() {
     }
     console.log("test client");
     const hashedNewPassword = bcrypt.hashSync(newPassword, 10);
-    
+
     fetch(`https://revogue-backend.vercel.app/api/account/update-password`, {
       method: "PUT",
       headers: {
@@ -87,7 +88,7 @@ function PersonalInfoPage() {
     })
       .then((response) => {
         if (response.status === 200) {
-          return response.json(); 
+          return response.json();
         } else {
           throw new Error("Failed to update password");
         }
@@ -122,7 +123,7 @@ function PersonalInfoPage() {
         <br></br>
         <Row className="d-flex">
           <Col lg="2">
-            <SidebarComponent />
+            <SidebarComponentPersonalInfo />
           </Col>
 
           <Col lg="10" className="float-left custom">
@@ -137,9 +138,6 @@ function PersonalInfoPage() {
                       <Col>
                         <p className="mr-3">{data.username}</p>
                       </Col>
-
-                      <Col></Col>
-                      <Col className="d-flex align-items-center"></Col>
                     </div>
                   </Row>
                   <hr />
@@ -153,9 +151,6 @@ function PersonalInfoPage() {
                       <Col>
                         <p className="mr-3">{data.accemail}</p>
                       </Col>
-
-                      <Col></Col>
-                      <Col className="d-flex align-items-center"></Col>
                     </div>
                   </Row>
                   <hr />
@@ -167,7 +162,6 @@ function PersonalInfoPage() {
 
                     <div className="d-flex align-items-center ml-auto">
                       <Col>
-                        {/* <p className="mr-3">{data.accpass}</p> */}
                         {editingPassword ? (
                           <input
                             type="password"
@@ -179,24 +173,35 @@ function PersonalInfoPage() {
                         )}
                       </Col>
 
-                      <Col></Col>
 
-                      <Col>
+                      <Col className="d-flex align-items-center">
                         {editingPassword ? (
-                          <div className="d-flex justify-content-between">
-                            <Button onClick={handleSavePasswordClick}>
+                          <div style={{ display: "flex", justifyContent: "space-between" }}>
+                            <Button
+                              variant="outlined"
+                              className="ml-auto"
+                              onClick={handleSavePasswordClick}
+                            >
                               Save
                             </Button>
-                            {/* <Button onClick={handleCancelPasswordEdit}>Cancel</Button> */}
+                            <Button
+                              variant="outlined"
+                              className="ml-2"
+                              onClick={handleCancelPasswordEdit}
+                            >
+                              Cancel
+                            </Button>
                           </div>
                         ) : (
-                          <Button onClick={handleEditPasswordClick}>
+                          <Button
+                            variant="outlined"
+                            className="ml-auto"
+                            onClick={handleEditPasswordClick}
+                          >
                             Change
                           </Button>
                         )}
                       </Col>
-
-                      <Col className="d-flex align-items-center"></Col>
                     </div>
                   </Row>
                   <hr />
