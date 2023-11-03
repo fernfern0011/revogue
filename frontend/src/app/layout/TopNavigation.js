@@ -8,6 +8,7 @@ import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import { Button } from "react-bootstrap";
 import { signOut, useSession } from "next-auth/react";
 import { useState } from "react";
+import "./TopNavigation.css";
 
 const TopNavigation = () => {
     const { data: session, status } = useSession();
@@ -21,6 +22,12 @@ const TopNavigation = () => {
 
     const toggleNavbar = () => {
         setIsNavbarOpen(!isNavbarOpen);
+    }
+
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+    const toggleDropdown = () => {
+        setIsDropdownOpen(!isDropdownOpen);
     }
 
     return (
@@ -89,10 +96,8 @@ const TopNavigation = () => {
                                 <Link
                                     className="dropdown-toggle d-flex align-items-center hidden-arrow"
                                     href="#"
-                                    id="navbarDropdownMenuAvatar"
+                                    onClick={toggleDropdown}
                                     role="button"
-                                    data-bs-toggle="dropdown"
-                                    aria-expanded="false"
                                 >
                                     <img
                                         src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
@@ -101,51 +106,55 @@ const TopNavigation = () => {
                                         alt="Black and White Portrait of a Man"
                                         loading="lazy"
                                     />
-                                    <span className="ps-2 pe-2">{accName}</span>
+                                    <span className="ps-2 pe-2" style={{ marginLeft: '-5px', marginRight: '30px' }}>{accName}</span>
                                 </Link>
 
-                                <ul
-                                    className="dropdown-menu dropdown-menu-end"
-                                    aria-labelledby="navbarDropdownMenuAvatar"
+                                <ul style={{ marginTop: '10px' }}
+                                    className={`dropdown-menu dropdown-menu-end ${isDropdownOpen ? 'show' : ''}`}
                                 >
                                     <li>
-                                        <Link className="dropdown-item" href="#">My profile</Link>
+                                        <Link className="dropdown-item" href="personal-info" style={{ fontSize:"15px" }}>My profile</Link>
                                     </li>
                                     <li>
-                                        <Link className="dropdown-item" href="#">Account Settings</Link>
+                                        <Link className="dropdown-item" href="#" style={{ margin: '-10px 0', fontSize:"15px" }}>Account Settings</Link>
                                     </li>
                                     <li>
-                                        <Link className="dropdown-item" href="#">Wishlist</Link>
+                                        <Link className="dropdown-item" href="wishlist" style={{ margin: '-10px 0', fontSize:"15px" }}>Wishlist</Link>
                                     </li>
                                     <li>
-                                        <Link className="dropdown-item" href="#">My Listings</Link>
+                                        <Link className="dropdown-item" href="#" style={{ margin: '-10px 0', fontSize:"15px" }}>My Listings</Link>
                                     </li>
                                     <li>
-                                        <Link className="dropdown-item" href="#">My Purchases</Link>
+                                        <Link className="dropdown-item" href="purchases" style={{ margin: '-10px 0', fontSize:"15px" }}>My Purchases</Link>
                                     </li>
                                     <li>
-                                        <Link className="dropdown-item" href="#">My Sales</Link>
+                                        <Link className="dropdown-item" href="#" style={{ margin: '-10px 0', fontSize:"15px" }}>My Sales</Link>
                                     </li>
                                     <li>
-                                        <Link className="dropdown-item" href="#">My Blogs</Link>
+                                        <Link className="dropdown-item" href="#" style={{ margin: '-10px 0', fontSize:"15px" }}>My Blogs</Link>
                                     </li>
                                     <li>
-                                        <Link className="dropdown-item" href="#">Logout</Link>
+                                        <Link className="dropdown-item" href="#" style={{ margin: '-10px 0 -10px 0', fontSize:"15px" }}>Logout</Link>
                                     </li>
                                 </ul>
                             </div>
                             :
+                            <div>
                             <Link className="nav-link" href={"/login"}>
-                                <Button className="button">Login</Button>
+                                <Button className="button"
+                                style={{ backgroundColor: "#18b5b5" }}>Login</Button>
                             </Link>
-                        }
-
-                        <Button className="button"
+                            <Button className="button"
+                            style={{ backgroundColor: "#18b5b5" }}
                             onClick={async (e) => {
                                 e.preventDefault();
                                 console.log();
                                 signOut({ redirect: true, callbackUrl: "/" })
                             }}>Logout</Button>
+                            </div>
+                        }
+
+                        
                     </div>
                 </div>
             </div>

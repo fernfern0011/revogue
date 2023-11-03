@@ -1,0 +1,5 @@
+.dropdown-item:on-click {
+    background-color: gray; /* Change the background color to gray when clicked */
+    color: white; /* Change the text color to white when clicked */
+    outline: none; /* Remove the focus outline */
+}

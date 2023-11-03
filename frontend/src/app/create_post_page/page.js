@@ -16,6 +16,8 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import { useRouter } from 'next/navigation';
+import DeleteIcon from '@mui/icons-material/Delete';
+
 
 function CreatePost() {
     const router = useRouter();
@@ -139,144 +141,152 @@ function CreatePost() {
     return (
 
         <main className={styles.main}>
-            {/* container for image upload */}
-            <div style={{ display: "flex", flexDirection: "column-reverse" }}>
-                <div className="rightColumn">
-                    {/* product name */}
-                    <InputLabel
-                        className="label"
-                        htmlFor="standard-brandName"
-                        sx={{ textAlign: 'left', fontSize: 13, color: 'black' }}
-                    >
-                        Product Name <span style={{ color: 'red' }}>*</span>
-                    </InputLabel>
-                    <TextField
-                        id="outlined-required"
-                        name='productname'
-                        value={formData.productname}
-                        onChange={handleChange}
-                        inputProps={{
-                            style: {
-                                fontSize: 13,
-                                height: '1px',
-                                width: '25vw',
-                            }, // Adjust the font size as needed
-                        }}
-                        required
-                    />
-                    <br />
-
-                    {/* description */}
-                    <InputLabel
-                        className="label"
-                        htmlFor="standard-brandName"
-                        sx={{ textAlign: 'left', fontSize: 13, color: 'black' }}
-                    >
-                        Description <span style={{ color: 'red' }}>*</span>
-                    </InputLabel>
-                    <TextField
-                        id="outlined-multiline-static"
-                        name='description'
-                        value={formData.description}
-                        onChange={handleChange}
-                        multiline
-                        rows={4}
-                        inputProps={{
-                            style: {
-                                fontSize: 13,
-                                width: '25vw'
-                            }, // Adjust the font size as needed
-                        }}
-                    />
-                    <br />
-
-                    {/* Price */}
-                    <InputLabel
-                        className="label"
-                        htmlFor="standard-brandName"
-                        sx={{ textAlign: 'left', fontSize: 13, color: 'black' }}
-                    >
-                        Price <span style={{ color: 'red' }}>*</span>
-                    </InputLabel>
-                    <FormControl required>
-                        <OutlinedInput
-                            type='number'
-                            id="outlined-adornment-amount"
-                            name='price'
-                            value={formData.price}
+            
+            <div className="container">
+                <h1 style={{ display: "flex", justifyContent: "center", fontSize: "25px", fontWeight: "bold", paddingTop: "40px", paddingBottom: "30px" }}>Upload New Item</h1>
+                
+                <div className="center row">
+                    <div className="col-sm-6 d-flex justify-content-center flex-column">
+                    <div className="d-flex flex-column align-items-center">
+                        <div className="mb-3">
+                        <InputLabel
+                            htmlFor="standard-brandName"
+                            sx={{ textAlign: 'left', fontSize: 15, color: 'black', fontWeight: 'bold' }}
+                        >
+                            Product Name <span style={{ color: 'red' }}>*</span>
+                        </InputLabel>
+                        <TextField
+                            name='productname'
+                            value={formData.productname}
                             onChange={handleChange}
-                            startAdornment={<InputAdornment position="start">$</InputAdornment>}
                             inputProps={{
                                 style: {
-                                    fontSize: 13,
-                                    height: '1px',
-                                    width: '23vw'
+                                    fontSize: 15,
+                                    height: '20px',
+                                    width: '32vw',
+                                },
+                            }}
+                            required
+                        />
+                        </div>
+
+                        {/* description */}
+                        <div className="mb-3">
+                        <InputLabel
+                            htmlFor="standard-brandName"
+                            sx={{ textAlign: 'left', fontSize: 15, color: 'black', fontWeight: 'bold' }}
+                        >
+                            Description <span style={{ color: 'red' }}>*</span>
+                        </InputLabel>
+                        <TextField
+                            id="outlined-multiline-static"
+                            name='description'
+                            value={formData.description}
+                            onChange={handleChange}
+                            multiline
+                            rows={4}
+                            inputProps={{
+                                style: {
+                                    fontSize: 15,
+                                    width: '32vw'
                                 }, // Adjust the font size as needed
                             }}
                         />
-                    </FormControl>
-                    <br />
+                        </div>
 
-                    {/* Size */}
-                    <Size setFormData={setFormData} />
-                    <br />
+                        {/* Price */}
+                        <div className="mb-3">
+                        <InputLabel
+                            htmlFor="standard-brandName"
+                            sx={{ textAlign: 'left', fontSize: 15, color: 'black', fontWeight: 'bold' }}
+                        >
+                            Price <span style={{ color: 'red' }}>*</span>
+                        </InputLabel>
+                        <FormControl required>
+                            <OutlinedInput
+                                type='number'
+                                id="outlined-adornment-amount"
+                                name='price'
+                                value={formData.price}
+                                onChange={handleChange}
+                                className={styles.label}
+                                startAdornment={<InputAdornment position="start">$</InputAdornment>}
+                                inputProps={{
+                                    style: {
+                                        fontSize: 15,
+                                        height: '20px',
+                                        width: '30vw'
+                                    }, // Adjust the font size as needed
+                                }}
+                            />
+                        </FormControl>
+                        </div>
 
-                    {/* Category */}
-                    <Category setFormData={setFormData} />
+                        {/* Size */}
+                        <Size setFormData={setFormData}/>
+                        <br />
 
-                    {/* Checkbox */}
-                    <FormControl
-                        required
-                        error={errorMessage}
-                        component="fieldset"
-                        sx={{ m: 3 }}
-                        variant="standard"
-                    >
-                        <FormLabel component="legend">At least one check</FormLabel>
-                        <FormGroup>
-                            <FormControlLabel control={<Checkbox />} checked={formData.formen} name='formen' label="Male" onChange={handleCheckbox} />
-                            <FormControlLabel control={<Checkbox />} checked={formData.forwomen} name='forwomen' label="Female" onChange={handleCheckbox} />
-                        </FormGroup>
-                    </FormControl>
+                        {/* Category */}
+                        <Category setFormData={setFormData} />
+
+                        {/* Checkbox */}
+                        <FormControl
+                            required
+                            error={errorMessage}
+                            component="fieldset"
+                            sx={{ m: 3, fontSize:"15px" }}
+                            variant="standard"
+                        >
+                            <FormLabel 
+                            component="legend" style={{fontWeight:"bold"}}>At least one check</FormLabel>
+                            <FormGroup>
+                                <FormControlLabel control={<Checkbox />} checked={formData.formen} name='formen' label="Male" onChange={handleCheckbox}
+                                sx={{ mt: -1.5 }}  />
+                                <FormControlLabel control={<Checkbox />} checked={formData.forwomen} name='forwomen' label="Female" onChange={handleCheckbox}
+                                sx={{ mt: -1.5 }} />
+                            </FormGroup>
+                        </FormControl>
+                    </div>
+                    </div>
+
+                    <div className="col-sm-6 d-flex flex-column">
+                    <div className="d-flex flex-column align-items-center">
+                        <div className="mb-10">
+                            <CldUploadWidget
+                                uploadPreset="wad2_revogue"
+                                options={{ folder: "product", maxFiles: 3 }}
+                                onUpload={onupload}>
+                                {({ open }) => {
+                                    function handleOnClick(e) {
+                                        e.preventDefault();
+                                        open();
+                                    }
+                                    return (
+                                        <button className={styles.button} onClick={handleOnClick}>
+                                            Upload Product image
+                                        </button>
+                                    );
+                                }}
+                            </CldUploadWidget>
+                        </div>
+
+                        <div className='grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-10'>
+                            {imageUrls.map((imageUrl, index) => (
+                                <div key={index} className='flex flex-col justify-center'>
+                                    <img src={imageUrl} style={{ width: '150px', height: '150px' }} alt={`uploades Image ${index + 1}`} />
+                                    <button style={{marginLeft:"10px", border:"none", backgroundColor:"white"}}onClick={() => handleDeleteImage(index)}><DeleteIcon/></button>
+                                </div>
+                            ))}
+                        </div>
+
+                        <button onClick={createItem} className={styles.submit}>Submit</button>
+                    </div>
+                    </div>
                 </div>
             </div>
-
-            <br />
-
-            <div>
-                <div className="mb-10">
-                    <CldUploadWidget
-                        uploadPreset="wad2_revogue"
-                        options={{ folder: "product", maxFiles: 3 }}
-                        onUpload={onupload}>
-                        {({ open }) => {
-                            function handleOnClick(e) {
-                                e.preventDefault();
-                                open();
-                            }
-                            return (
-                                <button className={styles.button} onClick={handleOnClick}>
-                                    Upload Product image
-                                </button>
-                            );
-                        }}
-                    </CldUploadWidget>
-                </div>
-
-                <div className='grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-10'>
-                    {imageUrls.map((imageUrl, index) => (
-                        <div key={index} className='flex flex-col justify-center'>
-                            <img src={imageUrl} style={{ width: '150px', height: '150px' }} alt={`uploades Image ${index + 1}`} />
-                            <p>{imageUrl}</p>
-                            <button className='border-[1px] rounded-lg p-1 px-2 mt-5' onClick={() => handleDeleteImage(index)}>delete</button>
-                        </div>
-                    ))}
-                </div>
-            </div >
-
-            {/* <HandleCreateItemPage onDataPassed={handleDataPassed} /> */}
-            <button onClick={createItem} className='text-white mt-10 border-[1px] bg-purple-500 rounded-lg px-5 p-2'>Submit</button>
         </main>
+
+
     )
 }
 

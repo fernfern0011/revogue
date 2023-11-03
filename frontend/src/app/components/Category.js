@@ -18,7 +18,7 @@ export default function Category({ setFormData }) {
     <div>
       <InputLabel
         htmlFor="standard-brandName"
-        sx={{ textAlign: 'left', fontSize: 13, color: 'black' }}
+        sx={{ textAlign: 'left', fontSize: 15, color: 'black', fontWeight:"bold" }}
       >
         Category <span style={{ color: 'red' }}>*</span>
       </InputLabel>
@@ -31,16 +31,16 @@ export default function Category({ setFormData }) {
           onChange={(e) => setCategory(e.target.value)}
           sx={{
             '& .MuiSelect-select': {
-              fontSize: 13, // Adjust the font size as needed
+              fontSize: 15, // Adjust the font size as needed
               height: '1px', // Set the height of the input field
-              width: '23vw', // Set the width of the input field
+              width: '30vw', // Set the width of the input field
             },
           }}
         >
-          <MenuItem value="Top">Top</MenuItem>
-          <MenuItem value="Bottom">Bottom</MenuItem>
-          <MenuItem value="Dresss">Dress</MenuItem>
-          <MenuItem value="Outer Wear">Outer Wear</MenuItem>
+          <MenuItem style={{fontSize:"15px", margin: "-5px 0"}} value="Top">Top</MenuItem>
+          <MenuItem style={{fontSize:"15px", margin: "-5px 0"}} value="Bottom">Bottom</MenuItem>
+          <MenuItem style={{fontSize:"15px", margin: "-5px 0"}} value="Dresss">Dress</MenuItem>
+          <MenuItem style={{fontSize:"15px", margin: "-5px 0"}} value="Outer Wear">Outer Wear</MenuItem>
         </Select>
       </FormControl>
     </div>
