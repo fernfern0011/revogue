@@ -132,19 +132,35 @@ const accountController = {
     },
     updatePassword: async (req, res) => {
         try {
-            const { accid, accpass, newpass } = req.body
-            const sql = 'UPDATE account set accpass = $3 where accid = $1 and accpass = $2 RETURNING *'
-
-            const { rows } = await postgre.query(sql, [accid, accpass, newpass])
-
+            const { accid, accpass, newpass } = req.body;
+    
+            // Hash the new password before updating
+            const hashedPassword = await bcrypt.hash(newpass, 10);
+    
+            // Check the current password in the database
+            const checkCurrentPasswordSql = 'SELECT * FROM account WHERE accid = $1';
+            const { rows } = await postgre.query(checkCurrentPasswordSql, [accid]);
+    
             if (rows[0]) {
-                return res.status(200).json({ msg: "Password is updated" })
+                const currentPassword = rows[0].accpass;
+    
+                // Verify the current password
+                const passwordMatch = await bcrypt.compare(accpass, currentPassword);
+    
+                if (passwordMatch) {
+                    // If the current password is correct, update the password with the new hashed password
+                    const updatePasswordSql = 'UPDATE account SET accpass = $2 WHERE accid = $1 RETURNING *';
+                    const { rows: updatedRows } = await postgre.query(updatePasswordSql, [accid, hashedPassword]);
+    
+                    if (updatedRows[0]) {
+                        return res.status(200).json({ msg: "Password is updated" });
+                    }
+                }
             }
-
-            return res.status(404).json({ msg: "Failed to update" })
-
+    
+            return res.status(404).json({ msg: "Failed to update" });
         } catch (error) {
-            res.status(404).json({ msg: error.msg })
+            res.status(404).json({ msg: error.msg });
         }
     },
     deleteById: async (req, res) => {

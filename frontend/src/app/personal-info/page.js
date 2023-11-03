@@ -1,87 +1,114 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar/Sidebar";
-import Button from "@mui/material/Button";
-import SidebarComponent from "../components/SidebarComponent";
+// import Button from "@mui/material/Button";
+import SidebarComponentPersonalInfo from "../components/SidebarComponentPersonalInfo";
+import bcrypt from "bcryptjs";
 
 //bootstrap imports
 import "bootstrap/dist/css/bootstrap.css";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import { Form, Button } from "react-bootstrap";
 
 //style imports
 import styles from "../page.module.css";
 import "../styles/PersonalInfoComponent.css";
+import { useSession } from "next-auth/react";
 
-//retrieve data from backend API
-async function getInfoData() {
-  var accid = 1;
-  const getInfoRes = await fetch(
-    `https://revogue-backend.vercel.app/api/account?accid=${accid}`,
-    {
+function PersonalInfoPage() {
+  const {data: session} = useSession();
+  let accID;
+  if (session){
+    accID = session.id;
+    console.log(accID);
+  }
+  else{
+    console.log('No session')
+  }
+
+  const [info, setInfo] = useState(null);
+  const [editingPassword, setEditingPassword] = useState(false);
+  const [newPassword, setNewPassword] = useState("");
+  const [originalPassword, setOriginalPassword] = useState("");
+
+  const accid = 10; //for testing
+  useEffect(() => {
+    fetch(`https://revogue-backend.vercel.app/api/account?accid=${accID}`, {
+      method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          return response.json();
+        } else {
+          throw new Error("Failed to fetch data");
+        }
+      })
+      .then((data) => {
+        setInfo(data.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, []);
+
+  const handleEditPasswordClick = () => {
+    setOriginalPassword(info[0].accpass);
+    setNewPassword(info[0].accpass);
+    setEditingPassword(true);
+  };
+
+  const handleCancelPasswordEdit = () => {
+    setEditingPassword(false);
+    setNewPassword("");
+  };
+
+  const handleSavePasswordClick = () => {
+    if (newPassword === originalPassword) {
+      setEditingPassword(false);
+      return;
     }
-  );
+    console.log("test client");
+    const hashedNewPassword = bcrypt.hashSync(newPassword, 10);
 
-  const getInfoStatus = getInfoRes.status;
-  if (getInfoStatus == 200) {
-    return getInfoRes.json();
-  }
-}
+    fetch(`https://revogue-backend.vercel.app/api/account/update-password`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        accid: accID,
+        accpass: originalPassword, // Current password
+        newpass: hashedNewPassword, // New password
+      }),
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          return response.json();
+        } else {
+          throw new Error("Failed to update password");
+        }
+      })
+      .then((data) => {
+        console.log("Server Response Data:", data);
 
-async function PersonalInfoPage() {
-  const [editableItem, setEditableItem] = useState(false); //doesnt give errors
-  // const [editableItem, setEditableItem] = useState(false);
-  console.log(editableItem);
-  const [stateChange, setStateChange] = useState(false);
-
-  // const handleEditClick = (status) => {
-  //   console.log("test1");
-  //   setEditableItem(true);
-  // };
-  // const handleSaveClick = (status) => {
-  //   console.log("test2");
-  //   setEditableItem(false);
-  // };
-
-  const handleEditClick = () => {
-    alert("change click");
-    console.log("test1");
-    console.log(index);
-    setEditableItem(true);
+        if (data.msg === "Password is updated") {
+          alert("Password updated successfully");
+          setEditingPassword(false);
+          setOriginalPassword(newPassword);
+        } else {
+          throw new Error("Failed to update password");
+        }
+      })
+      .catch((error) => {
+        console.error("Error updating password:", error);
+        alert("Failed to update password");
+      });
   };
-
-  const handleSaveClick = () => {
-    alert("save click");
-    console.log("test2");
-    setEditableItem(false);
-  };
-
-  useEffect(() => {
-    setStateChange(true);
-  }, editableItem);
-
-  //load data from backend
-  const infoData = await getInfoData();
-  const info = infoData.data;
-
-  //password form (this is incomplete but does not give error, keep it first for reference)
-  async function onSubmitPw(event) {
-    event.preventDefault();
-
-    const formData = new FormData(event.target);
-    const response = await fetch(
-      `https://revogue-backend.vercel.app/api/account/update-password/`,
-      {
-        method: "POST",
-        body: formData,
-      }
-    );
-    const data = await response.json();
-  }
 
   return (
     <main className={styles.main}>
@@ -96,145 +123,106 @@ async function PersonalInfoPage() {
         <br></br>
         <Row className="d-flex">
           <Col lg="2">
-            <SidebarComponent />
+            <SidebarComponentPersonalInfo />
           </Col>
 
-          {/* Personal info */}
           <Col lg="10" className="float-left custom">
-            {info.map((accountData, index) => (
-              <div key={accountData.accid}>
-                {/* username */}
-                <Row className="d-flex align-items-center">
-                  <p>
-                    <strong>Username</strong>
-                  </p>
-                  <div className="d-flex align-items-center ml-auto">
-                    <Col>
-                      <p className="mr-3">{accountData.username}</p>
-                    </Col>
-
-                    <Col></Col>
-                    <Col className="d-flex align-items-center"></Col>
-                  </div>
-                </Row>
-                <hr />
-
-                {/* email */}
-                <Row className="d-flex align-items-center mt-3">
-                  <p>
-                    <strong>Email</strong>
-                  </p>
-
-                  <div className="d-flex align-items-center ml-auto">
-                    <Col>
-                      <p className="mr-3">{accountData.accemail}</p>
-                    </Col>
-
-                    <Col></Col>
-                    <Col className="d-flex align-items-center"></Col>
-                  </div>
-                </Row>
-                <hr />
-
-                {/* pw */}
-                <Row className="d-flex align-items-center mt-3">
-                  <form onSubmit={onSubmitPw}>
-                    <p>
-                      <strong>Password</strong>
-                    </p>
-
-                    <div className="d-flex align-items-center ml-auto">
+            {info ? (
+              info.map((data, index) => (
+                <div key={data.accid}>
+                  <Row className="d-flex align-items-center pb-3">
+                    <h4>
+                      <strong>Username</strong>
+                    </h4>
+                    <div className="d-flex align-items-center ml-auto mt-3">
                       <Col>
-                        {/* {editableItem === index ? (
-                          <input
-                            type="password"
-                            name="newpass"
-                            defaultValue={accountData.accpass}
-                          />
-                        ) : (
-                          <p className="mr-3">********</p>
-                        )} */}
+                        <h5 className="mr-3">
+                          <strong>{data.username}</strong>
+                        </h5>
+                      </Col>
+                    </div>
+                  </Row>
+                  <hr />
 
-                        {/* {editableItem === false ? (
-                          <Col>
-                            <p className="mr-3">********</p>
-                          </Col>
-                        ) : (
-                          <Col>
-                            <input
+                  <Row className="d-flex align-items-center mt-3 pb-3">
+                    <h4>
+                      <strong>Email</strong>
+                    </h4>
+
+                    <div className="d-flex align-items-center ml-auto mt-3">
+                      <Col>
+                        <h5 className="mr-3">
+                          <strong>{data.accemail}</strong>
+                        </h5>
+                      </Col>
+                    </div>
+                  </Row>
+                  <hr />
+
+                  <Row className="d-flex align-items-center mt-3 pb-3">
+                    <h4>
+                      <strong>Password</strong>
+                    </h4>
+
+                    <div className="d-flex align-items-center ml-auto mt-3">
+                      <Col className="d-flex align-items-center">
+                        {editingPassword ? (
+                          <Form noValidate>
+                            <Form.Control
                               type="password"
-                              value={accountData.accpass}
-                              onChange={(e) => {}}
+                              placeholder="Your new password here"
+                              required
+                              onChange={(e) => setNewPassword(e.target.value)}
                             />
-                          </Col>
-                        )} */}
-
-                        {editableItem === index ? (
-                          <input
-                            type="password"
-                            name="newpass"
-                            defaultValue={accountData.accpass}
-                          />
+                          </Form>
                         ) : (
-                          <p className="mr-3">********</p>
+                          <h5 className="mr-3">
+                            <strong>********</strong>
+                          </h5>
                         )}
                       </Col>
 
-                      <Col></Col>
-
-                      <Col>
-                        {/* {editableItem === false ? (
-                          <Button
-                            variant="outlined"
-                            onClick={() => handleEditClick(true)}
+                      <Col className="d-flex align-items-center">
+                        {editingPassword ? (
+                          <div
+                          className="btn-group"
+                            role="group"
+                            aria-label="Basic example"
+                          >
+                            <button
+                              type="button"
+                              className="btn btn-success text-light"
+                              onClick={handleSavePasswordClick}
+                              disabled={!newPassword.trim()}
+                            >
+                              Save
+                            </button>
+                            <button
+                              type="button"
+                              className="btn btn-danger text-light"
+                              onClick={handleCancelPasswordEdit}
+                            >
+                              Cancel
+                            </button>
+                          </div>
+                        ) : (
+                          <button
+                            type="button"
+                            className="btn btn-custom text-light"
+                            onClick={handleEditPasswordClick}
                           >
                             Change
-                          </Button>
-                        ) : (
-                          <Button
-                            variant="outlined"
-                            type="submit"
-                            onClick={() => handleSaveClick(false)}
-                          >
-                            Save
-                          </Button>
-                        )} */}
-
-                        {stateChange == false ? (
-                          <input type="button"
-                            // variant="text"
-                            className="ml-auto"
-                            value="Change"
-                            onClick={(e) => {
-                              e.preventDefault;
-
-                              handleEditClick();
-                            }}
-                          />
-                          //   Change
-                          // </input>
-                        ) : (
-                          <input type="button"
-                            // variant="text"
-                            className="ml-auto"
-                            value="Save"
-                            onClick={(e) => {
-                              e.preventDefault
-                              handleSaveClick()}}
-                          />
-                            // Save
-                          // </input>
+                          </button>
                         )}
-                        
                       </Col>
-
-                      <Col className="d-flex align-items-center"></Col>
                     </div>
-                  </form>
-                </Row>
-                <hr />
-              </div>
-            ))}
+                  </Row>
+                  <hr />
+                </div>
+              ))
+            ) : (
+              <p>Loading data...</p>
+            )}
           </Col>
         </Row>
       </Container>

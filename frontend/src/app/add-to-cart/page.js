@@ -122,14 +122,21 @@ function AddToCartPage() {
 
   // Fetch cart data using promises
   useEffect(() => {
-    if (accid) {
-      fetch(
-        `https://revogue-backend.vercel.app/api/cart/get-all-cartitems?accid=${accid}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
+    const accid = 1;
+    fetch(
+      `https://revogue-backend.vercel.app/api/cart/get-all-cartitems?accid=${accid}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    )
+      .then((response) => {
+        if (response.status === 200) {
+          return response.json();
+        } else {
+          throw new Error("Failed to fetch cart data");
         }
       )
         .then((response) => {
@@ -171,7 +178,7 @@ function AddToCartPage() {
   };
 
   async function deleteCartItem(cartItemId) {
-    var accid = 1;
+
     try {
       const response = await fetch(
         `https://revogue-backend.vercel.app/api/cart/delete?cartitemid=${cartItemId}&accid=${accid}`,
