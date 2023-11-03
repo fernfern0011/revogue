@@ -47,8 +47,9 @@ export default function LandingPage() {
     <main className={styles.main}>
       <div>
         <h1 className={styles.orders}>My Orders</h1>
-        <div className={styles.tab}>
-          <button className={styles.tablinks} onClick={(evt) => openTab(evt, 'processing')}>
+        <div className={styles.tab} style={{textAlign:"center"}}>
+          <button className={styles.tablinks} 
+          onClick={(evt) => openTab(evt, 'processing')}>
             Processing
           </button>
           <button className={styles.tablinks} onClick={(evt) => openTab(evt, 'pending')}>
