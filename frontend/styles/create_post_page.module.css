@@ -1,18 +1,8 @@
-.main {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    
-  }
-
 /* Upload Image */
 .uploadImageContainer {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 20vw;
-    width: 30vw;
-    margin-right: 20px;
 }
 .uploadImage {
     text-align: center;
@@ -24,19 +14,28 @@
     color: #A39D9D;
 }
 .imagePreview {
+    padding-top: 10px;
     max-width: 30vw;
-    max-height: 30vw;
     display: block;
     margin: 10px auto 10px;
 }
-.imageURL {
-    color: #A39D9D;
-    font-size: 12px;
-    max-width: 30vw;
-    max-height: 30vw;
+
+.button {
+    border-radius: 20px;
+    border: none;
+    padding: 7px 40px;
+    margin-top: 20px;
+    background-color: #18b5b5;
+    color: white;
+    font-weight: bold;
 }
 
-  .label {
+.submit {
+    border-radius: 20px;
+    border: none;
+    padding: 7px 95px;
+    margin-top: 20px;
+    background-color: #18b5b5;
+    color: white;
     font-weight: bold;
-    font-size: 14px;
-  }
+}
