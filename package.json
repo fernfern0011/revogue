@@ -4,6 +4,7 @@
     "@stripe/stripe-js": "^2.1.10",
     "axios": "^1.6.0",
     "html-react-parser": "^5.0.5",
+    "react-query": "^3.39.3",
     "sass": "^1.69.5",
     "stripe": "^14.2.0"
   }

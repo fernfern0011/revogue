@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import "bootstrap/dist/css/bootstrap.css";
@@ -12,61 +12,60 @@ import styles from "../page.module.css";
 import "../styles/TipTap.css";
 import "../styles/CreateBlogComponent.css";
 import axios from "axios";
-
+import { useRouter } from "next/navigation";
 
 const CreateBlogComponent = () => {
   const [validated, setValidated] = useState(false);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
-  const {data: session} = useSession();
+  const { data: session } = useSession();
   let accid;
-  if (session){
+  if (session) {
     accid = session.id;
-    console.log(accid);
   }
 
   const handleContentChange = (newContent) => {
     setContent(newContent)
   }
 
-  const handleSubmit = async (event) => {
+  const router = useRouter();
+
+  const createBlogPost = async () => {
+    try {
+      const response = await axios.post('http://localhost:5000/api/blog/create-blog', {
+        accid: accid,
+        title: title,
+        content: content,
+      });
+
+      if (response.status === 201) {
+        console.log("Blog post created");
+        console.log("Blog ID:", response.data.blogId);
+        window.alert("Blog Created Successfully")
+        router.push('/')
+      } else {
+        console.error("Failed to create a blog post");
+      }
+    } catch (error) {
+      console.error("An error occurred:", error);
+    }
+  };
+
+  const handleSubmit = (event) => {
     event.preventDefault();
     const form = event.currentTarget;
 
     const exportedTitle = title;
     const exportedContent = content;
-    console.log(title)
-    console.log(content)
+    console.log(title);
+    console.log(content);
 
     if (form.checkValidity() === false || !content) {
       event.stopPropagation();
-    } else {
-      // Form is valid, and there is content in the Tiptap editor.
-      // You can proceed with submitting the form.
-      try {
-        // Make an HTTP POST request to create the blog post
-        const response = await axios.post('http://localhost:5000/api/blog/create-blog', {
-          accid: accid,
-          title: title,
-          content: content,
-        });
-
-        // Check the response and handle accordingly
-        if (response.status === 201) {
-          console.log("Blog post created");
-          console.log("Blog ID:", response.data.blogId);
-        } else {
-          console.error("Failed to create a blog post");
-        }
-      } catch (error) {
-        console.error("An error occurred:", error);
-      }
-    }
-
+    } 
     setValidated(true);
   };
-
 
   return (
     <main className={styles.main}>
@@ -81,28 +80,19 @@ const CreateBlogComponent = () => {
           >
             <Row className="mb-4">
               <Form.Group as={Col} md="12" controlId="validationCustom01">
-                <Form.Label className="custom-label">
-                  Title <span>*</span>
-                </Form.Label>
-                <Form.Control
+              <Form.Control
                   type="text"
                   placeholder="Title of your blog"
                   required
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                 />
-                <Form.Control.Feedback type="invalid">
-                  Title is required.
-                </Form.Control.Feedback>
               </Form.Group>
             </Row>
 
             <Row className="mb-4">
               <Form.Group as={Col} md="12" controlId="validationCustom02">
-                <Form.Label className="custom-label">
-                  Body <span>*</span>
-                </Form.Label>
-                <br />
+                {/* ... Body input ... */}
                 <TipTap content={content} onContentChange={handleContentChange} />
                 <Form.Control.Feedback type="invalid">
                   {content.trim() === "" ? "Content is required." : ""}
@@ -110,7 +100,7 @@ const CreateBlogComponent = () => {
               </Form.Group>
             </Row>
 
-            <Button type="submit" className="custom-button">
+            <Button type="submit" className="custom-button" onClick={createBlogPost}>
               Submit
             </Button>
           </Form>
