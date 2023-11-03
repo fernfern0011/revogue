@@ -1,22 +1,35 @@
 import React from 'react';
 
-const WishListItem = () => {
+const WishListItem = ({ product, onDelete }) => {
   return (
     <div
       style={{
-        width: '90%', // Set the card width to 80% of the page
+        width: '90%',
         padding: '10px',
-        margin: '10px auto', // Center the card horizontally
+        margin: '10px auto',
         backgroundColor: 'white',
         borderRadius: '8px',
         display: 'flex',
         alignItems: 'center',
       }}
     >
-      <div style={{width:'3%', alignItems:'center', justifyContent:'center',cursor:'pointer', color:'#807D7E', marginRight: "20px"}}>✖</div>
+      <div
+        style={{
+          width: '3%',
+          alignItems: 'center',
+          justifyContent: 'center',
+          cursor: 'pointer',
+          color: '#807D7E',
+          marginRight: '20px',
+        }}
+        onClick={onDelete}
+      >
+        ✖
+      </div>
       <img
         style={{ width: 110, height: 120, borderRadius: 4 }}
-        src="images/image7.png"
+        src={product.images}
+        alt={product.productname}
       />
       <div
         style={{
@@ -26,22 +39,61 @@ const WishListItem = () => {
           justifyContent: 'center',
         }}
       >
-        <div style={{color: '#3C4242', fontSize: 15, fontFamily: 'Lato', fontWeight: '700', letterSpacing: 0.36, wordWrap: 'break-word'}}>Blue Flower Print Crop Top </div>
-        <div style={{display: 'flex', flexDirection:'row', marginTop:'10px'}}>
+        <div
+          style={{
+            color: '#3C4242',
+            fontSize: 15,
+            fontFamily: 'Lato',
+            fontWeight: '700',
+            letterSpacing: 0.36,
+            wordWrap: 'break-word',
+          }}
+        >
+          {product.productname}
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'row', marginTop: '10px' }}>
           <div>
-            <span style={{ color: '#3C4242', fontSize: 14, fontFamily: 'Lato', fontWeight: '700', letterSpacing: 0.32, wordWrap: 'break-word'}}>
+            <span
+              style={{
+                color: '#3C4242',
+                fontSize: 14,
+                fontFamily: 'Lato',
+                fontWeight: '700',
+                letterSpacing: 0.32,
+                wordWrap: 'break-word',
+              }}
+            >
               Quantity:
             </span>
-            <span style={{ color: '#3C4242', fontSize: 14, fontFamily: 'Lato', fontWeight: '500', letterSpacing: 0.32, wordWrap: 'break-word', marginLeft:'2px' }}>
-              1
+            <span
+              style={{
+                color: '#3C4242',
+                fontSize: 14,
+                fontFamily: 'Lato',
+                fontWeight: '500',
+                letterSpacing: 0.32,
+                wordWrap: 'break-word',
+                marginLeft: '2px',
+              }}
+            >
+              {product.quantity}
             </span>
           </div>
-          <div style={{ color: '#807D7E', fontSize: 14, fontFamily: 'Lato', fontWeight: '500', letterSpacing: 0.32, wordWrap: 'break-word', marginLeft:'20px', marginTop: "1px"}}>
-            $29.00        
+          <div
+            style={{
+              color: '#807D7E',
+              fontSize: 14,
+              fontFamily: 'Lato',
+              fontWeight: '500',
+              letterSpacing: 0.32,
+              wordWrap: 'break-word',
+              marginLeft: '20px',
+              marginTop: '1px',
+            }}
+          >
+            ${product.price}
           </div>
         </div>
-        
-        
       </div>
       <div
         style={{
@@ -50,7 +102,6 @@ const WishListItem = () => {
           marginLeft: 'auto',
         }}
       >
-        
         <div
           style={{
             background: '#17B5B5',
@@ -60,7 +111,16 @@ const WishListItem = () => {
             padding: '8px 15px',
           }}
         >
-          <div style={{ textAlign: 'center', color: 'white', fontSize: 13, fontFamily: 'Lato', wordWrap: 'break-word'}}>
+          <div
+            style={{
+              textAlign: 'center',
+              color: 'white',
+              fontSize: 13,
+              fontFamily: 'Lato',
+              wordWrap: 'break-word',
+            }}
+            onClick={onDelete}
+          >
             Add to cart
           </div>
         </div>
