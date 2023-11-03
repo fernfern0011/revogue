@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row } from 'react-bootstrap';
-import SalesCancelled from './SalesCancelled';
+import SalesCompleted from './SalesCompleted';
 import '../styles/Order.css'
 import { useSession } from 'next-auth/react';
 
@@ -18,7 +18,7 @@ export default function SalesGridCancelled() {
   }
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/get-cancelled-orders?sellerid=${accID}`)
+    fetch(`http://localhost:5000/api/mysales/get-cancelled-orders?sellerid=${accID}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error('Error fetching product information');
@@ -37,15 +37,15 @@ export default function SalesGridCancelled() {
       });
   }, []);
 
-  const items = saleItems.map((purchaseItem, index) => (
-    <SalesCancelled key={index} purchaseItem={purchaseItem} />
+  const items = saleItems.map((saleItem, index) => (
+    <SalesCompleted key={index} saleItem={saleItem} />
   ));
 
   return (
     <Container className="test">
       {error ? (
         <div className='error-box'>
-          <h1>No Cancelled Sales</h1>
+          <h1>No Completed Sales</h1>
         </div>
       ) : (
         <Row>{items}</Row>

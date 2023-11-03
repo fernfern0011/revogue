@@ -2,6 +2,11 @@
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
+import { loadStripe } from '@stripe/stripe-js';
+import { Suspense } from "react";
+
+const stripe = require('stripe')('sk_test_51O2p9QFD3c4VDISeYPMwEIN9FUSwgdfeqZpcGhhQ6l7af7xrQAXIJ6mb3bbcRNfJFA2zuOojGGtLukbwuEdmgyqt00MRd5fHHK');
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
 
 //bootstrap imports
 import "bootstrap/dist/css/bootstrap.css";
@@ -15,37 +20,134 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import styles from "../page.module.css";
 import "../styles/AddToCart.css";
 import { Padding } from "@mui/icons-material";
+import { useSession } from 'next-auth/react';
+
 
 function AddToCartPage() {
   const [cartlist, setCart] = useState(null);
+  const [isLoading, setIsLoading] = useState(true); // Add isLoading state
+  const [productData, setProductData] = useState(null);
+  const [newsession, setnewSession] = useState(null);
+
+
+  const {data: session} = useSession();
+  let accid;
+  if (session){
+    console.log(session)
+    accid = session.id;
+    console.log(accid);
+  }
+
+  const createCheckoutSession = async () => {
+    try {
+      const stripes = await stripePromise;
+      console.log(stripes)
+
+
+      if(!stripe){
+        console.error('Stripe is not available.')
+        return;
+      }
+
+      const response = await fetch(`http://localhost:5000/api/cart/get-all-cartitems?accid=${accid}`);
+      if (!response.ok) {
+        throw new Error('Error fetching product information');
+      }
+      const responseData = await response.json();
+      const cartItems = responseData.data;
+      console.log(cartItems)
+
+      if (!Array.isArray(cartItems) || cartItems.length === 0) {
+        throw new Error('No cart items found.');
+      }
+
+      const productData = [];
+
+      for (const cartItem of cartItems) {
+        const productName = cartItem.productname;
+        const productPrice = parseFloat(cartItem.price);
+
+        const product = await stripe.products.create({
+          name: productName,
+        });
+
+        const priceInCents = Math.round(productPrice * 100);
+
+        const price = await stripe.prices.create({
+          product: product.id,
+          unit_amount: priceInCents,
+          currency: 'sgd',
+        });
+
+        productData.push({ product, price });
+      }
+
+      const lineItems = productData.map((item) => ({
+        price: item.price.id,
+        quantity: 1,
+      }));
+
+      const session = await stripe.checkout.sessions.create({
+        line_items: lineItems,
+        mode: 'payment',
+        success_url: `${window.location.origin}/?success=true`,
+        cancel_url: `${window.location.origin}/?canceled=true`,
+        automatic_tax: { enabled: true },
+      });
+
+      setProductData(productData);
+      setnewSession(newsession);
+
+
+      // Redirect to the Stripe Checkout page
+      window.location.href = session.url;
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    const query = new URLSearchParams(window.location.search);
+
+    if (query.get('success')) {
+      console.log('Order placed! You will receive an email confirmation.');
+    }
+
+    if (query.get('canceled')) {
+      console.log('Order canceled -- continue to shop around and checkout when you’re ready.');
+    }
+  }, []);
 
   // Fetch cart data using promises
   useEffect(() => {
-    const accid = 1;
-    fetch(
-      `https://revogue-backend.vercel.app/api/cart/get-all-cartitems?accid=${accid}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    )
-      .then((response) => {
-        if (response.status === 200) {
-          return response.json();
-        } else {
-          throw new Error("Failed to fetch cart data");
+    if (accid) {
+      fetch(
+        `https://revogue-backend.vercel.app/api/cart/get-all-cartitems?accid=${accid}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
-      })
-      .then((data) => {
-        console.log(data.data);
-        setCart(data.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching cart data:", error);
-      });
-  }, []);
+      )
+        .then((response) => {
+          if (response.status === 200) {
+            return response.json();
+          } else {
+            throw new Error("Failed to fetch cart data");
+          }
+        })
+        .then((data) => {
+          console.log(data.data);
+          setCart(data.data);
+          setIsLoading(false); // Set isLoading to false when data is loaded
+        })
+        .catch((error) => {
+          console.error("Error fetching cart data:", error);
+          setIsLoading(false); // Set isLoading to false on error
+        });
+    }
+  }, [accid]);
 
   console.log(cartlist);
   console.log(typeof(cartlist));
@@ -127,70 +229,61 @@ function AddToCartPage() {
             </thead>
 
             <tbody>
-              {cartlist ? (
-                cartlist.map((data, index) => (
-                  <tr key={data.cartitemid}>
-                    <td></td>
-                    <td>
-                      <Row>
-                        <Col xs="auto">
-                          <img
-                            src={data.images}
-                            alt=""
-                            width="150"
-                            height="150"
-                            className="image"
-                          />
-                        </Col>
-                        <Col>
-                          <p>{data.productname}</p>
-                          <p className="small">Size: {data.size}</p>
-                        </Col>
-                      </Row>
-                    </td>
-                    <td className="custom-td">${data.price}</td>
-                    <td className="custom-td">1</td>
-                    <td className="custom-td">${data.price}</td>
-                    <td>
-                      <Button onClick={(e) => deleteCartItem(data.cartitemid)}>
-                        Delete
-                      </Button>
-                    </td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan="6">Loading...</td>
-                </tr>
-              )}
+              {/* Use Suspense to wait for session and isLoading */}
+              <Suspense fallback={<tr><td colSpan="6">Loading...</td></tr>}>
+                {session && !isLoading ? (
+                  cartlist.map((data, index) => (
+                    <tr key={data.cartitemid}>
+                      <td></td>
+                      <td>
+                        <Row>
+                          <Col xs="auto">
+                            <img
+                              src={data.images}
+                              alt=""
+                              width="150"
+                              height="150"
+                              className="image"
+                            />
+                          </Col>
+                          <Col>
+                            <p>{data.productname}</p>
+                            <p className="small">Size: {data.size}</p>
+                          </Col>
+                        </Row>
+                      </td>
+                      <td className="custom-td">${data.price}</td>
+                      <td className="custom-td">1</td>
+                      <td className="custom-td">${data.price}</td>
+                      <td>
+                        <Button onClick={(e) => deleteCartItem(data.cartitemid)}>
+                          Delete
+                        </Button>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr><td colSpan="6">Loading...</td></tr>
+                )}
+              </Suspense>
             </tbody>
           </Table>
         </div>
 
         <div className="container d-flex justify-content-center align-items-center">
           <div className="jumbotron" style={{ padding: "20px" }}>
-            <Row>
-              <Col xs="8">Sub Total</Col>
-              <Col xs="4">${calculateSubTotal()}0.00</Col>
-            </Row>
-
-            <Row>
-              <Col xs="8">Shipping</Col>
-              <Col xs="4">${shippingFee}.00</Col>
-            </Row>
-
             <br></br>
 
             <Row>
               <Col xs="8">
-                <b>Grand Total</b>
+                <b>Total</b>
               </Col>
               <Col xs="4">
                 <b>${calculateGrandTotal()}</b>
               </Col>
             </Row>
 
-            <Button variant="contained" className="custom-button">
+            <Button variant="contained" className="custom-button" onClick={createCheckoutSession}>
               Proceed To Checkout
             </Button>
           </div>

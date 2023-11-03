@@ -19,7 +19,7 @@ export default function SalesGridPending() {
 
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/mysales/get-inprogress-orders?sellerid=9`)
+    fetch(`http://localhost:5000/api/mysales/get-inprogress-orders?sellerid=${accID}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error('Error fetching product information');

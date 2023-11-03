@@ -92,7 +92,7 @@ export default function LandingPage() {
 
 {/* Completed Tab */}
       <div id="cancelled" className={`${"tabcontent"}`}>
-      <Suspense fallback={<p>Loading...</p>}>
+        <Suspense fallback={<p>Loading...</p>}>
             {session && <SalesGridCancelled />}
           </Suspense>
       </div>
