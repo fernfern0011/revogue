@@ -54,7 +54,7 @@ export default function RegisterForm() {
         };
 
         if (err === 0) {
-            const res = await fetch(`${process.env.backendUrl}/api/account/create`, {
+            const res = await fetch(`https://revogue-backend.vercel.app/api/account/create`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

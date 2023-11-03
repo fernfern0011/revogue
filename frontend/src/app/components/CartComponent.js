@@ -20,7 +20,7 @@ export default function CartComponent({ data, accid }) {
     async function deleteCartItem(cartItemId) {
         try {
             const response = await fetch(
-                `${process.env.backendUrl}/api/cart/delete?cartitemid=${data.cartItemId}&accid=${accid}`,
+                `https://revogue-backend.vercel.app/api/cart/delete?cartitemid=${data.cartItemId}&accid=${accid}`,
                 {
                     method: "DELETE",
                     headers: {

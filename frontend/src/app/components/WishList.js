@@ -14,7 +14,7 @@ const Wishlist = () => {
       const accID = session.id;
 
       const fetchData = () => {
-        fetch(`${process.env.backendUrl}/api/wishlist/get-all-wishlists?accid=${accID}`)
+        fetch(`https://revogue-backend.vercel.app/api/wishlist/get-all-wishlists?accid=${accID}`)
           .then((response) => {
             if (!response.ok) {
               throw new Error('Error fetching wishlist data');

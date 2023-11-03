@@ -23,7 +23,7 @@ const OrderProcessing = ({ purchaseItem }) => {
 
   const handleCancel = async () => {
     try {
-      const response = await fetch(`${process.env.backendUrl}/api/mypurchases/cancel`, {
+      const response = await fetch(`https://revogue-backend.vercel.app/api/mypurchases/cancel`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

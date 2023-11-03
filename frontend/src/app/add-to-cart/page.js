@@ -53,7 +53,7 @@ function AddToCartPage() {
         return;
       }
 
-      const response = await fetch(`${process.env.backendUrl}/api/cart/get-all-cartitems?accid=${accid}`);
+      const response = await fetch(`https://revogue-backend.vercel.app/api/cart/get-all-cartitems?accid=${accid}`);
       if (!response.ok) {
         throw new Error('Error fetching product information');
       }
@@ -125,7 +125,7 @@ function AddToCartPage() {
   useEffect(() => {
     if (accid) {
       fetch(
-        `${process.env.backendUrl}/api/cart/get-all-cartitems?accid=${accid}`,
+        `https://revogue-backend.vercel.app/api/cart/get-all-cartitems?accid=${accid}`,
         {
           method: "GET",
           headers: {

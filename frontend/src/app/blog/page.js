@@ -7,7 +7,7 @@ function BlogCards() {
 
   useEffect(() => {
     // Fetch the data from the API
-    fetch(`${process.env.backendUrl}/api/blog/get-all-blogs`)
+    fetch(`https://revogue-backend.vercel.app/api/blog/get-all-blogs`)
       .then(response => response.json())
       .then(data => setBlogs(data))
       .catch(error => console.error("Error fetching data:", error));

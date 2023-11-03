@@ -31,7 +31,7 @@ function AddressPage() {
   const [defaultAddress, setDefaultAddress] = useState(null);
   useEffect(() => {
     fetch(
-      `${process.env.backendUrl}/api/address/get-default-address?accid=${accID}`,
+      `https://revogue-backend.vercel.app/api/address/get-default-address?accid=${accID}`,
       {
         method: "GET",
         headers: {
@@ -58,7 +58,7 @@ function AddressPage() {
   const [additional, setAdditional] = useState(null);
   useEffect(() => {
     fetch(
-      `${process.env.backendUrl}/api/address/get-all-addresses?accid=${accID}`,
+      `https://revogue-backend.vercel.app/api/address/get-all-addresses?accid=${accID}`,
       {
         method: "GET",
         headers: {
@@ -87,7 +87,7 @@ function AddressPage() {
     // var accid = 1; // for testing
     try {
       const response = await fetch(
-        `${process.env.backendUrl}/api/address/delete`,
+        `https://revogue-backend.vercel.app/api/address/delete`,
         {
           method: "DELETE",
           headers: {

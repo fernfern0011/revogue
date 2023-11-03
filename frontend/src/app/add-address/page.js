@@ -70,7 +70,7 @@ function AddAddressPage() {
 
 
     try {
-      const response = await fetch(`${process.env.backendUrl}/api/address/add-new-address`, {
+      const response = await fetch(`https://revogue-backend.vercel.app/api/address/add-new-address`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

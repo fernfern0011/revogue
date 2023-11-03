@@ -9,7 +9,7 @@ function ProductPage(context) {
     const [itemData, setItemData] = useState([]);
 
     useEffect(() => {
-        fetch(`${process.env.backendUrl}/api/product?productid=${id}`, {
+        fetch(`https://revogue-backend.vercel.app/api/product?productid=${id}`, {
             headers: { "Content-Type": "application/json" }
         }).then((response) => {
             if (!response.ok) {
@@ -30,7 +30,6 @@ function ProductPage(context) {
     const items = itemData.map((item, index) => (
         <ItemPage key={index} itemDetails={item} />
     ));
-
 
     return (
         <Container className="test">

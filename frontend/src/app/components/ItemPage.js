@@ -79,7 +79,7 @@ const ItemPage = ({ itemDetails }) => {
       return null;
     }
 
-    const addToCartRes = await fetch(`${process.env.backendUrl}/api/cart/create`, {
+    const addToCartRes = await fetch(`https://revogue-backend.vercel.app/api/cart/create`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -111,7 +111,7 @@ const ItemPage = ({ itemDetails }) => {
       return null;
     }
 
-    const addToWishlistRes = await fetch(`${process.env.backendUrl}/api/wishlist/create`, {
+    const addToWishlistRes = await fetch(`https://revogue-backend.vercel.app/api/wishlist/create`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

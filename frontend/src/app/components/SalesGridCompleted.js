@@ -21,7 +21,7 @@ export default function SalesGridCompleted() {
   }
 
   useEffect(() => {
-    fetch(`${process.env.backendUrl}/api/mysales/get-completed-orders?sellerid=${accID}`)
+    fetch(`https://revogue-backend.vercel.app/api/mysales/get-completed-orders?sellerid=${accID}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error('Error fetching product information');

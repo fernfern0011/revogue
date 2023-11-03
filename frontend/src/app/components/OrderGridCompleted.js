@@ -20,7 +20,7 @@ export default function OrderGridCompleted() {
   }
 
   useEffect(() => {
-    fetch(`${process.env.backendUrl}/api/mypurchases/get-completed-orders?buyerid=${accID}`)
+    fetch(`https://revogue-backend.vercel.app/api/mypurchases/get-completed-orders?buyerid=${accID}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error('Error fetching product information');

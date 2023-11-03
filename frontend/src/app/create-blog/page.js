@@ -36,7 +36,7 @@ const CreateBlogComponent = () => {
 
   const createBlogPost = async () => {
     try {
-      const response = await axios.post(`${process.env.backendUrl}/api/blog/create-blog`, {
+      const response = await axios.post(`https://revogue-backend.vercel.app/api/blog/create-blog`, {
         accid: accid,
         title: title,
         content: content,

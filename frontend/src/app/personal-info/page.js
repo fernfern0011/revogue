@@ -35,7 +35,7 @@ function PersonalInfoPage() {
   const [originalPassword, setOriginalPassword] = useState("");
 
   useEffect(() => {
-    fetch(`${process.env.backendUrl}/api/account?accid=${accID}`, {
+    fetch(`https://revogue-backend.vercel.app/api/account?accid=${accID}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -75,7 +75,7 @@ function PersonalInfoPage() {
 
     const hashedNewPassword = bcrypt.hashSync(newPassword, 10);
 
-    fetch(`${process.env.backendUrl}/api/account/update-password`, {
+    fetch(`https://revogue-backend.vercel.app/api/account/update-password`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

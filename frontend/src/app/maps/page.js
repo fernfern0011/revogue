@@ -8,7 +8,7 @@ function Home() {
 
   useEffect(() => { 
     // Fetch data from your backend endpoint
-    fetch(`${process.env.backendUrl}/api/address/get-all-businesses`)
+    fetch(`https://revogue-backend.vercel.app/api/address/get-all-businesses`)
       .then((response) => response.json())
       .then((data) => setBusinesses(data))
       .catch((error) => console.error('Error fetching data:', error));

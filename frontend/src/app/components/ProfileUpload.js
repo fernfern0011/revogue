@@ -8,7 +8,7 @@ export function ProfileUpload() {
     const [imagePublicId, setImagePublicId] = useState("");
 
     const confirmProfileImage = async () => {
-        const res = await fetch(`${process.env.backendUrl}/api/user-profile/upload-profile-image`, {
+        const res = await fetch(`https://revogue-backend.vercel.app/api/user-profile/upload-profile-image`, {
             method: 'PUT',
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({

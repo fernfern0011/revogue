@@ -101,7 +101,7 @@ function CreatePost() {
         if (!errorMessage) {
             const itemData = formData;
 
-            const createItemRes = await fetch(`${process.env.backendUrl}/api/product/create`, {
+            const createItemRes = await fetch(`https://revogue-backend.vercel.app/api/product/create`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({

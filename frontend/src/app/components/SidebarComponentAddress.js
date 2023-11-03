@@ -1,17 +1,12 @@
 "use client";
-import Image from "next/image";
-import React, { useState } from "react";
+import React from "react";
 
 //bootstrap imports
 import "bootstrap/dist/css/bootstrap.css";
-import { Button, Container, Navbar, Nav, NavDropdown } from "react-bootstrap";
+import { Nav } from "react-bootstrap";
 
 //style imports
-import styles from "../page.module.css";
 import "../styles/SidebarComponent.css";
-
-//image imports
-import accountPic from "../../../public/images/icon/account.png";
 
 const SidebarComponentAddress = () => {
   return (
@@ -51,23 +46,6 @@ const SidebarComponentAddress = () => {
               className="imgPad"
             />
             Address
-          </Nav.Link>
-
-          <Nav.Link
-            // as="a"
-            to="./PersonalInfoComponent"
-            className="list-group-item list-group-item-action list-group-item-light py-3 border-0 bold-text white-background"
-            activeclassname="active"
-            style={{ fontSize: "14px" }} // Add this line
-          >
-            <img
-              src="images/icon/icons8-wallet-24.png"
-              alt=""
-              width="20"
-              height="20"
-              className="imgPad"
-            />
-            Wallet
           </Nav.Link>
 
           <Nav.Link

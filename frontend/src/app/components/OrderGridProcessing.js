@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Container, Row } from 'react-bootstrap';
 import Order from './Order'
 import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
 
 export default function OrderGridActive() {
   const [purchaseItems, setPurchaseItems] = useState([]);
@@ -14,13 +13,13 @@ export default function OrderGridActive() {
 
   if (session) {
     accID = session.id;
-  } {
+  } else {
     router.push('/error/403');
     return null;
   }
 
   useEffect(() => {
-    fetch(`${process.env.backendUrl}/api/mypurchases/get-tobe-confirmed-orders?buyerid=${accID}`)
+    fetch(`https://revogue-backend.vercel.app/api/mypurchases/get-tobe-confirmed-orders?buyerid=${accID}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error('Error fetching product information');

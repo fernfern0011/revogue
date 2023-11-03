@@ -25,7 +25,7 @@ const Purchase = ({ purchaseItem }) => {
 
     const handleComplete = async () => {
       try {
-        const response = await fetch(`${process.env.backendUrl}/api/mypurchases/receive`, {
+        const response = await fetch(`https://revogue-backend.vercel.app/api/mypurchases/receive`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',

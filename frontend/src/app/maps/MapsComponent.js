@@ -23,7 +23,7 @@ export default function MapsComponent() {
   useEffect(() => {
     const fetchBusinesses = async () => {
       try {
-        const response = await axios.get(`${process.env.backendUrl}/api/address/get-all-businesses`);
+        const response = await axios.get(`https://revogue-backend.vercel.app/api/address/get-all-businesses`);
         const responseData = response.data;
         const businessData = responseData.data;
 

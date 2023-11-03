@@ -1,5 +1,4 @@
 import React from "react";
-// import Sidebar from "../components/Sidebar/Sidebar";
 import './page.css'
 import ShopListing from '../components/ShopListing';
 import { Suspense } from 'react';
@@ -10,7 +9,7 @@ import SelectSmall from '../components/SelectSmall';
 async function getAllProducts() {
 
   // get product list
-  const getProductRes = await fetch(`${process.env.backendUrl}/api/product/get-all-products`, {
+  const getProductRes = await fetch(`https://revogue-backend.vercel.app/api/product/get-all-products`, {
     headers: { "Content-Type": "application/json" }
   })
 
@@ -40,7 +39,6 @@ async function ShopPage() {
 
   return (
     <div>
-
       <div className="d-flex col-lg-12 mt-2 mb-1 select">
         <SelectSmall />
       </div>

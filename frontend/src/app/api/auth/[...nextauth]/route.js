@@ -21,7 +21,7 @@ export const authOption = {
             },
             async authorize(credentials) {
 
-                const res = await fetch(`${process.env.backendUrl}/api/account/login`, {
+                const res = await fetch(`https://revogue-backend.vercel.app/api/account/login`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ accemail: credentials.email, accpass: credentials.password })
@@ -55,7 +55,7 @@ export const authOption = {
             session.accessToken = token.accessToken;
 
             if (session?.accessToken) {
-                const res = await fetch(`${process.env.backendUrl}/api/user-profile?accid=${token.id}`, {
+                const res = await fetch(`https://revogue-backend.vercel.app/api/user-profile?accid=${token.id}`, {
                     headers: { "Content-Type": "application/json" }
                 });
 
