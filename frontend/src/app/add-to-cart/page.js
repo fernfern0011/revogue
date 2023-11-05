@@ -35,7 +35,6 @@ function AddToCartPage() {
       accid = session.id;
     } else {
       router.push('/error/403');
-      return null;
     }
   }, [])
 

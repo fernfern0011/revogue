@@ -16,7 +16,6 @@ import SidebarComponent from "../components/SidebarComponent";
 
 function AddressPage() {
   const { data: session } = useSession();
-  console.log(session);
   const router = useRouter();
   let accID;
 

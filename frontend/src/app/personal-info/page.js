@@ -18,7 +18,6 @@ import { useRouter } from "next/navigation";
 
 function PersonalInfoPage() {
   const { data: session } = useSession();
-  console.log(session);
 
   const router = useRouter();
   let accID;
