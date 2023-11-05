@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import { loadStripe } from '@stripe/stripe-js';
@@ -14,18 +13,15 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Table from "react-bootstrap/Table";
-import DeleteIcon from '@mui/icons-material/Delete';
 
 //style imports
-import styles from "../page.module.css";
 import "../styles/AddToCart.css";
-import { Padding } from "@mui/icons-material";
 import { useSession } from 'next-auth/react';
 import CartComponent from "../components/CartComponent";
 import { useRouter } from "next/navigation";
 
 function AddToCartPage() {
-  const [cartlist, setCart] = useState(null);
+  const [cartlist, setCart] = useState([]);
   const [isLoading, setIsLoading] = useState(true); // Add isLoading state
   const [productData, setProductData] = useState(null);
   const [newsession, setnewSession] = useState(null);
@@ -100,7 +96,6 @@ function AddToCartPage() {
 
       setProductData(productData);
       setnewSession(newsession);
-
 
       // Redirect to the Stripe Checkout page
       window.location.href = session.url;

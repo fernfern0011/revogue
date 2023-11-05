@@ -140,7 +140,7 @@ const ItemPage = ({ itemDetails }) => {
       <div>
         <p className="breadcrumb">
           Home &nbsp; {">"} &nbsp; Shop &nbsp; {">"} &nbsp;{" "}
-          <b>Item 1</b>
+          <b>{productname}</b>
         </p>
       </div>
 
