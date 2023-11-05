@@ -10,7 +10,8 @@ async function getAllProducts() {
 
   // get product list
   const getProductRes = await fetch(`https://revogue-backend.vercel.app/api/product/get-all-products`, {
-    headers: { "Content-Type": "application/json" }
+    headers: { "Content-Type": "application/json" },
+    next: { revalidate: 1 }
   })
 
   const getProductStatus = getProductRes.status;
