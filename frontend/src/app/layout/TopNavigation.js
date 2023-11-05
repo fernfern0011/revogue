@@ -111,6 +111,9 @@ const TopNavigation = () => {
                                         <Link className="dropdown-item" href="/create-tweet" style={{ margin: '-10px 0', fontSize: "15px" }}>Write a tweet</Link>
                                     </li>
                                     <li>
+                                        <Link className="dropdown-item" href="/create-post-page" style={{ margin: '-10px 0', fontSize: "15px" }}>Create a listing</Link>
+                                    </li>
+                                    <li>
                                         <Link className="dropdown-item" href="/maps" style={{ margin: '-10px 0', fontSize: "15px" }}>Maps</Link>
                                     </li>
                                     <li>

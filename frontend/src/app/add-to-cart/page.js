@@ -34,16 +34,14 @@ function AddToCartPage() {
   const router = useRouter();
   let accid;
 
-  console.log(session);
-
-  if (!session) {
-    router.push('/error/403');
-    return null;
-  } else {
-    accid = session.id;
-  }
-
-
+  useEffect(() => {
+    if (session) {
+      accid = session.id;
+    } else {
+      router.push('/error/403');
+      return null;
+    }
+  }, [])
 
   const createCheckoutSession = async () => {
     try {

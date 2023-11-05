@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import SidebarComponent from "../components/SidebarComponent";
 import { useSession } from "next-auth/react";
@@ -22,12 +22,14 @@ function AddAddressPage() {
   let accID;
   const router = useRouter();
 
-  if (session) {
-    accID = session.id;
-  } else {
-    router.push('/error/403');
-    return null;
-  }
+  useEffect(() => {
+    if (session) {
+      accID = session.id;
+    } else {
+      router.push('/error/403');
+      return null;
+    }
+  }, [])
 
   const [validated, setValidated] = useState(false);
   const [formData, setFormData] = useState({

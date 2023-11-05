@@ -22,13 +22,15 @@ const CreateBlogComponent = () => {
   const { data: session } = useSession();
   let accid
   const router = useRouter();
-
-  if (session) {
-    accid = session.id;
-  } else {
-    router.push('/error/403');
-    return null;
-  }
+  
+  useEffect(() => {
+    if (session) {
+      accid = session.id;
+    } else {
+      router.push('/error/403');
+      return null;
+    }
+  }, [])
 
   const handleContentChange = (newContent) => {
     setContent(newContent)

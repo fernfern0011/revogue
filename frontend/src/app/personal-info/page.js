@@ -23,12 +23,14 @@ function PersonalInfoPage() {
   const router = useRouter();
   let accID;
 
-  if (!session) {
-    router.push('/error/403');
-    return null;
-  } else {
-    accID = session.id;
-  }
+  useEffect(() => {
+    if (session) {
+      accID = session.id;
+    } else {
+      router.push('/error/403');
+      return null;
+    }
+  }, [])
 
   const [info, setInfo] = useState(null);
   const [editingPassword, setEditingPassword] = useState(false);
