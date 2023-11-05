@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import "bootstrap/dist/css/bootstrap.css";
 import Container from "react-bootstrap/Container";
@@ -22,7 +22,7 @@ const CreateBlogComponent = () => {
   const { data: session } = useSession();
   let accid
   const router = useRouter();
-  
+
   useEffect(() => {
     if (session) {
       accid = session.id;
