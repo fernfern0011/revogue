@@ -20,7 +20,7 @@ const CreateBlogComponent = () => {
   const [content, setContent] = useState("");
 
   const { data: session } = useSession();
-  let accid
+  let accid = session ? session.id : '';
   const router = useRouter();
 
   useEffect(() => {

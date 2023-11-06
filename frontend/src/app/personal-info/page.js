@@ -20,7 +20,7 @@ function PersonalInfoPage() {
   const { data: session } = useSession();
 
   const router = useRouter();
-  let accID;
+  let accID = session ? session.id : '';
 
   useEffect(() => {
     if (session) {
