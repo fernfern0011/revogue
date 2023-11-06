@@ -19,7 +19,8 @@ import { useRouter } from "next/navigation";
 
 function AddAddressPage() {
   const { data: session } = useSession();
-  let accID;
+  // let accID;
+  let accID = session ? session.id : '';
   const router = useRouter();
 
   useEffect(() => {
@@ -68,6 +69,7 @@ function AddAddressPage() {
       ...formData,
       accid: accID,
     };
+    console.log(addressData);
 
     try {
       const response = await fetch(`https://revogue-backend.vercel.app/api/address/add-new-address`, {
