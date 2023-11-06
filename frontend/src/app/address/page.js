@@ -17,8 +17,8 @@ import SidebarComponent from "../components/SidebarComponent";
 function AddressPage() {
   const { data: session } = useSession();
   const router = useRouter();
-  let accID;
-
+  let accID = session ? session.id : '';
+  
   useEffect(() => {
     if (session) {
       accID = session.id;

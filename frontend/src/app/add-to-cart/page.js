@@ -28,11 +28,11 @@ function AddToCartPage() {
 
   const { data: session } = useSession();
   const router = useRouter();
-  let accid;
+  let accID = session ? session.id : '';
 
   useEffect(() => {
     if (session) {
-      accid = session.id;
+      accID = session.id;
     } else {
       router.push('/error/403');
     }
@@ -48,7 +48,7 @@ function AddToCartPage() {
         return;
       }
 
-      const response = await fetch(`https://revogue-backend.vercel.app/api/cart/get-all-cartitems?accid=${accid}`);
+      const response = await fetch(`https://revogue-backend.vercel.app/api/cart/get-all-cartitems?accid=${accID}`);
       if (!response.ok) {
         throw new Error('Error fetching product information');
       }
@@ -117,9 +117,9 @@ function AddToCartPage() {
 
   // Fetch cart data using promises
   useEffect(() => {
-    if (accid) {
+    if (accID) {
       fetch(
-        `https://revogue-backend.vercel.app/api/cart/get-all-cartitems?accid=${accid}`,
+        `https://revogue-backend.vercel.app/api/cart/get-all-cartitems?accid=${accID}`,
         {
           method: "GET",
           headers: {
@@ -143,7 +143,7 @@ function AddToCartPage() {
           setIsLoading(false); // Set isLoading to false on error
         });
     }
-  }, [accid]);
+  }, [accID]);
 
   const shippingFee = 0;
   // Calculate the sub total
@@ -195,7 +195,7 @@ function AddToCartPage() {
               <Suspense fallback={<tr><td colSpan="6">Loading...</td></tr>}>
                 {session && !isLoading ? (
                   cartlist.map((data, index) => (
-                    <CartComponent key={index} data={data} accid={accid} />
+                    <CartComponent key={index} data={data} accid={accID} />
                   ))
                 ) : (
                   <tr><td colSpan="6">Loading...</td></tr>
